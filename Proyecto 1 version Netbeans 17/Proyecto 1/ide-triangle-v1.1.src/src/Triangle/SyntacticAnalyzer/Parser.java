@@ -498,9 +498,10 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         Declaration dAST = parseDeclaration();
         accept(Token.IN);
         Command cAST = parseCommand();
-        accept(Token.END);
+        accept(Token.END);         
         finish(commandPos);
         commandAST = new LetCommand(dAST, cAST, commandPos);
+       
       }
       break;  
       
