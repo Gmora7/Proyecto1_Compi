@@ -482,7 +482,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
       
     //Añadimos skip
       
-      case Token.SKIP:
+    case Token.SKIP:
       {
         acceptIt();
         finish(commandPos);
@@ -492,7 +492,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
       
     //Añadimos let
       
-      case Token.LET:
+    case Token.LET:
       {
         acceptIt();
         Declaration dAST = parseDeclaration();
@@ -506,7 +506,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
       
      //Añadimos if
       
-      case Token.IF: {
+    case Token.IF: {
         acceptIt(); //Se acepta el if
         Expression eAST = parseExpression(); //Se acepta el expression.
         accept(Token.THEN);
@@ -763,6 +763,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 
     SourcePosition declarationPos = new SourcePosition();
     start(declarationPos);
+    //declarationAST = parseCompoundDeclaration(); -> agregar
     declarationAST = parseSingleDeclaration();
     while (currentToken.kind == Token.SEMICOLON) {
       acceptIt();
@@ -773,7 +774,45 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     }
     return declarationAST;
   }
-
+    //Revisar 
+//  Declaration parseCompoundDeclaration() throws SyntaxError{
+//      //Aqui se hace un single declaration a partir del declaration
+//      //que se necesita.
+//      Declaration declarationAST = null;
+//      SourcePosition position = new SourcePosition();
+//      start(position);
+//      switch(currentToken.kind){
+//          case Token.CONST:
+//          case Token.VAR:
+//          case Token.PROC:
+//          case Token.FUNC:
+//          case Token.TYPE:
+//              declarationAST = parseSingleDeclaration();
+//              finish(position);
+//              break;
+//          case Token.REC:
+//              acceptIt();
+//              declarationAST = parseProcFuncs();
+//              accept(Token.END);
+//              finish(position);
+//              break;
+//          case Token.LOCAL:
+//              acceptIt();
+//              Declaration dAST = parseDeclaration();
+//              accept(Token.IN);
+//              Declaration dAST2 = parseDeclaration();
+//              accept(Token.END);
+//              finish(position);
+//              declarationAST = new LocalDeclaration(dAST, dAST2, position);
+//              break;
+//          default:
+//              syntacticError("\"%\" cannot start a declaration.",
+//                             currentToken.spelling);
+//              break;
+//      }
+//      return declarationAST;
+//   }
+  
   Declaration parseSingleDeclaration() throws SyntaxError {
     Declaration declarationAST = null; // in case there's a syntactic error
 

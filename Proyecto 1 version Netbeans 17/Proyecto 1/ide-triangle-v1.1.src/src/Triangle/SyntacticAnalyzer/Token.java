@@ -23,7 +23,7 @@ final class Token extends Object {
 
   public Token(int kind, String spelling, SourcePosition position) {
 
-    if (kind == Token.IDENTIFIER) {
+    if ((kind == Token.IDENTIFIER)){
       int currentKind = firstReservedWord;
       boolean searching = true;
 
@@ -64,73 +64,96 @@ final class Token extends Object {
     INTLITERAL	= 0,
     CHARLITERAL	= 1,
     IDENTIFIER	= 2,
-    OPERATOR	= 3,
+    LONG_IDENTIFIER = 3,
+    OPERATOR	= 4,
 
     // reserved words - must be in alphabetical order...
-    ARRAY		= 4,
+    ARRAY		= 5,
     //BEGIN		= 5,  Eliminamos begin
-    CONST		= 5,
-    DO			= 6,
-    ELSE		= 7,
-    END			= 8,
-    FUNC		= 9,
-    IF			= 10,
-    IN			= 11,
-    LET			= 12,
-    OF			= 13,
-    PROC		= 14,
-    RECORD		= 15,
-    SKIP                = 16,//Agregamos SKIP
-    THEN		= 17,
-    TO                  = 18, //Agregamos TO
-    TYPE		= 19,
-    VAR			= 20,
-    WHEN                = 21, //Agregamos WHEN
-    WHILE		= 22,
-
+    CONST		= 6,
+    DO			= 7,
+    ELSE		= 8,
+    END			= 9,
+    FOR                 = 10,   //Agregamos FOR  
+    FROM                = 11,   //Agregamos FROM          
+    FUNC		= 12,
+    IF			= 13,
+    IN			= 14,
+    LET			= 15,
+    OF			= 16,
+    PACKAGE             = 17,   //Agregamos PACKAGE
+    PRIVATE             = 18,   //Agregamos RPIVATE          
+    PROC		= 19,
+    REC                 = 20,   //Agregamos REC
+    RECORD		= 21,
+    REPEAT              = 22,    //Agregamos REPEAT 
+    SELECT              = 23,   //Agregamos SELECT    
+    SKIP                = 24,   //Agregamos SKIP          
+    THEN		= 25,
+    TIMES               = 26,  //Agregamos TIMES
+    TO                  = 27, //Agregamos TO
+    TYPE		= 28,
+    UNTIL               = 29,  //Agregamos UNTIL    
+    VAR			= 30,
+    WHEN                = 31, //Agregamos WHEN
+    WHILE		= 32,
+          
+      
     // punctuation...
-    DOT			= 23,
-    COLON		= 24,
-    SEMICOLON	= 25,
-    COMMA		= 26,
-    BECOMES		= 27,
-    IS			= 28,
-    BAR                 = 29, //Agregamos BAR "|"
-
+    DOT			= 33,
+    COLON		= 34,
+    SEMICOLON           = 35,
+    COMMA		= 36,
+    BECOMES		= 37,
+    IS			= 38,
+    BAR                 = 39, //Agregamos BAR "|"
+    DOLLAR              = 40, //Agregamos DOLLAR
+    DOTDOT              = 41, // no supe como ponerle xd
+          
     // brackets...
-    LPAREN		= 30,
-    RPAREN		= 31,
-    LBRACKET	= 32,
-    RBRACKET	= 33,
-    LCURLY		= 34,
-    RCURLY		= 35,
+    LPAREN		= 42,
+    RPAREN		= 43,
+    LBRACKET            = 44,
+    RBRACKET            = 45,
+    LCURLY		= 46,
+    RCURLY		= 47,
 
     // special tokens...
-    EOT			= 36,
-    ERROR		= 37;
+    EOT			= 48,
+    ERROR		= 49;
 
   private static String[] tokenTable = new String[] {
     "<int>",
     "<char>",
+    "<identifier>",
     "<long_identifier>",
     "<operator>",
     "array",
-    "begin",
+    //"begin",
     "const",
     "do",
     "else",
     "end",
+    "for",          //Agregamos FOR
+    "from",         //Agregamos FROM
     "func",
     "if",
     "in",
     "let",
     "of",
+    "package",      //Agregamos PACKAGE
+    "private",      //Agregamos PRIVATE
     "proc",
+    "rec",          ////Agregamos REC
     "record",
+    "repeat",       //Agregamos REPEAT
+    "select",       //Agregamos SELECT
     "skip",
     "then",
+    "times",        //Agregamos TIMES
     "to",           //Agregamos TO
     "type",
+    "until",        //Agregamos UNTIL
     "var",
     "when",         //Agregamos WHEN
     "while",
@@ -141,6 +164,8 @@ final class Token extends Object {
     ":=",
     "~",
     "|",  //Agregamos BAR "|"
+    "$", //Agregamos DOLLAR
+    "..", //Agregamos DOTDOT
     "(",
     ")",
     "[",

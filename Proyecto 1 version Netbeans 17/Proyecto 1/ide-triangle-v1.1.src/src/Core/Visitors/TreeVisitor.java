@@ -142,18 +142,18 @@ public class TreeVisitor implements Visitor {
     public Object visitWhileCommand(WhileCommand ast, Object obj) {
         return(createBinary("While Do Command", ast.E, ast.C));
     }
-    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    //Autores: 
     public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object obj){
         if(ast.CL == null)
             return(createUnary("Case Literal Command", ast.IL));
         else
             return(createUnary("Case Literal Command", ast.CL));
     }
-    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    //Autores:
     public Object visitCaseCommand(CaseCommand ast, Object obj){
         return(createBinary("Case Command", ast.caseLiterals,  ast.command));
     }
-    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    //Autores:
     public Object visitCasesCommand(CasesCommand ast, Object obj){
         if(ast.multipleCase == null)
             return(createUnary("Cases Command", ast.singleCase));
@@ -167,7 +167,7 @@ public class TreeVisitor implements Visitor {
         else
             return(createTernary("Select Command", ast.expression, ast.cases, ast.command));
     }
-    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    //Autores: 
     public Object visitCaseRangeCommand(CaseRangeCommand ast, Object obj){
         if(ast.TC == null){
             return(createUnary("Case Range Command", ast.CLC));
@@ -176,16 +176,16 @@ public class TreeVisitor implements Visitor {
             return(createBinary("Case Range Command", ast.CLC, ast.TC));
         }
     }
-    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    //Autores: 
     public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object obj){
         return(createUnary("Case To Literal", ast.caseLiteralCommand));
     }
 
-    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    //Autores: 
     public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
         return(createUnary("Case Bar Command Case Range", ast.CRCB));
     }
-    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    //Autores: 
     public Object visitCaseLiterals(CaseLiterals ast, Object o) {
         if(ast.multipleCaseRange == null)
             return(createUnary("Case Literals", ast.singleCaseRange));

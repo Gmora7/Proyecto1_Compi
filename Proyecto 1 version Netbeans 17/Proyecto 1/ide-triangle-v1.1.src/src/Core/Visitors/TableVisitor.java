@@ -181,7 +181,7 @@ public class TableVisitor implements Visitor {
       
       return(null);
   }
-//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+//Autores:
 public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object o) { 
     ast.CL.visit(this, null);
     ast.IL.visit(this, null);
@@ -189,7 +189,7 @@ public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object o) {
     return(null);
 }
 
-//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+//Autores: 
 public Object visitCaseRangeCommand(CaseRangeCommand ast, Object o) { 
     ast.CLC.visit(this, null);
     ast.TC.visit(this, null);
@@ -201,20 +201,20 @@ public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object o){
     return(null);
 }
 
-//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+//Autores: 
 public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
     ast.CRCB.visit(this, null);
     return(null);
 }
 
-//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+//Autores: 
  public Object visitCaseLiterals(CaseLiterals ast, Object o) { 
       ast.multipleCaseRange.visit(this, null);
       ast.singleCaseRange.visit(this, null);
       return(null);
   }
  
- public Object visitThenCommandAST(ThenCommand aThis, Object o) { // Autor : Kevin Rodriguez
+ public Object visitThenCommandAST(ThenCommand aThis, Object o) { // 
         aThis.C.visit(this, null);
       
         return(null);
