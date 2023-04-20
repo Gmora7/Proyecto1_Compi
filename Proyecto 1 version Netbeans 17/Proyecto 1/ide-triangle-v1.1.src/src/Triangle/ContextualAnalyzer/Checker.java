@@ -20,11 +20,17 @@ import Triangle.AbstractSyntaxTrees.AnyTypeDenoter;
 import Triangle.AbstractSyntaxTrees.ArrayExpression;
 import Triangle.AbstractSyntaxTrees.ArrayTypeDenoter;
 import Triangle.AbstractSyntaxTrees.AssignCommand;
+import Triangle.AbstractSyntaxTrees.BarCommandCaseRange;
 import Triangle.AbstractSyntaxTrees.BinaryExpression;
 import Triangle.AbstractSyntaxTrees.BinaryOperatorDeclaration;
 import Triangle.AbstractSyntaxTrees.BoolTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
+import Triangle.AbstractSyntaxTrees.CaseCommand;
+import Triangle.AbstractSyntaxTrees.CaseLiteralCommand;
+import Triangle.AbstractSyntaxTrees.CaseLiterals;
+import Triangle.AbstractSyntaxTrees.CaseRangeCommand;
+import Triangle.AbstractSyntaxTrees.CasesCommand;
 import Triangle.AbstractSyntaxTrees.CharTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CharacterExpression;
 import Triangle.AbstractSyntaxTrees.CharacterLiteral;
@@ -54,9 +60,12 @@ import Triangle.AbstractSyntaxTrees.LetCommand;
 import Triangle.AbstractSyntaxTrees.LetExpression;
 import Triangle.AbstractSyntaxTrees.MultipleActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.MultipleArrayAggregate;
+import Triangle.AbstractSyntaxTrees.MultipleCase;
+import Triangle.AbstractSyntaxTrees.MultipleCaseRange;
 import Triangle.AbstractSyntaxTrees.MultipleFieldTypeDenoter;
 import Triangle.AbstractSyntaxTrees.MultipleFormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.MultipleRecordAggregate;
+import Triangle.AbstractSyntaxTrees.MultipleThen;
 import Triangle.AbstractSyntaxTrees.Operator;
 import Triangle.AbstractSyntaxTrees.ProcActualParameter;
 import Triangle.AbstractSyntaxTrees.ProcDeclaration;
@@ -64,17 +73,24 @@ import Triangle.AbstractSyntaxTrees.ProcFormalParameter;
 import Triangle.AbstractSyntaxTrees.Program;
 import Triangle.AbstractSyntaxTrees.RecordExpression;
 import Triangle.AbstractSyntaxTrees.RecordTypeDenoter;
+import Triangle.AbstractSyntaxTrees.SelectCommand;
+import Triangle.AbstractSyntaxTrees.SequentialCases;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialDeclaration;
 import Triangle.AbstractSyntaxTrees.SimpleTypeDenoter;
 import Triangle.AbstractSyntaxTrees.SimpleVname;
 import Triangle.AbstractSyntaxTrees.SingleActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.SingleArrayAggregate;
+import Triangle.AbstractSyntaxTrees.SingleCase;
+import Triangle.AbstractSyntaxTrees.SingleCaseRange;
 import Triangle.AbstractSyntaxTrees.SingleFieldTypeDenoter;
 import Triangle.AbstractSyntaxTrees.SingleFormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.SingleRecordAggregate;
+import Triangle.AbstractSyntaxTrees.SingleThen;
 import Triangle.AbstractSyntaxTrees.SubscriptVname;
 import Triangle.AbstractSyntaxTrees.Terminal;
+import Triangle.AbstractSyntaxTrees.ThenCommand;
+import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
 import Triangle.AbstractSyntaxTrees.TypeDeclaration;
 import Triangle.AbstractSyntaxTrees.TypeDenoter;
 import Triangle.AbstractSyntaxTrees.UnaryExpression;
@@ -92,6 +108,69 @@ public final class Checker implements Visitor {
   // Commands
 
   // Always returns null. Does not use the given object.
+
+  public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object o) {
+    return null;
+  }
+
+public Object visitCaseRangeCommand(CaseRangeCommand ast, Object o) {
+    return null;
+  }
+
+
+public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object obj){
+    return null;
+}
+
+
+public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
+    return null;
+}
+
+public Object visitCaseCommand(CaseCommand ast, Object obj){
+    return null;
+}
+
+public Object visitCasesCommand(CasesCommand ast, Object obj){
+    return null;
+}
+
+public Object visitSelectCommand(SelectCommand ast, Object obj){
+    return null;
+}
+
+
+public Object visitCaseLiterals(CaseLiterals ast, Object obj){
+    return null;
+}
+
+public Object visitSingleCaseRange(SingleCaseRange ast, Object obj){
+    return null;
+}
+
+public Object visitSingleThen(SingleThen ast, Object obj){
+    return null;
+}
+
+public Object visitSequentialCases(SequentialCases ast, Object obj){
+    return null;
+}
+
+public Object visitSingleCase(SingleCase ast, Object obj){
+    return null;
+}
+
+public Object visitMultipleCaseRange(MultipleCaseRange ast, Object obj){
+    return null;
+}
+
+public Object visitMultipleThen(MultipleThen ast, Object obj){
+    return null;
+}
+
+public Object visitMultipleCase(MultipleCase ast, Object obj){
+    return null;
+}
 
   public Object visitAssignCommand(AssignCommand ast, Object o) {
     TypeDenoter vType = (TypeDenoter) ast.V.visit(this, null);
@@ -153,6 +232,7 @@ public final class Checker implements Visitor {
     ast.C.visit(this, null);
     return null;
   }
+
 
   // Expressions
 
@@ -938,4 +1018,9 @@ public final class Checker implements Visitor {
     StdEnvironment.unequalDecl = declareStdBinaryOp("\\=", StdEnvironment.anyType, StdEnvironment.anyType, StdEnvironment.booleanType);
 
   }
+
+    @Override
+    public Object visitThenCommandAST(ThenCommand aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

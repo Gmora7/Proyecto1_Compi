@@ -24,6 +24,12 @@ public interface Visitor {
   public abstract Object visitLetCommand(LetCommand ast, Object o);
   public abstract Object visitSequentialCommand(SequentialCommand ast, Object o);
   public abstract Object visitWhileCommand(WhileCommand ast, Object o);
+  public abstract Object visitCaseLiteralCommand(CaseLiteralCommand aThis, Object o);
+  public abstract Object visitCaseCommand(CaseCommand aThis, Object o);
+  public abstract Object visitCaseLiterals(CaseLiterals aThis, Object o);
+  public abstract Object visitCaseRangeCommand(CaseRangeCommand aThis, Object o);
+  public abstract Object visitCasesCommand(CasesCommand aThis, Object o);
+  public abstract Object visitToCommandLiteralAST(ToCommandLiteral aThis, Object o);
 
 
   // Expressions
@@ -103,5 +109,15 @@ public interface Visitor {
 
   // Programs
   public abstract Object visitProgram(Program ast, Object o);
+  public Object visitMultipleCaseRange(MultipleCaseRange aThis, Object o);
+  public Object visitSingleCase(SingleCase aThis, Object o);
+  public Object visitMultipleCase(MultipleCase aThis, Object o);
+  public Object visitSingleCaseRange(SingleCaseRange aThis, Object o);
+  public Object visitSelectCommand(SelectCommand aThis, Object O);
+  public Object visitSequentialCases(SequentialCases aThis, Object o);
+  public Object visitBarCommandCaseRange(BarCommandCaseRange aThis, Object o);
+  public Object visitThenCommandAST(ThenCommand aThis, Object o);
+  public Object visitSingleThen(SingleThen aThis, Object o);
+  public Object visitMultipleThen(MultipleThen aThis, Object o);
 
 }

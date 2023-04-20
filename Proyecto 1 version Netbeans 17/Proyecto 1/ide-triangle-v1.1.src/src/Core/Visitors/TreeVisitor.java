@@ -9,6 +9,7 @@ import Triangle.AbstractSyntaxTrees.AnyTypeDenoter;
 import Triangle.AbstractSyntaxTrees.ArrayExpression;
 import Triangle.AbstractSyntaxTrees.ArrayTypeDenoter;
 import Triangle.AbstractSyntaxTrees.AssignCommand;
+import Triangle.AbstractSyntaxTrees.BarCommandCaseRange;
 import Triangle.AbstractSyntaxTrees.BinaryExpression;
 import Triangle.AbstractSyntaxTrees.BinaryOperatorDeclaration;
 import Triangle.AbstractSyntaxTrees.BoolTypeDenoter;
@@ -68,6 +69,21 @@ import Triangle.AbstractSyntaxTrees.VarFormalParameter;
 import Triangle.AbstractSyntaxTrees.Visitor;
 import Triangle.AbstractSyntaxTrees.VnameExpression;
 import Triangle.AbstractSyntaxTrees.WhileCommand;
+import Triangle.AbstractSyntaxTrees.CasesCommand;
+import Triangle.AbstractSyntaxTrees.CaseCommand;
+import Triangle.AbstractSyntaxTrees.CaseLiteralCommand;
+import Triangle.AbstractSyntaxTrees.MultipleCase;
+import Triangle.AbstractSyntaxTrees.SingleCase;
+import Triangle.AbstractSyntaxTrees.CaseLiterals;
+import Triangle.AbstractSyntaxTrees.CaseRangeCommand;
+import Triangle.AbstractSyntaxTrees.SingleCaseRange;
+import Triangle.AbstractSyntaxTrees.MultipleCaseRange;
+import Triangle.AbstractSyntaxTrees.MultipleThen;
+import Triangle.AbstractSyntaxTrees.SelectCommand;
+import Triangle.AbstractSyntaxTrees.SequentialCases;
+import Triangle.AbstractSyntaxTrees.SingleThen;
+import Triangle.AbstractSyntaxTrees.ThenCommand;
+import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -76,7 +92,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * Generates DefaultMutableTreeNodes, used to draw a JTree.
  *
- * @author Luis Leopoldo Pérez <luiperpe@ns.isi.ulatina.ac.cr>
+ * @author Luis Leopoldo Pï¿½rez <luiperpe@ns.isi.ulatina.ac.cr>
  */
 public class TreeVisitor implements Visitor {
       
@@ -88,7 +104,7 @@ public class TreeVisitor implements Visitor {
     
     // <editor-fold defaultstate="collapsed" desc=" Commands ">    
     // Commands  
-    public Object visitAssignCommand(AssignCommand ast, Object o) {
+   public Object visitAssignCommand(AssignCommand ast, Object o) {
         return(createBinary("Assign Command", ast.V, ast.E));
     }
     
@@ -101,8 +117,15 @@ public class TreeVisitor implements Visitor {
     }
     
     public Object visitIfCommand(IfCommand ast, Object obj) {
-        return(createTernary("If Command", ast.E, ast.C1, ast.C2));
+//        if(ast.ST == null){
+//            return(createQuaternary("If Command", ast.E, ast.C1, ast.C2, ast.MT));
+//        }
+//        else{
+//            return(createQuaternary("If Command", ast.E, ast.C1, ast.C2, ast.ST));
+//        }
+        return(createTernary("If command", ast.E, ast.C1, ast.C2));
     }
+    
     
     public Object visitLetCommand(LetCommand ast, Object obj) {
         return(createBinary("Let Command", ast.D, ast.C));
@@ -112,10 +135,63 @@ public class TreeVisitor implements Visitor {
         return(createBinary("Sequential Command", ast.C1, ast.C2));
     }
     
-    public Object visitWhileCommand(WhileCommand ast, Object obj) {
-        return(createBinary("While Command", ast.E, ast.C));
+    public Object visitSequentialCases(SequentialCases ast, Object obj) {
+        return(createBinary("Sequential Cases", ast.C1, ast.C2));
     }
-    // </editor-fold>
+    
+    public Object visitWhileCommand(WhileCommand ast, Object obj) {
+        return(createBinary("While Do Command", ast.E, ast.C));
+    }
+    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object obj){
+        if(ast.CL == null)
+            return(createUnary("Case Literal Command", ast.IL));
+        else
+            return(createUnary("Case Literal Command", ast.CL));
+    }
+    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    public Object visitCaseCommand(CaseCommand ast, Object obj){
+        return(createBinary("Case Command", ast.caseLiterals,  ast.command));
+    }
+    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    public Object visitCasesCommand(CasesCommand ast, Object obj){
+        if(ast.multipleCase == null)
+            return(createUnary("Cases Command", ast.singleCase));
+        else
+            return(createUnary("Cases Command", ast.multipleCase));
+    }
+    
+    public Object visitSelectCommand(SelectCommand ast, Object obj){
+        if(ast.command == null)
+            return(createBinary("Select Command", ast.expression, ast.cases));
+        else
+            return(createTernary("Select Command", ast.expression, ast.cases, ast.command));
+    }
+    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    public Object visitCaseRangeCommand(CaseRangeCommand ast, Object obj){
+        if(ast.TC == null){
+            return(createUnary("Case Range Command", ast.CLC));
+        }
+        else{
+            return(createBinary("Case Range Command", ast.CLC, ast.TC));
+        }
+    }
+    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object obj){
+        return(createUnary("Case To Literal", ast.caseLiteralCommand));
+    }
+
+    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
+        return(createUnary("Case Bar Command Case Range", ast.CRCB));
+    }
+    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    public Object visitCaseLiterals(CaseLiterals ast, Object o) {
+        if(ast.multipleCaseRange == null)
+            return(createUnary("Case Literals", ast.singleCaseRange));
+        else
+            return(createUnary("Case Literals", ast.multipleCaseRange));
+    }
     
     // <editor-fold defaultstate="collapsed" desc=" Expressions ">
     // Expressions
@@ -437,4 +513,39 @@ public class TreeVisitor implements Visitor {
         return(t);             
     }
     // </editor-fold>
+
+    @Override
+    public Object visitMultipleCaseRange(MultipleCaseRange aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitSingleCase(SingleCase aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitMultipleCase(MultipleCase aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitSingleCaseRange(SingleCaseRange aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitThenCommandAST(ThenCommand aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitSingleThen(SingleThen aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitMultipleThen(MultipleThen aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

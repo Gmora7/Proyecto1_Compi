@@ -81,6 +81,16 @@ import Triangle.AbstractSyntaxTrees.VarFormalParameter;
 import Triangle.AbstractSyntaxTrees.Vname;
 import Triangle.AbstractSyntaxTrees.VnameExpression;
 import Triangle.AbstractSyntaxTrees.WhileCommand;
+import Triangle.AbstractSyntaxTrees.CasesCommand;
+import Triangle.AbstractSyntaxTrees.CaseCommand;
+import Triangle.AbstractSyntaxTrees.CaseLiteralCommand;
+import Triangle.AbstractSyntaxTrees.MultipleCase;
+import Triangle.AbstractSyntaxTrees.SingleCase;
+import Triangle.AbstractSyntaxTrees.CaseLiterals;
+import Triangle.AbstractSyntaxTrees.CaseRangeCommand;
+import Triangle.AbstractSyntaxTrees.SingleCaseRange;
+import Triangle.AbstractSyntaxTrees.MultipleCaseRange;
+import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
 
 public class Parser {
 
@@ -238,6 +248,125 @@ public class Parser {
     }
     return O;
   }
+  
+  CasesCommand parseCasesCommand() throws SyntaxError {
+  CasesCommand commandAST = null; // in case there's a syntactic error
+  SourcePosition position = new SourcePosition();
+  start(position);
+  CaseCommand cAST1 = parseCaseCommand();
+
+  if (currentToken.kind == Token.WHEN) {
+    MultipleCase mCase = new MultipleCase(cAST1, position);
+
+    while (currentToken.kind == Token.WHEN) {
+      CaseCommand cAST2 = parseCaseCommand();
+      finish(position);
+      mCase = new MultipleCase(mCase, cAST2, position);
+    }
+
+    commandAST = new CasesCommand(mCase, position);
+  } else if (currentToken.kind == Token.END || currentToken.kind == Token.ELSE) {
+    finish(position);
+    SingleCase sCase = new SingleCase(cAST1, position);
+    commandAST = new CasesCommand(sCase, position);
+  } else {
+    syntacticError("when or end expected here", "");
+  }
+
+  return commandAST;
+}
+  
+ CaseCommand parseCaseCommand() throws SyntaxError {
+    CaseCommand caseCommandAST = null;
+    SourcePosition actualsPos = new SourcePosition();
+    start(actualsPos);
+
+    if (currentToken.kind == Token.WHEN) {
+        acceptIt();
+        CaseLiterals caseLiteralsAST = parseCaseLiteralsCommand();
+        accept(Token.THEN);
+        Command commandAST = parseCommand();
+        finish(actualsPos);
+        caseCommandAST = new CaseCommand(caseLiteralsAST, commandAST, actualsPos);
+    } else {
+        syntacticError("A Case expected here", "");
+    }
+
+    return caseCommandAST;
+}
+
+ CaseLiterals parseCaseLiteralsCommand() throws SyntaxError {
+    CaseLiterals caseLiteralsAST = null;
+    SourcePosition actualsPos = new SourcePosition();
+    start(actualsPos);
+
+    CaseRangeCommand caseRangeCommandAST = parseCaseRangeCommand();
+
+    if (currentToken.kind == Token.THEN) {
+        SingleCaseRange singleCaseRangeAST = new SingleCaseRange(caseRangeCommandAST, actualsPos);
+        finish(actualsPos);
+        caseLiteralsAST = new CaseLiterals(singleCaseRangeAST, actualsPos);
+    } else if (currentToken.kind != Token.THEN && currentToken.kind != Token.BAR) {
+        syntacticError("| or then expected here", "");
+    } else {
+        MultipleCaseRange multipleCaseRangeAST = new MultipleCaseRange(caseRangeCommandAST, actualsPos);
+
+        while (currentToken.kind == Token.BAR) {
+            acceptIt();
+            CaseRangeCommand nextCaseRangeCommandAST = parseCaseRangeCommand();
+            finish(actualsPos);
+            multipleCaseRangeAST = new MultipleCaseRange(multipleCaseRangeAST, nextCaseRangeCommandAST, actualsPos);
+        }
+
+        caseLiteralsAST = new CaseLiterals(multipleCaseRangeAST, actualsPos);
+    }
+
+    return caseLiteralsAST;
+}
+ 
+ CaseRangeCommand parseCaseRangeCommand() throws SyntaxError {
+    CaseRangeCommand caseRangeCommandAST = null;
+    SourcePosition commandPos = new SourcePosition();
+    start(commandPos); 
+    CaseLiteralCommand c2AST = parseCaseLiteral();
+    
+    if (currentToken.kind == Token.TO) {
+        acceptIt();
+        CaseLiteralCommand c3AST = parseCaseLiteral();
+        ToCommandLiteral toCommandLiteralAST = new ToCommandLiteral(c3AST, commandPos);
+        finish(commandPos);
+        caseRangeCommandAST = new CaseRangeCommand(c2AST, toCommandLiteralAST, commandPos);
+    } else if (currentToken.kind != Token.THEN && currentToken.kind != Token.BAR) {
+        caseRangeCommandAST = null; 
+        syntacticError("character literal or integer literal expected here", "");  
+    } else {
+        finish(commandPos);
+        caseRangeCommandAST = new CaseRangeCommand(c2AST, commandPos);
+    }
+    
+    return caseRangeCommandAST;
+}
+
+CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
+    CaseLiteralCommand caseLiteralAST = null;
+    SourcePosition commandPos = new SourcePosition();
+    start(commandPos);
+    if(currentToken.kind == Token.INTLITERAL){
+        IntegerLiteral c2AST = parseIntegerLiteral();
+        finish(commandPos);
+        caseLiteralAST = new CaseLiteralCommand(c2AST, commandPos);
+    }
+    else if(currentToken.kind == Token.CHARLITERAL){
+        CharacterLiteral c2AST = parseCharacterLiteral();
+        finish(commandPos);
+        caseLiteralAST = new CaseLiteralCommand(c2AST, commandPos);
+    }
+    else{
+       caseLiteralAST = null; 
+       syntacticError("character literal or integer literal expected here", "");
+    }
+    return caseLiteralAST;
+  }
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -377,7 +506,7 @@ public class Parser {
       
      //Añadimos if
       
-      /*case Token.IF: {
+      case Token.IF: {
         acceptIt(); //Se acepta el if
         Expression eAST = parseExpression(); //Se acepta el expression.
         accept(Token.THEN);
@@ -386,7 +515,7 @@ public class Parser {
         finish(commandPos);
         commandAST = new IfCommand(eAST, c1AST, c2AST, commandPos);
       }
-      break;*/
+      break;
 
     default:
       syntacticError("\"%\" cannot start a command",
@@ -1002,4 +1131,32 @@ public class Parser {
     }
     return fieldAST;
   }
+  
+  //Funciones extra
+  
+  Command parseBarThen() throws SyntaxError {
+
+  Command commandAST = null; 
+  SourcePosition commandPos = new SourcePosition();
+  start(commandPos);
+
+  if (currentToken.kind == Token.ELSE) {
+    acceptIt();
+    Command cAST = parseCommand();
+    accept(Token.END);
+    commandAST = cAST;
+  } else if (currentToken.kind == Token.BAR) {
+    acceptIt();
+    Expression eAST = parseExpression();
+    accept(Token.THEN);
+    Command cAST = parseCommand();
+    Command c2AST = parseBarThen();
+    finish(commandPos);
+    commandAST = new IfCommand(eAST, cAST, c2AST, commandPos); 
+  } else {
+    syntacticError("| or else expected here", "");
+  }
+
+  return commandAST;
+}
 }

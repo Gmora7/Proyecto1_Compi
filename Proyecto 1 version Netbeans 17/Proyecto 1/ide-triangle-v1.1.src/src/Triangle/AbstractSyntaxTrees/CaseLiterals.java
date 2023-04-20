@@ -1,0 +1,33 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Triangle.AbstractSyntaxTrees;
+import Triangle.SyntacticAnalyzer.SourcePosition;
+
+/**
+ *
+ * @author celin
+ */
+public class CaseLiterals extends Command{
+     public CaseLiterals(SingleCaseRange singleCaseRangeAST, SourcePosition thePosition) {
+        super(thePosition);
+        singleCaseRange = singleCaseRangeAST;
+        multipleCaseRange = null;
+    }
+    
+    public CaseLiterals(MultipleCaseRange multipleCaseRangeAST, SourcePosition thePosition) {
+        super(thePosition);
+        multipleCaseRange = multipleCaseRangeAST;
+        singleCaseRange = null;
+    }
+    
+    public Object visit(Visitor v, Object o) {
+        return v.visitCaseLiterals(this, o);
+    }
+    
+    public SingleCaseRange singleCaseRange;
+    public MultipleCaseRange multipleCaseRange;
+    
+    
+}

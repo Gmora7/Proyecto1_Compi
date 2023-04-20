@@ -23,7 +23,7 @@ final class Token extends Object {
 
   public Token(int kind, String spelling, SourcePosition position) {
 
-    if (kind == Token.IDENTIFIER) {
+    if (kind == Token.LONG_IDENTIFIER) {
       int currentKind = firstReservedWord;
       boolean searching = true;
 
@@ -84,27 +84,29 @@ final class Token extends Object {
     THEN		= 17,
     TYPE		= 18,
     VAR			= 19,
-    WHILE		= 20,
+    WHEN                = 20, //Agregamos WHEN
+    WHILE		= 21,
 
     // punctuation...
-    DOT			= 21,
-    COLON		= 22,
-    SEMICOLON	= 23,
-    COMMA		= 24,
-    BECOMES		= 25,
-    IS			= 26,
+    DOT			= 22,
+    COLON		= 23,
+    SEMICOLON	= 24,
+    COMMA		= 25,
+    BECOMES		= 26,
+    IS			= 27,
+    BAR                 = 28, //Agregamos BAR "|"
 
     // brackets...
-    LPAREN		= 27,
-    RPAREN		= 28,
-    LBRACKET	= 29,
-    RBRACKET	= 30,
-    LCURLY		= 31,
-    RCURLY		= 32,
+    LPAREN		= 29,
+    RPAREN		= 30,
+    LBRACKET	= 31,
+    RBRACKET	= 32,
+    LCURLY		= 33,
+    RCURLY		= 34,
 
     // special tokens...
-    EOT			= 33,
-    ERROR		= 34;
+    EOT			= 35,
+    ERROR		= 36;
 
   private static String[] tokenTable = new String[] {
     "<int>",
@@ -128,6 +130,7 @@ final class Token extends Object {
     "then",
     "type",
     "var",
+    "when",         //Agregamos WHEN
     "while",
     ".",
     ":",
@@ -135,6 +138,7 @@ final class Token extends Object {
     ",",
     ":=",
     "~",
+    "|",  //Agregamos BAR "|"
     "(",
     ")",
     "[",

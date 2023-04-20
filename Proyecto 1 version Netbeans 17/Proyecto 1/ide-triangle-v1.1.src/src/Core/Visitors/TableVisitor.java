@@ -68,6 +68,23 @@ import Triangle.AbstractSyntaxTrees.VarFormalParameter;
 import Triangle.AbstractSyntaxTrees.Visitor;
 import Triangle.AbstractSyntaxTrees.VnameExpression;
 import Triangle.AbstractSyntaxTrees.WhileCommand;
+import Triangle.AbstractSyntaxTrees.CasesCommand;
+import Triangle.AbstractSyntaxTrees.CaseCommand;
+import Triangle.AbstractSyntaxTrees.CaseLiteralCommand;
+import Triangle.AbstractSyntaxTrees.MultipleCase;
+import Triangle.AbstractSyntaxTrees.SingleCase;
+import Triangle.AbstractSyntaxTrees.CaseLiterals;
+import Triangle.AbstractSyntaxTrees.CaseRangeCommand;
+import Triangle.AbstractSyntaxTrees.SingleCaseRange;
+import Triangle.AbstractSyntaxTrees.MultipleCaseRange;
+import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
+import Triangle.AbstractSyntaxTrees.SelectCommand;
+import Triangle.AbstractSyntaxTrees.SequentialCommand;
+import Triangle.AbstractSyntaxTrees.SequentialCases;
+import Triangle.AbstractSyntaxTrees.BarCommandCaseRange;
+import Triangle.AbstractSyntaxTrees.MultipleThen;
+import Triangle.AbstractSyntaxTrees.SingleThen;
+import Triangle.AbstractSyntaxTrees.ThenCommand;
 import Triangle.CodeGenerator.Field;
 import Triangle.CodeGenerator.KnownAddress;
 import Triangle.CodeGenerator.KnownRoutine;
@@ -84,7 +101,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * Generates a DefaultTableModel, used to draw a Jable.
  *
- * @author Luis Leopoldo Pérez <luiperpe@ns.isi.ulatina.ac.cr>
+ * @author Luis Leopoldo Pï¿½rez <luiperpe@ns.isi.ulatina.ac.cr>
  */
 public class TableVisitor implements Visitor {
     
@@ -97,14 +114,29 @@ public class TableVisitor implements Visitor {
   public Object visitAssignCommand(AssignCommand ast, Object o) { 
       ast.V.visit(this, null);
       ast.E.visit(this, null);
-      
       return(null);
   }
   
   public Object visitCallCommand(CallCommand ast, Object o) { 
       ast.I.visit(this, null);
       ast.APS.visit(this, null);
-      
+      return(null);
+  }
+  public Object visitCaseCommand(CaseCommand ast, Object o) { 
+      ast.caseLiterals.visit(this, null);
+      ast.command.visit(this, null);
+      return(null);
+  }
+  public Object visitCasesCommand(CasesCommand ast, Object o) { 
+      ast.singleCase.visit(this, null);
+      ast.multipleCase.visit(this, null);
+      return(null);
+  }
+  
+  public Object visitSelectCommand(SelectCommand ast, Object o) { 
+      ast.cases.visit(this, null);
+      ast.command.visit(this, null);
+      ast.expression.visit(this, null);
       return(null);
   }
   
@@ -116,6 +148,8 @@ public class TableVisitor implements Visitor {
       ast.E.visit(this, null);
       ast.C1.visit(this, null);
       ast.C2.visit(this, null);
+//      ast.ST.visit(this, null);
+//      ast.MT.visit(this, null);
       
       return(null);
   }
@@ -134,12 +168,57 @@ public class TableVisitor implements Visitor {
       return(null);
   }
   
+  public Object visitSequentialCases(SequentialCases ast, Object o) { 
+      ast.C1.visit(this, null);
+      ast.C2.visit(this, null);
+      
+      return(null);
+  }
+  
   public Object visitWhileCommand(WhileCommand ast, Object o) { 
       ast.E.visit(this, null);
       ast.C.visit(this, null);
       
       return(null);
   }
+//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object o) { 
+    ast.CL.visit(this, null);
+    ast.IL.visit(this, null);
+      
+    return(null);
+}
+
+//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+public Object visitCaseRangeCommand(CaseRangeCommand ast, Object o) { 
+    ast.CLC.visit(this, null);
+    ast.TC.visit(this, null);
+    return(null);
+ }
+//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object o){
+    ast.caseLiteralCommand.visit(this, null);
+    return(null);
+}
+
+//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
+    ast.CRCB.visit(this, null);
+    return(null);
+}
+
+//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+ public Object visitCaseLiterals(CaseLiterals ast, Object o) { 
+      ast.multipleCaseRange.visit(this, null);
+      ast.singleCaseRange.visit(this, null);
+      return(null);
+  }
+ 
+ public Object visitThenCommandAST(ThenCommand aThis, Object o) { // Autor : Kevin Rodriguez
+        aThis.C.visit(this, null);
+      
+        return(null);
+    }
   // </editor-fold>
 
   // <editor-fold defaultstate="collapsed" desc=" Expressions ">
@@ -622,4 +701,34 @@ public class TableVisitor implements Visitor {
   // <editor-fold defaultstate="collapsed" desc=" Attributes ">
     private DefaultTableModel model;
     // </editor-fold>
+
+    @Override
+    public Object visitMultipleCaseRange(MultipleCaseRange aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitSingleCase(SingleCase aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitMultipleCase(MultipleCase aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitSingleCaseRange(SingleCaseRange aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitSingleThen(SingleThen aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitMultipleThen(MultipleThen aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

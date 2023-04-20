@@ -28,6 +28,7 @@ import Triangle.AbstractSyntaxTrees.AnyTypeDenoter;
 import Triangle.AbstractSyntaxTrees.ArrayExpression;
 import Triangle.AbstractSyntaxTrees.ArrayTypeDenoter;
 import Triangle.AbstractSyntaxTrees.AssignCommand;
+import Triangle.AbstractSyntaxTrees.BarCommandCaseRange;
 import Triangle.AbstractSyntaxTrees.BinaryExpression;
 import Triangle.AbstractSyntaxTrees.BinaryOperatorDeclaration;
 import Triangle.AbstractSyntaxTrees.BoolTypeDenoter;
@@ -89,6 +90,21 @@ import Triangle.AbstractSyntaxTrees.Visitor;
 import Triangle.AbstractSyntaxTrees.Vname;
 import Triangle.AbstractSyntaxTrees.VnameExpression;
 import Triangle.AbstractSyntaxTrees.WhileCommand;
+import Triangle.AbstractSyntaxTrees.CasesCommand;
+import Triangle.AbstractSyntaxTrees.CaseCommand;
+import Triangle.AbstractSyntaxTrees.CaseLiteralCommand;
+import Triangle.AbstractSyntaxTrees.MultipleCase;
+import Triangle.AbstractSyntaxTrees.SingleCase;
+import Triangle.AbstractSyntaxTrees.CaseLiterals;
+import Triangle.AbstractSyntaxTrees.CaseRangeCommand;
+import Triangle.AbstractSyntaxTrees.SingleCaseRange;
+import Triangle.AbstractSyntaxTrees.MultipleCaseRange;
+import Triangle.AbstractSyntaxTrees.SelectCommand;
+import Triangle.AbstractSyntaxTrees.SequentialCases;
+import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
+import Triangle.AbstractSyntaxTrees.SingleThen;
+import Triangle.AbstractSyntaxTrees.MultipleThen;
+import Triangle.AbstractSyntaxTrees.ThenCommand;
 
 public final class Encoder implements Visitor {
 
@@ -143,6 +159,12 @@ public final class Encoder implements Visitor {
     ast.C2.visit(this, o);
     return null;
   }
+  
+  public Object visitSequentialCases(SequentialCases ast, Object o) {
+    ast.C1.visit(this, o);
+    ast.C2.visit(this, o);
+    return null;
+  }
 
   public Object visitWhileCommand(WhileCommand ast, Object o) {
     Frame frame = (Frame) o;
@@ -157,7 +179,64 @@ public final class Encoder implements Visitor {
     emit(Machine.JUMPIFop, Machine.trueRep, Machine.CBr, loopAddr);
     return null;
   }
+ public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object O){
+       return null;
+    }
+    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    public Object visitCaseRangeCommand(CaseRangeCommand ast, Object O){
+       return null;
+    }
 
+    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object obj){
+       return null;
+    }
+     //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
+       return null;
+    }
+
+     //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+    public Object visitCaseLiterals(CaseLiterals ast, Object obj){
+       return null;
+    }
+
+    public Object visitCaseCommand(CaseCommand ast, Object obj){
+        return null;
+    }
+    public Object visitCasesCommand(CasesCommand ast, Object obj){
+        return null;
+    }
+    
+    public Object visitSelectCommand(SelectCommand ast, Object obj){
+        return null;
+    }
+    
+    
+    public Object visitSingleCaseRange(SingleCaseRange ast, Object obj){
+        return null;
+    }
+    
+    public Object visitSingleThen(SingleThen ast, Object obj){
+        return null;
+    }
+    
+    
+    public Object visitSingleCase(SingleCase ast, Object obj){
+        return null;
+    }
+    
+    public Object visitMultipleCaseRange(MultipleCaseRange ast, Object obj){
+        return null;
+    }
+    
+    public Object visitMultipleThen(MultipleThen ast, Object obj){
+        return null;
+    }
+    
+    public Object visitMultipleCase(MultipleCase ast, Object obj){
+        return null;
+    }
 
   // Expressions
   public Object visitArrayExpression(ArrayExpression ast, Object o) {
@@ -995,4 +1074,9 @@ public final class Encoder implements Visitor {
       }
     }
   }
+
+    @Override
+    public Object visitThenCommandAST(ThenCommand aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
