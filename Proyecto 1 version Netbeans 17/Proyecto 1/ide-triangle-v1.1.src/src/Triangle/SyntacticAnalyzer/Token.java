@@ -23,7 +23,7 @@ final class Token extends Object {
 
   public Token(int kind, String spelling, SourcePosition position) {
 
-    if (kind == Token.LONG_IDENTIFIER) {
+    if (kind == Token.IDENTIFIER) {
       int currentKind = firstReservedWord;
       boolean searching = true;
 
@@ -63,7 +63,7 @@ final class Token extends Object {
     // literals, identifiers, operators...
     INTLITERAL	= 0,
     CHARLITERAL	= 1,
-    LONG_IDENTIFIER	= 2,
+    IDENTIFIER	= 2,
     OPERATOR	= 3,
 
     // reserved words - must be in alphabetical order...
@@ -82,31 +82,32 @@ final class Token extends Object {
     RECORD		= 15,
     SKIP                = 16,//Agregamos SKIP
     THEN		= 17,
-    TYPE		= 18,
-    VAR			= 19,
-    WHEN                = 20, //Agregamos WHEN
-    WHILE		= 21,
+    TO                  = 18, //Agregamos TO
+    TYPE		= 19,
+    VAR			= 20,
+    WHEN                = 21, //Agregamos WHEN
+    WHILE		= 22,
 
     // punctuation...
-    DOT			= 22,
-    COLON		= 23,
-    SEMICOLON	= 24,
-    COMMA		= 25,
-    BECOMES		= 26,
-    IS			= 27,
-    BAR                 = 28, //Agregamos BAR "|"
+    DOT			= 23,
+    COLON		= 24,
+    SEMICOLON	= 25,
+    COMMA		= 26,
+    BECOMES		= 27,
+    IS			= 28,
+    BAR                 = 29, //Agregamos BAR "|"
 
     // brackets...
-    LPAREN		= 29,
-    RPAREN		= 30,
-    LBRACKET	= 31,
-    RBRACKET	= 32,
-    LCURLY		= 33,
-    RCURLY		= 34,
+    LPAREN		= 30,
+    RPAREN		= 31,
+    LBRACKET	= 32,
+    RBRACKET	= 33,
+    LCURLY		= 34,
+    RCURLY		= 35,
 
     // special tokens...
-    EOT			= 35,
-    ERROR		= 36;
+    EOT			= 36,
+    ERROR		= 37;
 
   private static String[] tokenTable = new String[] {
     "<int>",
@@ -128,6 +129,7 @@ final class Token extends Object {
     "record",
     "skip",
     "then",
+    "to",           //Agregamos TO
     "type",
     "var",
     "when",         //Agregamos WHEN

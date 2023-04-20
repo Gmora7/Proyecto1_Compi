@@ -401,7 +401,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 
     switch (currentToken.kind) {
 
-    case Token.LONG_IDENTIFIER:
+    case Token.IDENTIFIER:
       {
         Identifier iAST = parseIdentifier();
         if (currentToken.kind == Token.LPAREN) {
@@ -633,7 +633,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
       }
       break;
 
-    case Token.LONG_IDENTIFIER:
+    case Token.IDENTIFIER:
       {
         Identifier iAST= parseIdentifier();
         if (currentToken.kind == Token.LPAREN) {
