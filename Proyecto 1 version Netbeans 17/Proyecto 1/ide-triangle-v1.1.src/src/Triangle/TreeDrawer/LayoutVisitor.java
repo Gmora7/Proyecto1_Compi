@@ -648,13 +648,8 @@ public class LayoutVisitor implements Visitor {
 
     @Override
     public Object visitRepeatCommand(RepeatCommand aThis, Object o) {
-        if(aThis.Identifier == null){
-            return(layoutUnary("Repeat Command", aThis.While));
-        }
-        else{
-            return(layoutBinary("Loop Command", aThis.Identifier, aThis.While));
-        }
-       
+        return(layoutUnary("Repeat Command", aThis.WhileC));
+        
     }
 
 }

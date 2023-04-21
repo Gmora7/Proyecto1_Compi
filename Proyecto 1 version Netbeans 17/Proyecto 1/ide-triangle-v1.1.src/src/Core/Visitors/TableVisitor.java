@@ -745,7 +745,7 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
     public Object visitRepeatCommand(RepeatCommand aThis, Object o) {
         
         aThis.Identifier.visit(this, null);
-        aThis.While.visit(this, null);
+        aThis.WhileC.visit(this, null);
         return(null);
     }
 }

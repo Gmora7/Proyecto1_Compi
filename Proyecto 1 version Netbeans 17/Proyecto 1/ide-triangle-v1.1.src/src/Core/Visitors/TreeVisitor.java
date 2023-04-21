@@ -406,7 +406,7 @@ public class TreeVisitor implements Visitor {
     @Override
     public Object visitRepeatCommand(RepeatCommand ast, Object o) {
         
-        return (createUnary("Repeat Command", ast.While));
+        return (createUnary("Repeat Command", ast.WhileC));
     }
     public Object visitCharacterLiteral(CharacterLiteral ast, Object obj) {
         return(createNullary(ast.spelling));

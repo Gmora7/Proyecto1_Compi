@@ -10,23 +10,23 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  * @author gmora
  */
 public class RepeatCommand extends Command{
-    public WhileCommand While;
-    public Identifier Identifier;
+
     
     public RepeatCommand (WhileCommand While, SourcePosition thePosition) {
     super (thePosition);
     Identifier=null;
-    While = While;
+    WhileC = While;
   }
     public RepeatCommand (Identifier ident, WhileCommand While, SourcePosition thePosition) {
     super (thePosition);
     Identifier=ident;
-    While = While;
+    WhileC = While;
   }
 
      public Object visit(Visitor v, Object o) {
     return v.visitRepeatCommand(this, o);
   }
      
-
+  public WhileCommand WhileC;
+  public Identifier Identifier;
 }
