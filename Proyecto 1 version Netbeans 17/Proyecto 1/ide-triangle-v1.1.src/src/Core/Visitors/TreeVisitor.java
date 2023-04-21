@@ -50,6 +50,7 @@ import Triangle.AbstractSyntaxTrees.ProcFormalParameter;
 import Triangle.AbstractSyntaxTrees.Program;
 import Triangle.AbstractSyntaxTrees.RecordExpression;
 import Triangle.AbstractSyntaxTrees.RecordTypeDenoter;
+import Triangle.AbstractSyntaxTrees.RepeatCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialDeclaration;
 import Triangle.AbstractSyntaxTrees.SimpleTypeDenoter;
@@ -80,7 +81,6 @@ import Triangle.AbstractSyntaxTrees.DoCommand;
 import Triangle.AbstractSyntaxTrees.SingleCaseRange;
 import Triangle.AbstractSyntaxTrees.MultipleCaseRange;
 import Triangle.AbstractSyntaxTrees.MultipleThen;
-import Triangle.AbstractSyntaxTrees.RepeatCommand;
 import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCases;
 import Triangle.AbstractSyntaxTrees.SingleThen;
@@ -406,7 +406,7 @@ public class TreeVisitor implements Visitor {
     @Override
     public Object visitRepeatCommand(RepeatCommand ast, Object o) {
         
-        return (createUnary("Loop Command", ast.While));
+        return (createUnary("Repeat Command", ast.While));
     }
     public Object visitCharacterLiteral(CharacterLiteral ast, Object obj) {
         return(createNullary(ast.spelling));

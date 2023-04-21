@@ -648,7 +648,13 @@ public class LayoutVisitor implements Visitor {
 
     @Override
     public Object visitRepeatCommand(RepeatCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(aThis.Identifier == null){
+            return(layoutUnary("Repeat Command", aThis.While));
+        }
+        else{
+            return(layoutBinary("Loop Command", aThis.Identifier, aThis.While));
+        }
+       
     }
 
 }

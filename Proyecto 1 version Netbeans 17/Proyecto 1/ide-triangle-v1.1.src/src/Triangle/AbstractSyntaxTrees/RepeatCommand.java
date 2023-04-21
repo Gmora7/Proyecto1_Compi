@@ -11,19 +11,19 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  */
 public class RepeatCommand extends Command{
     public WhileCommand While;
-public Identifier Identifier;
+    public Identifier Identifier;
     
-    public RepeatCommand (WhileCommand WhileVar, SourcePosition thePosition) {
+    public RepeatCommand (WhileCommand While, SourcePosition thePosition) {
     super (thePosition);
     Identifier=null;
-    While = WhileVar;
+    While = While;
   }
-    public RepeatCommand (Identifier ident, WhileCommand WhileVar, SourcePosition thePosition) {
+    public RepeatCommand (Identifier ident, WhileCommand While, SourcePosition thePosition) {
     super (thePosition);
     Identifier=ident;
-    While = WhileVar;
+    While = While;
   }
-    @Override
+
      public Object visit(Visitor v, Object o) {
     return v.visitRepeatCommand(this, o);
   }

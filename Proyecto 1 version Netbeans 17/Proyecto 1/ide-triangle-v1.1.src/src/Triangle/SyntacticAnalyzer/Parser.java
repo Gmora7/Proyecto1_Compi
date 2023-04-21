@@ -431,11 +431,17 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         } else {
 
           Vname vAST = parseRestOfVname(iAST);
-          accept(Token.BECOMES);
-          Expression eAST = parseExpression();
-          finish(commandPos);
-          commandAST = new AssignCommand(vAST, eAST, commandPos);
+         if(currentToken.kind == Token.BECOMES){
+            acceptIt();
+            Expression eAST = parseExpression();
+            finish(commandPos);
+            commandAST = new AssignCommand(vAST, eAST, commandPos);
+          }
+          else{
+              syntacticError(":= expected after a variable name", "");
+          }
         }
+        
       }
       break;
       
@@ -539,7 +545,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     case Token.REPEAT:{
         
         acceptIt();
-        System.out.println("Holaa");
+        Identifier iAST = parseIdentifierOpt();
         switch(currentToken.kind){
             // --------------------------------> Caso 1 <--------------------------------
             // "repeat" "while" Expression "do" Command "end"
@@ -549,16 +555,15 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
                 acceptIt();
                 WhileCommand While = whileDo(commandPos);
                 // Crear el arbol final
-                System.out.println("Holaa3");
-                System.out.println(While.E);
-                System.out.println(While.C);
-                commandAST = new RepeatCommand( While, commandPos);
-                 System.out.println(commandAST);
+               
+                commandAST = new RepeatCommand( iAST,While, commandPos);
+           
                 break;
             }
         }
        
     }
+    break;
     
     //-------------------- SELECT ---------------------------------
     // "select" Expression "from" Cases ["else" Command] "end"
@@ -590,13 +595,13 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         }
         break;
     }
-    default:
+    
+     default:
       syntacticError("\"%\" cannot start a command",
         currentToken.spelling);
       break;
-
     }
-
+    System.out.println(commandAST.toString());
     return commandAST;
   }
 
@@ -1262,18 +1267,22 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         DoAST = new DoCommand(cAST, commandPos);
         
         // End
+        System.out.println("_____________________--");
         if(currentToken.kind == Token.END){
+            
             acceptIt();
             finish(commandPos);
             commandAST = new WhileCommand (eAST, DoAST, commandPos);
+            
         }
-        
+       
         // Error
         else{
             syntacticError("Expected END here", currentToken.spelling);
         }
         
-        // Retornar el arbol
+        // Retornar el arbol}
+        
         return commandAST;
     }
     
