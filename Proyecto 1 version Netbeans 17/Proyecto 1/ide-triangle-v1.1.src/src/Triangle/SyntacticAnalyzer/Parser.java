@@ -31,6 +31,7 @@ import Triangle.AbstractSyntaxTrees.ConstActualParameter;
 import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.Declaration;
+import Triangle.AbstractSyntaxTrees.DoCommand;
 import Triangle.AbstractSyntaxTrees.DotVname;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
@@ -90,6 +91,8 @@ import Triangle.AbstractSyntaxTrees.CaseLiterals;
 import Triangle.AbstractSyntaxTrees.CaseRangeCommand;
 import Triangle.AbstractSyntaxTrees.SingleCaseRange;
 import Triangle.AbstractSyntaxTrees.MultipleCaseRange;
+import Triangle.AbstractSyntaxTrees.RepeatCommand;
+import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
 
 public class Parser {
@@ -227,6 +230,20 @@ public class Parser {
     } else {
       I = null;
       syntacticError("identifier expected here", "");
+    }
+    return I;
+  }
+  
+  Identifier parseIdentifierOpt() throws SyntaxError {
+    Identifier I = null;
+
+    if (currentToken.kind == Token.IDENTIFIER) {
+      previousTokenPosition = currentToken.position;
+      String spelling = currentToken.spelling;
+      I = new Identifier(spelling, previousTokenPosition);
+      currentToken = lexicalAnalyser.scan();
+    } else {
+      I = null;
     }
     return I;
   }
@@ -517,7 +534,62 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         commandAST = new IfCommand(eAST, c1AST, c2AST, commandPos);
       }
       break;
-
+//  Reapeat 
+      
+    case Token.REPEAT:{
+        
+        acceptIt();
+        System.out.println("Holaa");
+        switch(currentToken.kind){
+            // --------------------------------> Caso 1 <--------------------------------
+            // "repeat" "while" Expression "do" Command "end"
+            
+            case Token.WHILE: {
+                // Crear el primer arbol
+                acceptIt();
+                WhileCommand While = whileDo(commandPos);
+                // Crear el arbol final
+                System.out.println("Holaa3");
+                System.out.println(While.E);
+                System.out.println(While.C);
+                commandAST = new RepeatCommand( While, commandPos);
+                 System.out.println(commandAST);
+                break;
+            }
+        }
+       
+    }
+    
+    //-------------------- SELECT ---------------------------------
+    // "select" Expression "from" Cases ["else" Command] "end"
+     case Token.SELECT: {
+        acceptIt();
+        // Determinar la expresion
+        Expression eAST = parseExpression();
+        accept(Token.FROM);
+        // Determinar los Cases
+        CasesCommand casesCommand = parseCasesCommand();
+        // Determinar si hay else 0 o 1 vez
+        if(currentToken.kind == Token.ELSE){
+            acceptIt();
+            Command command = parseCommand();
+            accept(Token.END);
+            finish(commandPos);
+            commandAST = new SelectCommand(eAST, casesCommand,
+                                              command,commandPos);
+        }
+        else if(currentToken.kind != Token.ELSE){
+            accept(Token.END);
+            finish(commandPos);
+            commandAST = new SelectCommand(eAST, casesCommand,
+                                              commandPos);
+        }
+        else{
+            syntacticError("Token expected here",
+                    "");
+        }
+        break;
+    }
     default:
       syntacticError("\"%\" cannot start a command",
         currentToken.spelling);
@@ -1173,7 +1245,38 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
   }
   
   //Funciones extra
-  
+  private WhileCommand whileDo(SourcePosition commandPos) throws SyntaxError{
+        
+        start(commandPos);
+        WhileCommand commandAST = null;
+        
+        // Obtener la expresion
+        Expression eAST = parseExpression();
+        
+        // Aceptar el command
+        accept(Token.DO);
+        Command cAST = parseCommand();
+        
+        // Crear AST del Do
+        DoCommand DoAST;
+        DoAST = new DoCommand(cAST, commandPos);
+        
+        // End
+        if(currentToken.kind == Token.END){
+            acceptIt();
+            finish(commandPos);
+            commandAST = new WhileCommand (eAST, DoAST, commandPos);
+        }
+        
+        // Error
+        else{
+            syntacticError("Expected END here", currentToken.spelling);
+        }
+        
+        // Retornar el arbol
+        return commandAST;
+    }
+    
   Command parseBarThen() throws SyntaxError {
 
   Command commandAST = null; 

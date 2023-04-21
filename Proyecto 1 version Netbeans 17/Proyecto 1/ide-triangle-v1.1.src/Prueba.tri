@@ -1,7 +1,4 @@
-! Programa ilustrativo inútil
-let
-  var n : Char;
-  var c : Integer
-in
-  n := 5
-end
+repeat while x > 0 do
+  x := x - 1
+end
+

@@ -22,8 +22,10 @@ public interface Visitor {
   public abstract Object visitEmptyCommand(EmptyCommand ast, Object o);
   public abstract Object visitIfCommand(IfCommand ast, Object o);
   public abstract Object visitLetCommand(LetCommand ast, Object o);
+  public abstract Object visitDoCommandAST(DoCommand aThis, Object o);
   public abstract Object visitSequentialCommand(SequentialCommand ast, Object o);
   public abstract Object visitWhileCommand(WhileCommand ast, Object o);
+  public abstract Object visitRepeatCommand(RepeatCommand aThis, Object o);
   public abstract Object visitCaseLiteralCommand(CaseLiteralCommand aThis, Object o);
   public abstract Object visitCaseCommand(CaseCommand aThis, Object o);
   public abstract Object visitCaseLiterals(CaseLiterals aThis, Object o);

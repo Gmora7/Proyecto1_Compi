@@ -76,9 +76,11 @@ import Triangle.AbstractSyntaxTrees.MultipleCase;
 import Triangle.AbstractSyntaxTrees.SingleCase;
 import Triangle.AbstractSyntaxTrees.CaseLiterals;
 import Triangle.AbstractSyntaxTrees.CaseRangeCommand;
+import Triangle.AbstractSyntaxTrees.DoCommand;
 import Triangle.AbstractSyntaxTrees.SingleCaseRange;
 import Triangle.AbstractSyntaxTrees.MultipleCaseRange;
 import Triangle.AbstractSyntaxTrees.MultipleThen;
+import Triangle.AbstractSyntaxTrees.RepeatCommand;
 import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCases;
 import Triangle.AbstractSyntaxTrees.SingleThen;
@@ -400,6 +402,12 @@ public class TreeVisitor implements Visitor {
     
     // <editor-fold defaultstate="collapsed" desc=" Literals, Identifiers and Operators ">
     // Literals, Identifiers and Operators
+    
+    @Override
+    public Object visitRepeatCommand(RepeatCommand ast, Object o) {
+        
+        return (createUnary("Loop Command", ast.While));
+    }
     public Object visitCharacterLiteral(CharacterLiteral ast, Object obj) {
         return(createNullary(ast.spelling));
     }
@@ -548,4 +556,11 @@ public class TreeVisitor implements Visitor {
     public Object visitMultipleThen(MultipleThen aThis, Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public Object visitDoCommandAST(DoCommand aThis, Object o) {
+       return(createUnary("Do Command", aThis.C));
+    }
+
+
 }

@@ -4,8 +4,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Usuario/Desktop/TEC/TEC%202023/I%20Semestre/Compiladores%20e%20Intérpretes/Proyecto%201/Proyecto1_Compi/Proyecto%201%20version%20Netbeans%2017/Proyecto%201/ide-triangle-v1.1.src/src/Triangle/AbstractSyntaxTrees/LetCommand.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/TEC/TEC%202023/I%20Semestre/Compiladores%20e%20Intérpretes/Proyecto%201/Proyecto1_Compi/Proyecto%201%20version%20Netbeans%2017/Proyecto%201/ide-triangle-v1.1.src/src/Triangle/SyntacticAnalyzer/Parser.java</file>
+            <file>file:/C:/Users/gmora/OneDrive/Desktop/1%20SEMESTRE%202023/Compiladores%20E%20Intérpretes/Proyecto1_Final/Proyecto1_Compi/Proyecto%201%20version%20Netbeans%2017/Proyecto%201/ide-triangle-v1.1.src/src/Triangle/SyntacticAnalyzer/Token.java</file>
+            <file>file:/C:/Users/gmora/OneDrive/Desktop/1%20SEMESTRE%202023/Compiladores%20E%20Intérpretes/Proyecto1_Final/Proyecto1_Compi/Proyecto%201%20version%20Netbeans%2017/Proyecto%201/ide-triangle-v1.1.src/src/Triangle/SyntacticAnalyzer/Parser.java</file>
+            <file>file:/C:/Users/gmora/OneDrive/Desktop/1%20SEMESTRE%202023/Compiladores%20E%20Intérpretes/Proyecto1_Final/Proyecto1_Compi/Proyecto%201%20version%20Netbeans%2017/Proyecto%201/ide-triangle-v1.1.src/src/Triangle/AbstractSyntaxTrees/IfCommand.java</file>
+            <file>file:/C:/Users/gmora/OneDrive/Desktop/1%20SEMESTRE%202023/Compiladores%20E%20Intérpretes/Proyecto1_Final/Proyecto1_Compi/Proyecto%201%20version%20Netbeans%2017/Proyecto%201/ide-triangle-v1.1.src/src/Triangle/AbstractSyntaxTrees/RepeatCommand.java</file>
+            <file>file:/C:/Users/gmora/OneDrive/Desktop/1%20SEMESTRE%202023/Compiladores%20E%20Intérpretes/Proyecto1_Final/Proyecto1_Compi/Proyecto%201%20version%20Netbeans%2017/Proyecto%201/ide-triangle-v1.1.src/src/Triangle/AbstractSyntaxTrees/Visitor.java</file>
+            <file>file:/C:/Users/gmora/OneDrive/Desktop/1%20SEMESTRE%202023/Compiladores%20E%20Intérpretes/Proyecto1_Final/Proyecto1_Compi/Proyecto%201%20version%20Netbeans%2017/Proyecto%201/ide-triangle-v1.1.src/src/Triangle/SyntacticAnalyzer/SourcePosition.java</file>
         </group>
     </open-files>
 </project-private>

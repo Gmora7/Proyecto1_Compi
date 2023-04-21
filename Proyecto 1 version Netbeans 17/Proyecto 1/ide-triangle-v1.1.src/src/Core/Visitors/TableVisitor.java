@@ -82,7 +82,9 @@ import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCases;
 import Triangle.AbstractSyntaxTrees.BarCommandCaseRange;
+import Triangle.AbstractSyntaxTrees.DoCommand;
 import Triangle.AbstractSyntaxTrees.MultipleThen;
+import Triangle.AbstractSyntaxTrees.RepeatCommand;
 import Triangle.AbstractSyntaxTrees.SingleThen;
 import Triangle.AbstractSyntaxTrees.ThenCommand;
 import Triangle.CodeGenerator.Field;
@@ -730,5 +732,20 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
     @Override
     public Object visitMultipleThen(MultipleThen aThis, Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitDoCommandAST(DoCommand aThis, Object o) {
+        aThis.C.visit(this, null);
+      
+        return(null);
+    }
+
+    @Override
+    public Object visitRepeatCommand(RepeatCommand aThis, Object o) {
+        
+        aThis.Identifier.visit(this, null);
+        aThis.While.visit(this, null);
+        return(null);
     }
 }
