@@ -151,7 +151,17 @@ public final class Scanner {
     case '~':
       takeIt();
       return Token.IS;
-
+      
+      //Se agregó BAR 
+    case '|':
+      takeIt();
+      return Token.BAR;  
+      
+      //Se agregó DOLLAR
+    case '$':
+      takeIt();
+      return Token.DOLLAR; 
+      
     case '(':
       takeIt();
       return Token.LPAREN;

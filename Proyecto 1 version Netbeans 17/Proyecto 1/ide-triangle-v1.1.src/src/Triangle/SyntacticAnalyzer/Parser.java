@@ -372,7 +372,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         IntegerLiteral c2AST = parseIntegerLiteral();
         finish(commandPos);
         caseLiteralAST = new CaseLiteralCommand(c2AST, commandPos);
-    }
+    } 
     else if(currentToken.kind == Token.CHARLITERAL){
         CharacterLiteral c2AST = parseCharacterLiteral();
         finish(commandPos);
