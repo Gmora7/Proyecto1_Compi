@@ -22,6 +22,7 @@ import Triangle.AbstractSyntaxTrees.ConstActualParameter;
 import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.DotVname;
+import Triangle.AbstractSyntaxTrees.DoWhileCommand;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
 import Triangle.AbstractSyntaxTrees.EmptyExpression;
@@ -51,6 +52,7 @@ import Triangle.AbstractSyntaxTrees.Program;
 import Triangle.AbstractSyntaxTrees.RecordExpression;
 import Triangle.AbstractSyntaxTrees.RecordTypeDenoter;
 import Triangle.AbstractSyntaxTrees.RepeatCommand;
+import Triangle.AbstractSyntaxTrees.RepeatDoWhileAST;
 import Triangle.AbstractSyntaxTrees.RepeatUntilAST;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialDeclaration;
@@ -575,5 +577,16 @@ public class TreeVisitor implements Visitor {
     public Object visitUntilCommand(UntilCommand aThis, Object o) {
         return(createBinary("Until Command", aThis.I, aThis.C));
     }
+    
+    @Override
+    public Object visitDoWhileCommand(DoWhileCommand aThis, Object o) {
+        return(createUnary("While Command", aThis.E));
+    }
 
+    // Autor : Valeria Chinchilla
+    @Override
+    public Object visitRepeatDoWhileCommand(RepeatDoWhileAST aThis, Object o) {
+        return(createBinary("Repeat Command", aThis.C, aThis.DoWhile));
+        
+    }
 }

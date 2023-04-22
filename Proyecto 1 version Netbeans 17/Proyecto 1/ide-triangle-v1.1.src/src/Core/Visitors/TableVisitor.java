@@ -22,6 +22,7 @@ import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.DoCommand;
 import Triangle.AbstractSyntaxTrees.DotVname;
+import Triangle.AbstractSyntaxTrees.DoWhileCommand;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
 import Triangle.AbstractSyntaxTrees.EmptyExpression;
@@ -52,6 +53,7 @@ import Triangle.AbstractSyntaxTrees.RecordExpression;
 import Triangle.AbstractSyntaxTrees.RecordTypeDenoter;
 import Triangle.AbstractSyntaxTrees.RepeatCommand;
 import Triangle.AbstractSyntaxTrees.RepeatUntilAST;
+import Triangle.AbstractSyntaxTrees.RepeatDoWhileAST;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialDeclaration;
 import Triangle.AbstractSyntaxTrees.SimpleTypeDenoter;
@@ -766,5 +768,18 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
       
         return(null);
     }
+    
+    @Override
+    public Object visitDoWhileCommand(DoWhileCommand aThis, Object o) { // Autor : Valeria Chinchilla
+        aThis.E.visit(this, null);
+      
+        return(null);
+    }
 
+    @Override
+    public Object visitRepeatDoWhileCommand(RepeatDoWhileAST aThis, Object o) { // Autor : Valeria Chinchilla
+        aThis.DoWhile.visit(this, null);
+        aThis.C.visit(this, null);
+      
+        return(null);}
 }

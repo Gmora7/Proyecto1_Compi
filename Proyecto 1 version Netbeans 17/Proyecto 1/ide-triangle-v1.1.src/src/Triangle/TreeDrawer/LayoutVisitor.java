@@ -39,6 +39,7 @@ import Triangle.AbstractSyntaxTrees.ConstActualParameter;
 import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.DoCommand;
+import Triangle.AbstractSyntaxTrees.DoWhileCommand;
 import Triangle.AbstractSyntaxTrees.DotVname;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
@@ -72,6 +73,8 @@ import Triangle.AbstractSyntaxTrees.Program;
 import Triangle.AbstractSyntaxTrees.RecordExpression;
 import Triangle.AbstractSyntaxTrees.RecordTypeDenoter;
 import Triangle.AbstractSyntaxTrees.RepeatCommand;
+import Triangle.AbstractSyntaxTrees.RepeatDoWhileAST;
+import Triangle.AbstractSyntaxTrees.RepeatUntilAST;
 import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCases;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
@@ -92,6 +95,7 @@ import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
 import Triangle.AbstractSyntaxTrees.TypeDeclaration;
 import Triangle.AbstractSyntaxTrees.UnaryExpression;
 import Triangle.AbstractSyntaxTrees.UnaryOperatorDeclaration;
+import Triangle.AbstractSyntaxTrees.UntilCommand;
 import Triangle.AbstractSyntaxTrees.VarActualParameter;
 import Triangle.AbstractSyntaxTrees.VarDeclaration;
 import Triangle.AbstractSyntaxTrees.VarFormalParameter;
@@ -651,5 +655,26 @@ public class LayoutVisitor implements Visitor {
         return(layoutUnary("Repeat Command", aThis.WhileC));
         
     }
+    @Override
+    public Object visitRepeatUntilAST(RepeatUntilAST aThis, Object o) {
+       
+        return(layoutUnary("Repeat Command", aThis.UntilC));
+        
+    }
 
+    @Override
+    public Object visitUntilCommand(UntilCommand aThis, Object o) {
+        return(layoutBinary("Until Command", aThis.I, aThis.C));
+    }
+    @Override
+    public Object visitDoWhileCommand(DoWhileCommand aThis, Object o) {
+        return(layoutUnary("While Command", aThis.E));
+    }
+
+    @Override
+    public Object visitRepeatDoWhileCommand(RepeatDoWhileAST aThis, Object o) {
+        
+        return(layoutBinary("Repeat Command", aThis.C, aThis.DoWhile));
+        
+    }
 }

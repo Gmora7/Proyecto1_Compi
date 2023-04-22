@@ -32,6 +32,7 @@ import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.Declaration;
 import Triangle.AbstractSyntaxTrees.DoCommand;
+import Triangle.AbstractSyntaxTrees.DoWhileCommand;
 import Triangle.AbstractSyntaxTrees.DotVname;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
@@ -62,6 +63,7 @@ import Triangle.AbstractSyntaxTrees.ProcFormalParameter;
 import Triangle.AbstractSyntaxTrees.Program;
 import Triangle.AbstractSyntaxTrees.RecordAggregate;
 import Triangle.AbstractSyntaxTrees.RepeatUntilAST;
+import Triangle.AbstractSyntaxTrees.RepeatDoWhileAST;
 import Triangle.AbstractSyntaxTrees.RecordExpression;
 import Triangle.AbstractSyntaxTrees.RecordTypeDenoter;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
@@ -582,10 +584,8 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
                 switch (currentToken.kind) {
                     case Token.WHILE:
                         acceptIt();
-    //                    // Crear el arbol del while
-    //                    WhileEndCommand WhileAST = whileEnd(commandPos); 
-    //                    // Crear el arbol final
-    //                    commandAST = new LoopWhileEndAST(iAST, DoAST, WhileAST, commandPos);
+                        DoWhileCommand WhileAST = DoWhile(commandPos); 
+                        commandAST = new RepeatDoWhileAST(iAST, DoAST, WhileAST, commandPos);
                         break;
                     case Token.UNTIL:
                         
@@ -1290,6 +1290,8 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
   }
   
   //Funciones extra
+  
+  // RECOMENDACION: juntar en un unico metodo los flujos de while y until
   private WhileCommand whileDo(SourcePosition commandPos) throws SyntaxError{
         
         start(commandPos);
@@ -1325,6 +1327,55 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         
         return commandAST;
     }
+  private DoWhileCommand DoWhile(SourcePosition commandPos) throws SyntaxError {
+        start(commandPos);
+        DoWhileCommand commandAST = null;
+        
+        // Obtener la expresion
+        Expression eAST = parseExpression();
+        
+        // End
+        if(currentToken.kind == Token.END){
+            acceptIt();
+            finish(commandPos);
+            commandAST = new DoWhileCommand (eAST, commandPos);
+        }
+        
+        // Error
+        else{
+            syntacticError("Expected END here", currentToken.spelling);
+        }
+        
+        // Retornar el arbol
+        return commandAST;
+    }  
+  
+  private UntilCommand UntilDo(SourcePosition commandPos) throws SyntaxError {
+        start(commandPos);
+        UntilCommand commandAST = null;
+       
+        Expression eAST = parseExpression();
+       
+        accept(Token.DO);
+        Command cAST = parseCommand();
+
+        DoCommand DoAST;
+        DoAST = new DoCommand(cAST, commandPos);
+        
+
+        if(currentToken.kind == Token.END){
+            acceptIt();
+            finish(commandPos);
+            commandAST = new UntilCommand(eAST, DoAST, commandPos);
+        }
+        
+
+        else{
+            syntacticError("Expected END here", currentToken.spelling);
+        }
+
+        return commandAST;
+    }  
     
   Command parseBarThen() throws SyntaxError {
 
@@ -1352,30 +1403,5 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
   return commandAST;
 }
   
-    private UntilCommand UntilDo(SourcePosition commandPos) throws SyntaxError {
-        start(commandPos);
-        UntilCommand commandAST = null;
-       
-        Expression eAST = parseExpression();
-       
-        accept(Token.DO);
-        Command cAST = parseCommand();
 
-        DoCommand DoAST;
-        DoAST = new DoCommand(cAST, commandPos);
-        
-
-        if(currentToken.kind == Token.END){
-            acceptIt();
-            finish(commandPos);
-            commandAST = new UntilCommand(eAST, DoAST, commandPos);
-        }
-        
-
-        else{
-            syntacticError("Expected END here", currentToken.spelling);
-        }
-
-        return commandAST;
-    }  
 }
