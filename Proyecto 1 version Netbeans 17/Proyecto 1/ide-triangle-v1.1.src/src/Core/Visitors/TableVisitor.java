@@ -154,8 +154,6 @@ public class TableVisitor implements Visitor {
       ast.E.visit(this, null);
       ast.C1.visit(this, null);
       ast.C2.visit(this, null);
-//      ast.ST.visit(this, null);
-//      ast.MT.visit(this, null);
       
       return(null);
   }
@@ -187,7 +185,8 @@ public class TableVisitor implements Visitor {
       
       return(null);
   }
-//Autores:
+  
+//
 public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object o) { 
     ast.CL.visit(this, null);
     ast.IL.visit(this, null);
@@ -195,25 +194,25 @@ public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object o) {
     return(null);
 }
 
-//Autores: 
+
 public Object visitCaseRangeCommand(CaseRangeCommand ast, Object o) { 
     ast.CLC.visit(this, null);
     ast.TCL.visit(this, null);
     return(null);
  }
-//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+
 public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object o){
     ast.CLC.visit(this, null);
     return(null);
 }
 
-//Autores: 
+
 public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
     ast.CRC.visit(this, null);
     return(null);
 }
 
-//Autores: 
+
  public Object visitCaseLiterals(CaseLiterals ast, Object o) { 
       ast.MCR.visit(this, null);
       ast.SCR.visit(this, null);

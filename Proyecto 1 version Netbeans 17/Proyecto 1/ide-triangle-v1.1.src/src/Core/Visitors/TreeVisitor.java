@@ -149,18 +149,18 @@ public class TreeVisitor implements Visitor {
         return(createBinary("While Do Command", ast.E, ast.C));
     }
 
-    //Autores: 
+    //
     public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object obj){
         if(ast.CL == null)
             return(createUnary("Case Literal Command", ast.IL));
         else
             return(createUnary("Case Literal Command", ast.CL));
     }
-    //Autores:
+    
     public Object visitCaseCommand(CaseCommand ast, Object obj){
         return(createBinary("Case Command", ast.CL,  ast.C));
     }
-    //Autores:
+    
     public Object visitCasesCommand(CasesCommand ast, Object obj){
         if(ast.MC == null)
             return(createUnary("Cases Command", ast.SC));
@@ -174,7 +174,7 @@ public class TreeVisitor implements Visitor {
         else
             return(createTernary("Select Command", ast.E, ast.CC, ast.C));
     }
-    //Autores: 
+    
     public Object visitCaseRangeCommand(CaseRangeCommand ast, Object obj){
         if(ast.TCL == null){
             return(createUnary("Case Range Command", ast.CLC));
@@ -183,16 +183,16 @@ public class TreeVisitor implements Visitor {
             return(createBinary("Case Range Command", ast.CLC, ast.TCL));
         }
     }
-    //Autores: 
+    
     public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object obj){
         return(createUnary("Case To Literal", ast.CLC));
     }
 
-    //Autores: 
+   
     public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
         return(createUnary("Case Bar Command Case Range", ast.CRC));
     }
-    //Autores: 
+    
     public Object visitCaseLiterals(CaseLiterals ast, Object o) {
         if(ast.MCR == null)
             return(createUnary("Case Literals", ast.SCR));
