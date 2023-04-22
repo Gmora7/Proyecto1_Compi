@@ -11,26 +11,26 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  * @author celin
  */
 public class SelectCommand extends Command{
-    public SelectCommand (Expression expressionAST, CasesCommand cAST, SourcePosition thePosition) {
+    
+    public SelectCommand (Expression eAST, CasesCommand ccAST, SourcePosition thePosition) {
         super (thePosition);
-        expression = expressionAST;
-        cases = cAST;
-        command = null;
+        E = eAST;
+        CC = ccAST;
+        C = null;
     }
-    public SelectCommand (Expression expressionAST, CasesCommand cAST, Command c2AST,
-                         SourcePosition thePosition) {
+    public SelectCommand (Expression eAST, CasesCommand ccAST, Command cAST,SourcePosition thePosition) {
         super (thePosition);
-        expression = expressionAST;
-        cases = cAST;
-        command = c2AST;
+        E = eAST;
+        CC = ccAST;
+        C = cAST;
     }
     
-
-    public Object visit(Visitor V, Object O){
-        return V.visitSelectCommand(this, O);
+    public Object visit(Visitor v, Object O){
+        return v.visitSelectCommand(this, O);
     }
-    public Expression expression;
-    public CasesCommand cases;
-    public Command command;
+    
+    public Expression E;
+    public CasesCommand CC;
+    public Command C;
     
 }

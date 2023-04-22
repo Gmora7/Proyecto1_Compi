@@ -167,8 +167,8 @@ public final class Encoder implements Visitor {
   }
   
   public Object visitSequentialCases(SequentialCases ast, Object o) {
-    ast.C1.visit(this, o);
-    ast.C2.visit(this, o);
+    ast.CC1.visit(this, o);
+    ast.CC2.visit(this, o);
     return null;
   }
 

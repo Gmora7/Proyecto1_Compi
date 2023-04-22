@@ -10,24 +10,22 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  * @author celin
  */
 public class CaseLiterals extends Command{
-     public CaseLiterals(SingleCaseRange singleCaseRangeAST, SourcePosition thePosition) {
+     public CaseLiterals(SingleCaseRange scAST, SourcePosition thePosition) {
         super(thePosition);
-        singleCaseRange = singleCaseRangeAST;
-        multipleCaseRange = null;
+        SCR = scAST;
+        MCR = null;
     }
     
-    public CaseLiterals(MultipleCaseRange multipleCaseRangeAST, SourcePosition thePosition) {
+    public CaseLiterals(MultipleCaseRange mcAST, SourcePosition thePosition) {
         super(thePosition);
-        multipleCaseRange = multipleCaseRangeAST;
-        singleCaseRange = null;
+        MCR = mcAST;
+        SCR = null;
     }
     
     public Object visit(Visitor v, Object o) {
         return v.visitCaseLiterals(this, o);
     }
     
-    public SingleCaseRange singleCaseRange;
-    public MultipleCaseRange multipleCaseRange;
-    
-    
+    public SingleCaseRange SCR;
+    public MultipleCaseRange MCR;
 }

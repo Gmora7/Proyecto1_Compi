@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Triangle.AbstractSyntaxTrees;
-
 import Triangle.SyntacticAnalyzer.SourcePosition;
 
 /**
@@ -11,16 +10,16 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  * @author celin
  */
 public class SequentialCases extends CaseCommand{
-    public SequentialCases (CaseCommand c1AST, CaseCommand c2AST, SourcePosition thePosition) {
+    public SequentialCases (CaseCommand cc1AST, CaseCommand cc2AST, SourcePosition thePosition) {
     super (thePosition);
-    C1 = c1AST;
-    C2 = c2AST;
+    CC1 = cc1AST;
+    CC2 = cc2AST;
   }
 
   public Object visit(Visitor v, Object o) {
     return v.visitSequentialCases(this, o);
   }
 
-  public CaseCommand C1, C2;
+  public CaseCommand CC1, CC2;
     
 }

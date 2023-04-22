@@ -17,19 +17,16 @@ public class CaseLiteralCommand extends Command{
         IL = null;
     }
     
-    
     public CaseLiteralCommand (IntegerLiteral cAST, SourcePosition thePosition) {
         super (thePosition);
         IL = cAST;
         CL = null;
     }
     
-    
-    public Object visit(Visitor V, Object O){
-        return V.visitCaseLiteralCommand(this, O);
+    public Object visit(Visitor v, Object O){
+        return v.visitCaseLiteralCommand(this, O);
     }
     
-    //Atributos públicos
     public CharacterLiteral CL;
     public IntegerLiteral IL;
     

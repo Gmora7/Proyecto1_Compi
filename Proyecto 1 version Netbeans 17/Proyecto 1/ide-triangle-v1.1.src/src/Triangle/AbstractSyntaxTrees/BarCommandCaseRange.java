@@ -11,15 +11,15 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  * @author celin
  */
 public class BarCommandCaseRange extends Command{
-     public BarCommandCaseRange (CaseRangeCommand east, SourcePosition thePosition) {
+    public BarCommandCaseRange (CaseRangeCommand east, SourcePosition thePosition) {
     super (thePosition);
-    CRCB = east;
+    CRC = east;
   }
 
   public Object visit(Visitor v, Object o) {
     return v.visitBarCommandCaseRange(this, o);
   }
 
-  public CaseRangeCommand CRCB;    
+  public CaseRangeCommand CRC;    
     
 }

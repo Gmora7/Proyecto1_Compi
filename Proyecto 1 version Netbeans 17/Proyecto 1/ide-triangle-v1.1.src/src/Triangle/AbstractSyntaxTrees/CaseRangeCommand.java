@@ -12,34 +12,28 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
 public class CaseRangeCommand extends Command{
     
     
-    public CaseRangeCommand (CaseLiteralCommand ast, SourcePosition thePosition){
+    public CaseRangeCommand (CaseLiteralCommand clAST, SourcePosition thePosition){
         super(thePosition);
-        CLC = ast;
-        TC = null;
+        CLC = clAST;
+        TCL = null;
     }
 
-  
-    public CaseRangeCommand (CaseLiteralCommand iAST, ToCommandLiteral eAST, SourcePosition thePosition){
+    public CaseRangeCommand (CaseLiteralCommand clAST, ToCommandLiteral tcAST, SourcePosition thePosition){
         super(thePosition);
-        CLC = iAST;
-        TC = eAST;
+        CLC = clAST;
+        TCL = tcAST;
     }
-    
     
     public CaseRangeCommand (SourcePosition thePosition){
         super(thePosition);
         CLC = null;
-        TC = null;
+        TCL = null;
     }
-    
     
     public Object visit(Visitor v, Object o){
         return v.visitCaseRangeCommand(this, o);
     }
     
-    //Atributos públicos
     public CaseLiteralCommand CLC;
-    public ToCommandLiteral TC;
-    
-    
+    public ToCommandLiteral TCL; 
 }

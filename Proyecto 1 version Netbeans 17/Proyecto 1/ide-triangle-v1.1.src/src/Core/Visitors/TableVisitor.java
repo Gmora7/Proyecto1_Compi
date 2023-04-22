@@ -129,20 +129,20 @@ public class TableVisitor implements Visitor {
       return(null);
   }
   public Object visitCaseCommand(CaseCommand ast, Object o) { 
-      ast.caseLiterals.visit(this, null);
-      ast.command.visit(this, null);
+      ast.CL.visit(this, null);
+      ast.C.visit(this, null);
       return(null);
   }
   public Object visitCasesCommand(CasesCommand ast, Object o) { 
-      ast.singleCase.visit(this, null);
-      ast.multipleCase.visit(this, null);
+      ast.SC.visit(this, null);
+      ast.MC.visit(this, null);
       return(null);
   }
   
   public Object visitSelectCommand(SelectCommand ast, Object o) { 
-      ast.cases.visit(this, null);
-      ast.command.visit(this, null);
-      ast.expression.visit(this, null);
+      ast.CC.visit(this, null);
+      ast.C.visit(this, null);
+      ast.E.visit(this, null);
       return(null);
   }
   
@@ -175,8 +175,8 @@ public class TableVisitor implements Visitor {
   }
   
   public Object visitSequentialCases(SequentialCases ast, Object o) { 
-      ast.C1.visit(this, null);
-      ast.C2.visit(this, null);
+      ast.CC1.visit(this, null);
+      ast.CC2.visit(this, null);
       
       return(null);
   }
@@ -198,25 +198,25 @@ public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object o) {
 //Autores: 
 public Object visitCaseRangeCommand(CaseRangeCommand ast, Object o) { 
     ast.CLC.visit(this, null);
-    ast.TC.visit(this, null);
+    ast.TCL.visit(this, null);
     return(null);
  }
 //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
 public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object o){
-    ast.caseLiteralCommand.visit(this, null);
+    ast.CLC.visit(this, null);
     return(null);
 }
 
 //Autores: 
 public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
-    ast.CRCB.visit(this, null);
+    ast.CRC.visit(this, null);
     return(null);
 }
 
 //Autores: 
  public Object visitCaseLiterals(CaseLiterals ast, Object o) { 
-      ast.multipleCaseRange.visit(this, null);
-      ast.singleCaseRange.visit(this, null);
+      ast.MCR.visit(this, null);
+      ast.SCR.visit(this, null);
       return(null);
   }
  

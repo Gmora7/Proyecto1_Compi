@@ -11,32 +11,22 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  */
 public class MultipleCaseRange extends CaseRangeCommand{
     
-    private final CaseRangeCommand cAST;
-    private final CaseRangeCommand cAST2;
-
-    public MultipleCaseRange(CaseRangeCommand cAST, SourcePosition thePosition) {
+    public MultipleCaseRange(CaseRangeCommand cAST1, SourcePosition thePosition) {
         super(thePosition);
-        this.cAST = cAST;
-        this.cAST2 = null;
+        CRC1 = cAST1;
+        CRC2 = null;
     }
 
-    public MultipleCaseRange(MultipleCaseRange cAST, CaseRangeCommand cAST2, SourcePosition thePosition) {
+    public MultipleCaseRange(MultipleCaseRange cAST1, CaseRangeCommand cAST2, SourcePosition thePosition) {
         super(thePosition);
-        this.cAST = cAST.getCrcmcr();
-        this.cAST2 = cAST2;
+        CRC1 = cAST1;
+        CRC2 = cAST2;
     }
 
     public Object visit(Visitor v, Object o) {
         return v.visitMultipleCaseRange(this, o);
     }
-
-    public CaseRangeCommand getCrcmcr() {
-        return cAST;
-    }
-
-    public CaseRangeCommand getCrcmcr2() {
-        return cAST2;
-    }
     
+    public CaseRangeCommand CRC1,CRC2;
     
 }

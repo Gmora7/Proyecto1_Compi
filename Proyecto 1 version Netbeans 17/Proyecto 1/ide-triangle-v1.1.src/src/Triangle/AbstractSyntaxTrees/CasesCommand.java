@@ -10,32 +10,24 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  * @author celin
  */
 public class CasesCommand extends Command{
-    public SingleCase singleCase;
-    public MultipleCase multipleCase;
-
-    public CasesCommand(SingleCase singleCase, SourcePosition position) {
-        super(position);
-        this.singleCase = singleCase;
-        this.multipleCase = null;
-    }
-
-    public CasesCommand(MultipleCase multipleCase, SourcePosition position) {
-        super(position);
-        this.multipleCase = multipleCase;
-        this.singleCase = null;
-    }
-
-    public Object visit(Visitor visitor, Object arg) {
-        return visitor.visitCasesCommand(this, arg);
-    }
-
-    public SingleCase getSingleCase() {
-        return singleCase;
-    }
-
-    public MultipleCase getMultipleCase() {
-        return multipleCase;
-    }
     
+    public CasesCommand(SingleCase scAST, SourcePosition thePosition) {
+        super(thePosition);
+        SC = scAST;
+        MC = null;
+    }
+
+    public CasesCommand(MultipleCase mcAST, SourcePosition thePosition) {
+        super(thePosition);
+        MC = mcAST;
+        SC = null;
+    }
+
+    public Object visit(Visitor v, Object arg) {
+        return v.visitCasesCommand(this, arg);
+    }
+
+    public SingleCase SC;
+    public MultipleCase MC;
     
 }

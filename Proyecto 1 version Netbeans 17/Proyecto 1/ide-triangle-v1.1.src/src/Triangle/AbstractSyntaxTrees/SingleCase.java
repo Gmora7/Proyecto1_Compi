@@ -10,19 +10,16 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  * @author celin
  */
 public class SingleCase extends CaseCommand{
-     private final CaseCommand caseCommand;
-
-    public SingleCase(CaseCommand caseCommand, SourcePosition sourcePosition) {
-        super(sourcePosition);
-        this.caseCommand = caseCommand;
+     
+    public SingleCase(CaseCommand ccAST, SourcePosition thePosition) {
+        super(thePosition);
+        CC = ccAST;
     }
 
-    public Object visit(Visitor visitor, Object object) {
-        return visitor.visitSingleCase(this, object);
+    public Object visit(Visitor v, Object object) {
+        return v.visitSingleCase(this, object);
     }
 
-    public CaseCommand getCaseCommand() {
-        return caseCommand;
-    }
+    public CaseCommand CC;
     
 }

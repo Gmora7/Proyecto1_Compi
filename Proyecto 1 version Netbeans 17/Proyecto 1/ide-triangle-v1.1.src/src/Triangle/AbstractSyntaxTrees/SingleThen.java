@@ -20,7 +20,7 @@ public class SingleThen extends ThenCommand{
     public Object visit(Visitor v, Object o) {
         return v.visitSingleThen(this, o);
     }
-    public ThenCommand TC; //Case range command (single case range)
+    public ThenCommand TC; 
     public Expression E;
     
 }

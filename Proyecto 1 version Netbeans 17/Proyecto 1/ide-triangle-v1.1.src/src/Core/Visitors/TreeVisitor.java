@@ -142,7 +142,7 @@ public class TreeVisitor implements Visitor {
     }
     
     public Object visitSequentialCases(SequentialCases ast, Object obj) {
-        return(createBinary("Sequential Cases", ast.C1, ast.C2));
+        return(createBinary("Sequential Cases", ast.CC1, ast.CC2));
     }
     
     public Object visitWhileCommand(WhileCommand ast, Object obj) {
@@ -158,46 +158,46 @@ public class TreeVisitor implements Visitor {
     }
     //Autores:
     public Object visitCaseCommand(CaseCommand ast, Object obj){
-        return(createBinary("Case Command", ast.caseLiterals,  ast.command));
+        return(createBinary("Case Command", ast.CL,  ast.C));
     }
     //Autores:
     public Object visitCasesCommand(CasesCommand ast, Object obj){
-        if(ast.multipleCase == null)
-            return(createUnary("Cases Command", ast.singleCase));
+        if(ast.MC == null)
+            return(createUnary("Cases Command", ast.SC));
         else
-            return(createUnary("Cases Command", ast.multipleCase));
+            return(createUnary("Cases Command", ast.MC));
     }
     
     public Object visitSelectCommand(SelectCommand ast, Object obj){
-        if(ast.command == null)
-            return(createBinary("Select Command", ast.expression, ast.cases));
+        if(ast.C == null)
+            return(createBinary("Select Command", ast.E, ast.CC));
         else
-            return(createTernary("Select Command", ast.expression, ast.cases, ast.command));
+            return(createTernary("Select Command", ast.E, ast.CC, ast.C));
     }
     //Autores: 
     public Object visitCaseRangeCommand(CaseRangeCommand ast, Object obj){
-        if(ast.TC == null){
+        if(ast.TCL == null){
             return(createUnary("Case Range Command", ast.CLC));
         }
         else{
-            return(createBinary("Case Range Command", ast.CLC, ast.TC));
+            return(createBinary("Case Range Command", ast.CLC, ast.TCL));
         }
     }
     //Autores: 
     public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object obj){
-        return(createUnary("Case To Literal", ast.caseLiteralCommand));
+        return(createUnary("Case To Literal", ast.CLC));
     }
 
     //Autores: 
     public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
-        return(createUnary("Case Bar Command Case Range", ast.CRCB));
+        return(createUnary("Case Bar Command Case Range", ast.CRC));
     }
     //Autores: 
     public Object visitCaseLiterals(CaseLiterals ast, Object o) {
-        if(ast.multipleCaseRange == null)
-            return(createUnary("Case Literals", ast.singleCaseRange));
+        if(ast.MCR == null)
+            return(createUnary("Case Literals", ast.SCR));
         else
-            return(createUnary("Case Literals", ast.multipleCaseRange));
+            return(createUnary("Case Literals", ast.MCR));
     }
     
     // <editor-fold defaultstate="collapsed" desc=" Expressions ">

@@ -13,12 +13,13 @@ public class SingleCaseRange extends CaseRangeCommand{
     
    public SingleCaseRange(CaseRangeCommand cAST, SourcePosition thePosition) {
         super (thePosition);
-        CRCSCR = cAST;
+        CRC = cAST;
     }
     
     public Object visit(Visitor v, Object o) {
         return v.visitSingleCaseRange(this, o);
     }
-    public CaseRangeCommand CRCSCR; //Case range command (single case range)
+    
+    public CaseRangeCommand CRC; 
     
 }

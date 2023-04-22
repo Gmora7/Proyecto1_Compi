@@ -11,16 +11,16 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  * @author celin
  */
 public class MultipleThen extends ThenCommand{
-    public MultipleThen(MultipleThen cAST, ThenCommand cAST2, Expression eAST, SourcePosition thePosition) {
+    public MultipleThen(MultipleThen cAST1, ThenCommand cAST2, Expression eAST, SourcePosition thePosition) {
         super (thePosition);
-        TC = cAST;
+        TC1 = cAST1;
         TC2 = cAST2;
         E = eAST;
     }
     
-    public MultipleThen(ThenCommand cAST, SourcePosition thePosition) {
+    public MultipleThen(ThenCommand cAST1, SourcePosition thePosition) {
         super (thePosition);
-        TC = cAST;
+        TC1 = cAST1;
         TC2 = null;
         E = null;
     }
@@ -28,8 +28,8 @@ public class MultipleThen extends ThenCommand{
     public Object visit(Visitor v, Object o) {
         return v.visitMultipleThen(this, o);
     }
-    public ThenCommand TC; 
-    public ThenCommand TC2;
+    
+    public ThenCommand TC1, TC2; 
     public Expression E;
     
 }

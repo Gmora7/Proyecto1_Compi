@@ -10,31 +10,24 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  * @author celin
  */
 public class CaseCommand extends Command{
-    public CaseLiterals caseLiterals;
-    public Command command;
-
-    public CaseCommand(CaseLiterals caseLiterals, Command command, SourcePosition position) {
-        super(position);
-        this.caseLiterals = caseLiterals;
-        this.command = command;
+  
+    public CaseCommand(CaseLiterals clAST, Command cAST, SourcePosition thePosition) {
+        super(thePosition);
+        CL = clAST;
+        C = cAST;
     }
 
-    public CaseCommand(SourcePosition position) {
-        super(position);
-        this.caseLiterals = null;
-        this.command = null;
+    public CaseCommand(SourcePosition thePosition) {
+        super(thePosition);
+        CL = null;
+        C = null;
     }
 
-    public Object visit(Visitor visitor, Object arg) {
-        return visitor.visitCaseCommand(this, arg);
+    public Object visit(Visitor v, Object arg) {
+        return v.visitCaseCommand(this, arg);
     }
 
-    public CaseLiterals getCaseLiterals() {
-        return caseLiterals;
-    }
-
-    public Command getCommand() {
-        return command;
-    }
+    public CaseLiterals CL;
+    public Command C;
     
 }

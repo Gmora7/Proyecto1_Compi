@@ -11,9 +11,10 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  * @author celin
  */
 public class ThenCommand extends Command{
+    
     public ThenCommand (Command cAST, SourcePosition thePosition) {
-    super (thePosition);
-    C = cAST;
+        super (thePosition);
+        C = cAST;
   }
     public ThenCommand (SourcePosition thePosition){
         super(thePosition);

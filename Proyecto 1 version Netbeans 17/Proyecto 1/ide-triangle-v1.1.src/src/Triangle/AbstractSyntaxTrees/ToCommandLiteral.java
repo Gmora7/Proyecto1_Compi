@@ -10,20 +10,18 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  * @author celin
  */
 public class ToCommandLiteral extends Command{
-    public final CaseLiteralCommand caseLiteralCommand;
-
-    public ToCommandLiteral(CaseLiteralCommand caseLiteralCommand, SourcePosition sourcePosition) {
-        super(sourcePosition);
-        this.caseLiteralCommand = caseLiteralCommand;
+    
+    public ToCommandLiteral(CaseLiteralCommand cAST, SourcePosition thePosition) {
+        super(thePosition);
+        CLC = cAST;
     }
 
-    public Object visit(Visitor visitor, Object object) {
-        return visitor.visitToCommandLiteralAST(this, object);
+    public Object visit(Visitor v, Object object) {
+        return v.visitToCommandLiteralAST(this, object);
     }
 
-    public CaseLiteralCommand getCaseLiteralCommand() {
-        return caseLiteralCommand;
-    }
-    }
+    public CaseLiteralCommand CLC;
+    
+   }
     
 
