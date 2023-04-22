@@ -51,6 +51,7 @@ import Triangle.AbstractSyntaxTrees.Program;
 import Triangle.AbstractSyntaxTrees.RecordExpression;
 import Triangle.AbstractSyntaxTrees.RecordTypeDenoter;
 import Triangle.AbstractSyntaxTrees.RepeatCommand;
+import Triangle.AbstractSyntaxTrees.RepeatUntilAST;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialDeclaration;
 import Triangle.AbstractSyntaxTrees.SimpleTypeDenoter;
@@ -86,6 +87,7 @@ import Triangle.AbstractSyntaxTrees.SequentialCases;
 import Triangle.AbstractSyntaxTrees.SingleThen;
 import Triangle.AbstractSyntaxTrees.ThenCommand;
 import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
+import Triangle.AbstractSyntaxTrees.UntilCommand;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -144,6 +146,7 @@ public class TreeVisitor implements Visitor {
     public Object visitWhileCommand(WhileCommand ast, Object obj) {
         return(createBinary("While Do Command", ast.E, ast.C));
     }
+
     //Autores: 
     public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object obj){
         if(ast.CL == null)
@@ -561,6 +564,16 @@ public class TreeVisitor implements Visitor {
     public Object visitDoCommandAST(DoCommand aThis, Object o) {
        return(createUnary("Do Command", aThis.C));
     }
+    
+    @Override
+    public Object visitRepeatUntilAST(RepeatUntilAST aThis, Object o) {
+        return(createUnary("Repeat Command", aThis.UntilC));
+        
+    }
 
+    @Override
+    public Object visitUntilCommand(UntilCommand aThis, Object o) {
+        return(createBinary("Until Command", aThis.I, aThis.C));
+    }
 
 }

@@ -61,6 +61,7 @@ import Triangle.AbstractSyntaxTrees.ProcDeclaration;
 import Triangle.AbstractSyntaxTrees.ProcFormalParameter;
 import Triangle.AbstractSyntaxTrees.Program;
 import Triangle.AbstractSyntaxTrees.RecordAggregate;
+import Triangle.AbstractSyntaxTrees.RepeatUntilAST;
 import Triangle.AbstractSyntaxTrees.RecordExpression;
 import Triangle.AbstractSyntaxTrees.RecordTypeDenoter;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
@@ -94,6 +95,7 @@ import Triangle.AbstractSyntaxTrees.MultipleCaseRange;
 import Triangle.AbstractSyntaxTrees.RepeatCommand;
 import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
+import Triangle.AbstractSyntaxTrees.UntilCommand;
 
 public class Parser {
 
@@ -560,6 +562,44 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
            
                 break;
             }
+            // --------------------------------> Caso 2 <--------------------------------
+            // "repeat" "until" Expression "do" Command "end"
+
+            case Token.UNTIL: {
+                acceptIt();
+                UntilCommand UntilAST = UntilDo(commandPos);
+                commandAST = new RepeatUntilAST(iAST, UntilAST, commandPos);
+                break;
+            }
+            
+            case Token.DO: {
+                acceptIt();
+                Command cAST = parseCommand();
+               
+                DoCommand DoAST;
+                DoAST = new DoCommand(cAST, commandPos);
+                
+                switch (currentToken.kind) {
+                    case Token.WHILE:
+                        acceptIt();
+    //                    // Crear el arbol del while
+    //                    WhileEndCommand WhileAST = whileEnd(commandPos); 
+    //                    // Crear el arbol final
+    //                    commandAST = new LoopWhileEndAST(iAST, DoAST, WhileAST, commandPos);
+                        break;
+                    case Token.UNTIL:
+                        
+                        break;
+                    default:
+                        syntacticError("Expected 'while' or 'until' after the command", currentToken.spelling);
+                        break;
+            }
+                break;
+            }
+            
+            default:
+                syntacticError("Expected 'while', 'do', 'until' or a expression after repeat", currentToken.spelling);
+                break;
         }
        
     }
@@ -1311,4 +1351,31 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 
   return commandAST;
 }
+  
+    private UntilCommand UntilDo(SourcePosition commandPos) throws SyntaxError {
+        start(commandPos);
+        UntilCommand commandAST = null;
+       
+        Expression eAST = parseExpression();
+       
+        accept(Token.DO);
+        Command cAST = parseCommand();
+
+        DoCommand DoAST;
+        DoAST = new DoCommand(cAST, commandPos);
+        
+
+        if(currentToken.kind == Token.END){
+            acceptIt();
+            finish(commandPos);
+            commandAST = new UntilCommand(eAST, DoAST, commandPos);
+        }
+        
+
+        else{
+            syntacticError("Expected END here", currentToken.spelling);
+        }
+
+        return commandAST;
+    }  
 }

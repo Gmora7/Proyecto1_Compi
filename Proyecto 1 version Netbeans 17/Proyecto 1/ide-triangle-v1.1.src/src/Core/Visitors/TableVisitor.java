@@ -51,6 +51,7 @@ import Triangle.AbstractSyntaxTrees.Program;
 import Triangle.AbstractSyntaxTrees.RecordExpression;
 import Triangle.AbstractSyntaxTrees.RecordTypeDenoter;
 import Triangle.AbstractSyntaxTrees.RepeatCommand;
+import Triangle.AbstractSyntaxTrees.RepeatUntilAST;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialDeclaration;
 import Triangle.AbstractSyntaxTrees.SimpleTypeDenoter;
@@ -87,6 +88,7 @@ import Triangle.AbstractSyntaxTrees.BarCommandCaseRange;
 import Triangle.AbstractSyntaxTrees.MultipleThen;
 import Triangle.AbstractSyntaxTrees.SingleThen;
 import Triangle.AbstractSyntaxTrees.ThenCommand;
+import Triangle.AbstractSyntaxTrees.UntilCommand;
 import Triangle.CodeGenerator.Field;
 import Triangle.CodeGenerator.KnownAddress;
 import Triangle.CodeGenerator.KnownRoutine;
@@ -748,4 +750,21 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
         aThis.WhileC.visit(this, null);
         return(null);
     }
+    
+    @Override
+    public Object visitRepeatUntilAST(RepeatUntilAST aThis, Object o) { 
+        aThis.I.visit(this, null);
+        aThis.UntilC.visit(this, null);
+      
+        return(null);
+    }
+    
+    @Override
+    public Object visitUntilCommand(UntilCommand aThis, Object o) { // Autor : Valeria Chinchilla
+        aThis.I.visit(this, null);
+        aThis.C.visit(this, null);
+      
+        return(null);
+    }
+
 }
