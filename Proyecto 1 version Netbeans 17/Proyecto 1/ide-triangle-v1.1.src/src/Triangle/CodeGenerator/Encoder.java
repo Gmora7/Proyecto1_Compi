@@ -111,6 +111,7 @@ import Triangle.AbstractSyntaxTrees.SingleThen;
 import Triangle.AbstractSyntaxTrees.MultipleThen;
 import Triangle.AbstractSyntaxTrees.ThenCommand;
 import Triangle.AbstractSyntaxTrees.UntilCommand;
+import Triangle.AbstractSyntaxTrees.VarDeclarationBecomes;
 
 public final class Encoder implements Visitor {
 
@@ -1113,6 +1114,11 @@ public final class Encoder implements Visitor {
 
     @Override
     public Object visitRepeatDoWhileCommand(RepeatDoWhileAST aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitVarDeclarationBecomes(VarDeclarationBecomes aThis, Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

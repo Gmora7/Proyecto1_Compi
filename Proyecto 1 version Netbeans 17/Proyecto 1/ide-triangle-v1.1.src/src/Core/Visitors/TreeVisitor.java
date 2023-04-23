@@ -90,6 +90,7 @@ import Triangle.AbstractSyntaxTrees.SingleThen;
 import Triangle.AbstractSyntaxTrees.ThenCommand;
 import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
 import Triangle.AbstractSyntaxTrees.UntilCommand;
+import Triangle.AbstractSyntaxTrees.VarDeclarationBecomes;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -588,5 +589,10 @@ public class TreeVisitor implements Visitor {
     public Object visitRepeatDoWhileCommand(RepeatDoWhileAST aThis, Object o) {
         return(createBinary("Repeat Command", aThis.C, aThis.DoWhile));
         
+    }
+
+    @Override
+    public Object visitVarDeclarationBecomes(VarDeclarationBecomes aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -91,6 +91,7 @@ import Triangle.AbstractSyntaxTrees.MultipleThen;
 import Triangle.AbstractSyntaxTrees.SingleThen;
 import Triangle.AbstractSyntaxTrees.ThenCommand;
 import Triangle.AbstractSyntaxTrees.UntilCommand;
+import Triangle.AbstractSyntaxTrees.VarDeclarationBecomes;
 import Triangle.CodeGenerator.Field;
 import Triangle.CodeGenerator.KnownAddress;
 import Triangle.CodeGenerator.KnownRoutine;
@@ -221,6 +222,12 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
  
  public Object visitThenCommandAST(ThenCommand aThis, Object o) { // 
         aThis.C.visit(this, null);
+      
+        return(null);
+    }
+ public Object visitVarDeclarationBecomes(VarDeclarationBecomes aThis, Object o) { // 
+        aThis.E.visit(this, null);
+        aThis.I.visit(this, null);
       
         return(null);
     }

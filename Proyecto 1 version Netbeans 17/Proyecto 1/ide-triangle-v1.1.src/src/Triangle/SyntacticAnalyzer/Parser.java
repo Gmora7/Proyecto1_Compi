@@ -98,6 +98,7 @@ import Triangle.AbstractSyntaxTrees.RepeatCommand;
 import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
 import Triangle.AbstractSyntaxTrees.UntilCommand;
+import Triangle.AbstractSyntaxTrees.VarDeclarationBecomes;
 
 public class Parser {
 
@@ -931,6 +932,46 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 //      return declarationAST;
 //   }
   
+  Declaration parseProcFunc() throws SyntaxError {
+    Declaration procFuncAST = null;
+    SourcePosition position = new SourcePosition();
+    start(position);
+
+    switch (currentToken.kind) {
+        case Token.PROC:
+            accept(Token.PROC);
+            Identifier iAST = parseIdentifier();
+            accept(Token.LPAREN);
+            FormalParameterSequence formalAST = parseFormalParameterSequence();
+            accept(Token.RPAREN);
+            accept(Token.IS);
+            Command cAST = parseCommand();
+            accept(Token.END);
+            finish(position);
+            procFuncAST = new ProcDeclaration(iAST, formalAST, cAST, position);
+            break;
+
+        case Token.FUNC:
+            accept(Token.FUNC);
+            Identifier identifierAST = parseIdentifier();
+            accept(Token.LPAREN);
+            FormalParameterSequence fpsAST = parseFormalParameterSequence();
+            accept(Token.RPAREN);
+            accept(Token.COLON);
+            TypeDenoter tAST = parseTypeDenoter();
+            accept(Token.IS);
+            Expression eAST = parseExpression();
+            finish(position);
+            procFuncAST = new FuncDeclaration(identifierAST, fpsAST, tAST, eAST, position);
+            break;
+
+        default:
+            syntacticError("Expected here a proc or func", currentToken.spelling);
+            break;
+    }
+
+    return procFuncAST;
+}
   Declaration parseSingleDeclaration() throws SyntaxError {
     Declaration declarationAST = null; // in case there's a syntactic error
 
@@ -954,10 +995,18 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
       {
         acceptIt();
         Identifier iAST = parseIdentifier();
-        accept(Token.COLON);
-        TypeDenoter tAST = parseTypeDenoter();
-        finish(declarationPos);
-        declarationAST = new VarDeclaration(iAST, tAST, declarationPos);
+        
+        if(currentToken.kind == Token.BECOMES){
+            acceptIt();
+            Expression eAST = parseExpression();
+            finish(declarationPos);
+            declarationAST = new VarDeclarationBecomes(iAST, eAST, declarationPos);
+        }
+        else{
+            syntacticError("Expected :=", currentToken.spelling);
+            
+        }
+   
       }
       break;
 
@@ -970,8 +1019,16 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         accept(Token.RPAREN);
         accept(Token.IS);
         Command cAST = parseSingleCommand();
-        finish(declarationPos);
-        declarationAST = new ProcDeclaration(iAST, fpsAST, cAST, declarationPos);
+        
+        if (currentToken.kind == Token.END) {
+            acceptIt();
+            finish(declarationPos);
+            declarationAST = new ProcDeclaration(iAST, fpsAST, cAST, declarationPos);
+        } 
+        else {
+        syntacticError("Expected end after the command", currentToken.spelling);
+        }
+       
       }
       break;
 
@@ -1007,7 +1064,6 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
       syntacticError("\"%\" cannot start a declaration",
         currentToken.spelling);
       break;
-
     }
     return declarationAST;
   }
