@@ -11,7 +11,7 @@
  * not be used for commercial purposes without the prior written permission
  * of the authors.
  */
-
+//Comentario prueba
 package Triangle.SyntacticAnalyzer;
 
 import Triangle.ErrorReporter;
