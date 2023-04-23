@@ -663,7 +663,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 
             Expression eAST = parseExpression();
 
-            DotDCommand ToAST = new DotDCommand(eAST, commandPos); //Preguntar por el ToCommand
+            DotDCommand ToAST = new DotDCommand(eAST, commandPos); 
             
             if(currentToken.kind == Token.DO){
                 acceptIt();
