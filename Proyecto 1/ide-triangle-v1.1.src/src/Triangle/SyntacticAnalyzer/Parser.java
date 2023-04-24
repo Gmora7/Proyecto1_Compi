@@ -562,27 +562,34 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         
         acceptIt();
         Expression eRpAST ;
-        eRpAST = parseExpression();
-        if(eRpAST != null){
+        
+        try {
+            System.out.println("Antes ");
+            eRpAST = parseExpression();
+            
             acceptIt();
             TimesCommand times = TimesDo(commandPos);
             // Crear el arbol final
 
             commandAST = new RepeatTimesCommand( times, commandPos);
+            
         }
-        else{
-                    switch(currentToken.kind){
+        
+        catch(Exception e) {
+            System.out.println("Something went wrong.");
+            switch(currentToken.kind){
             // --------------------------------> Caso 1 <--------------------------------
             // "repeat" "while" Expression "do" Command "end"
             
             case Token.WHILE: {
+                System.out.println("WHILE");
                 // Crear el primer arbol
                 acceptIt();
                 WhileCommand While = whileDo(commandPos);
                 // Crear el arbol final
-               
+
                 commandAST = new RepeatCommand( While, commandPos);
-           
+
                 break;
             }
             // --------------------------------> Caso 2 <--------------------------------
@@ -595,14 +602,14 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
                 break;
             }
             // --------------------------------> Caso 3 <--------------------------------
-            
+
             case Token.DO: {
                 acceptIt();
                 Command cAST = parseCommand();
-               
+
                 DoCommand DoAST;
                 DoAST = new DoCommand(cAST, commandPos);
-                
+
                 //Verificar si es mejor cambiar a if 
                 switch (currentToken.kind) {
                     // "repeat" "do" Command "while" Expression "end"
@@ -623,12 +630,14 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
             }
                 break;
             }
-            
+
             default:
                 syntacticError("Expected 'while', 'do', 'until' or an expression after repeat", currentToken.spelling);
                 break;
         }
         }
+            
+        
         //Identifier iAST = parseIdentifierOpt();
        
     }
@@ -730,7 +739,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 
   Expression parseExpression() throws SyntaxError {
     Expression expressionAST = null; // in case there's a syntactic error
-
+ 
     SourcePosition expressionPos = new SourcePosition();
 
     start (expressionPos);
@@ -871,12 +880,14 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
       break;
 
     case Token.LPAREN:
+    {
       acceptIt();
       expressionAST = parseExpression();
       accept(Token.RPAREN);
-      break;
-
+    }
+    break;
     default:
+      System.out.println("Despues ");  
       syntacticError("\"%\" cannot start an expression",
         currentToken.spelling);
       break;
