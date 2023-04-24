@@ -697,6 +697,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
             syntacticError("Expected ':=' ",
                     "");
         }
+        break;
     }
     
     default:
@@ -1424,8 +1425,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         DoCommand DoAST;
         DoAST = new DoCommand(cAST, commandPos);
         
-        // End
-        System.out.println("_____________________--");
+        
         if(currentToken.kind == Token.END){
             
             acceptIt();
@@ -1443,6 +1443,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         
         return commandAST;
     }
+  
   private DoWhileCommand DoWhile(SourcePosition commandPos) throws SyntaxError {
         start(commandPos);
         DoWhileCommand commandAST = null;

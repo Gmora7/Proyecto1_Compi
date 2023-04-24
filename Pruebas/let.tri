@@ -1,0 +1,6 @@
+let
+  var n : Integer;
+  var x : Char
+in
+  n  := 1
+end

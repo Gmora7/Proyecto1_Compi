@@ -628,7 +628,7 @@ public class TreeVisitor implements Visitor {
     
     @Override
     public Object visitForBecomesAST(ForBecomesAST aThis, Object o) {
-        return(createTernary("Loop Command", aThis.ForBecomes, aThis.E, aThis.DoC));
+        return(createTernary("For Becomes Command", aThis.ForBecomes, aThis.E, aThis.DoC));
         
     }
     
@@ -654,6 +654,6 @@ public class TreeVisitor implements Visitor {
 
     @Override
     public Object visitDotDCommandAST(DotDCommand aThis, Object o) {
-        return(createUnary("To Command", aThis.CLC));
+        return(createUnary(" .. Command", aThis.CLC));
     }    
 }
