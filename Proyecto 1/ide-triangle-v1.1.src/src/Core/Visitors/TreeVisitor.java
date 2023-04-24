@@ -628,12 +628,8 @@ public class TreeVisitor implements Visitor {
     
     @Override
     public Object visitForBecomesAST(ForBecomesAST aThis, Object o) {
-        if(aThis.I == null){
-            return(createTernary("Loop Command", aThis.ForBecomes, aThis.E, aThis.DoC));
-        }
-        else{
-            return(createQuaternary("Loop Command",aThis.I, aThis.ForBecomes, aThis.E, aThis.DoC));
-        }
+        return(createTernary("Loop Command", aThis.ForBecomes, aThis.E, aThis.DoC));
+        
     }
     
     @Override

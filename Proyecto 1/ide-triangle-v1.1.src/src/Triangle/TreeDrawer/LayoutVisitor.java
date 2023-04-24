@@ -721,12 +721,9 @@ public class LayoutVisitor implements Visitor {
     
     @Override
     public Object visitForBecomesAST(ForBecomesAST aThis, Object o) {
-        if(aThis.I == null){
-            return(layoutTernary("Repeat Command", aThis.ForBecomes, aThis.E, aThis.DoC));
-        }
-        else{
-            return(layoutQuaternary("Repeat Command",aThis.I, aThis.ForBecomes, aThis.E, aThis.DoC));
-        }
+
+        return(layoutTernary("Repeat Command", aThis.ForBecomes, aThis.E, aThis.DoC));
+        
     }
 
     @Override

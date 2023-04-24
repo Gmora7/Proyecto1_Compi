@@ -6,24 +6,15 @@ package Triangle.AbstractSyntaxTrees;
 import Triangle.SyntacticAnalyzer.SourcePosition;
 /**
  *
- * @author Usuario
+ * @author Maria Jose
  */
 public class ForBecomesAST extends Command{
     public ForBecomesCommand ForBecomes;   
     public DotDCommand E;
     public DoCommand DoC;
-    public Identifier I;
     
-    public ForBecomesAST(Identifier iAST, ForBecomesCommand ForBecomesV, DotDCommand eAST, DoCommand Dovar, SourcePosition thePosition) {
+    public ForBecomesAST( ForBecomesCommand ForBecomesV, DotDCommand eAST, DoCommand Dovar, SourcePosition thePosition) {
         super (thePosition);
-        I = iAST;
-        ForBecomes = ForBecomesV;    
-        E = eAST;
-        DoC = Dovar;
-    }
-    public ForBecomesAST(ForBecomesCommand ForBecomesV, DotDCommand eAST, DoCommand Dovar, SourcePosition thePosition) {
-        super (thePosition);
-        I = null;
         ForBecomes = ForBecomesV;    
         E = eAST;
         DoC = Dovar;

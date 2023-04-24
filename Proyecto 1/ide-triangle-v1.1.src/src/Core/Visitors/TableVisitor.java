@@ -830,7 +830,6 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
     
     @Override
     public Object visitForBecomesAST(ForBecomesAST aThis, Object o) { 
-        aThis.I.visit(this, null);
         aThis.E.visit(this, null);
         aThis.ForBecomes.visit(this, null);
         aThis.DoC.visit(this, null);

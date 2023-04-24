@@ -646,47 +646,46 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
                                               commandPos);
         }
         else{
-            syntacticError("Token expected here",
-                    "");
+            syntacticError("Token expected here",currentToken.spelling);
         }
         break;
     }
     
     case Token.FOR: {
         acceptIt();
-        Identifier iAST = parseIdentifier();
+        Identifier iASTF = parseIdentifier();
         if (currentToken.kind == Token.BECOMES){
             acceptIt();
-            ForBecomesCommand ForBecomesAST = ParseForBecomesCommand(commandPos, iAST);
+            ForBecomesCommand ForBecomesAST = ParseForBecomesCommand(commandPos, iASTF);
 
             accept(Token.DOTDOT);
 
             Expression eAST = parseExpression();
 
-            DotDCommand ToAST = new DotDCommand(eAST, commandPos); 
+            DotDCommand DDoAST ;
+            DDoAST = new DotDCommand(eAST, commandPos); 
             
             if(currentToken.kind == Token.DO){
                 acceptIt();
-                DoCommand DoAST2 = ParseDoCommand(commandPos);
-                commandAST = new ForBecomesAST(iAST, ForBecomesAST, ToAST, DoAST2, commandPos);
+                DoCommand ForDoAST = ParseDoCommand(commandPos);
+                commandAST = new ForBecomesAST( ForBecomesAST, DDoAST, ForDoAST, commandPos);
             }
             else if (currentToken.kind == Token.WHILE){
                 acceptIt();
                 
                 WhileCommand WhileAST = whileDo(commandPos);
                 
-                commandAST = new RepeatForWhile(iAST, ForBecomesAST,ToAST, WhileAST, commandPos);
+                commandAST = new RepeatForWhile( ForBecomesAST,DDoAST, WhileAST, commandPos);
             }
             else if (currentToken.kind == Token.UNTIL) {
                 acceptIt();
             
                 UntilCommand UntilAST = UntilDo(commandPos);
 
-                commandAST = new RepeatForUntil(iAST, ForBecomesAST,ToAST, UntilAST, commandPos);
+                commandAST = new RepeatForUntil(iASTF, ForBecomesAST,DDoAST, UntilAST, commandPos);
             }
             else{
-                syntacticError("Expected 'do', 'while' or 'until' ",
-                    "");
+                syntacticError("Expected 'do', 'while' or 'until' ",currentToken.spelling);
             }
         }
         else if (currentToken.kind == Token.IN){
@@ -944,8 +943,10 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 
     SourcePosition declarationPos = new SourcePosition();
     start(declarationPos);
-    //declarationAST = parseCompoundDeclaration(); -> agregar
-    declarationAST = parseSingleDeclaration();
+    declarationAST = parseCompoundDeclaration(); 
+    
+    
+    //declarationAST = parseSingleDeclaration();
     while (currentToken.kind == Token.SEMICOLON) {
       acceptIt();
       Declaration d2AST = parseSingleDeclaration();
@@ -956,43 +957,42 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     return declarationAST;
   }
     //Revisar 
-//  Declaration parseCompoundDeclaration() throws SyntaxError{
-//      //Aqui se hace un single declaration a partir del declaration
-//      //que se necesita.
-//      Declaration declarationAST = null;
-//      SourcePosition position = new SourcePosition();
-//      start(position);
-//      switch(currentToken.kind){
-//          case Token.CONST:
-//          case Token.VAR:
-//          case Token.PROC:
-//          case Token.FUNC:
-//          case Token.TYPE:
-//              declarationAST = parseSingleDeclaration();
-//              finish(position);
-//              break;
-//          case Token.REC:
-//              acceptIt();
-//              declarationAST = parseProcFuncs();
-//              accept(Token.END);
-//              finish(position);
-//              break;
-//          case Token.LOCAL:
-//              acceptIt();
-//              Declaration dAST = parseDeclaration();
-//              accept(Token.IN);
-//              Declaration dAST2 = parseDeclaration();
-//              accept(Token.END);
-//              finish(position);
-//              declarationAST = new LocalDeclaration(dAST, dAST2, position);
-//              break;
-//          default:
-//              syntacticError("\"%\" cannot start a declaration.",
-//                             currentToken.spelling);
-//              break;
-//      }
-//      return declarationAST;
-//   }
+  Declaration parseCompoundDeclaration() throws SyntaxError{
+
+      Declaration declarationAST = null;
+      SourcePosition position = new SourcePosition();
+      start(position);
+      switch(currentToken.kind){
+          case Token.CONST:
+          case Token.VAR:
+          case Token.PROC:
+          case Token.FUNC:
+          case Token.TYPE:
+              declarationAST = parseSingleDeclaration();
+              finish(position);
+              break;
+          case Token.REC:
+              acceptIt();
+              declarationAST = parseProcFunc();
+              accept(Token.END);
+              finish(position);
+              break;
+          case Token.PRIVATE:
+              acceptIt();
+              Declaration dAST = parseDeclaration();
+              accept(Token.IN);
+              Declaration dAST2 = parseDeclaration();
+              accept(Token.END);
+              finish(position);
+              declarationAST = new PrivateDeclaration(dAST, dAST2, position);
+              break;
+          default:
+              syntacticError("\"%\" cannot start a declaration.",
+                             currentToken.spelling);
+              break;
+      }
+      return declarationAST;
+   }
   
   Declaration parseProcFunc() throws SyntaxError {
     Declaration procFuncAST = null;
@@ -1509,12 +1509,12 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         // Retornar el arbol
         return commandAST;}
   
-  private ForBecomesCommand ParseForBecomesCommand(SourcePosition commandPos, Identifier iAST) throws SyntaxError {
+  private ForBecomesCommand ParseForBecomesCommand(SourcePosition commandPos, Identifier iASTF) throws SyntaxError {
         start(commandPos);
         ForBecomesCommand commandAST = null;
         Expression eAST = parseExpression();
         finish(commandPos);
-        commandAST = new ForBecomesCommand(iAST, eAST, commandPos);
+        commandAST = new ForBecomesCommand(iASTF, eAST, commandPos);
         return commandAST;
     }
   
