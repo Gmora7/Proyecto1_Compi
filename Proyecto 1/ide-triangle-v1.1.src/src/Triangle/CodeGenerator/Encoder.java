@@ -118,6 +118,8 @@ import Triangle.AbstractSyntaxTrees.ForBecomesAST;
 import Triangle.AbstractSyntaxTrees.ForBecomesCommand;
 import Triangle.AbstractSyntaxTrees.RepeatForUntil;
 import Triangle.AbstractSyntaxTrees.RepeatForWhile;
+import Triangle.AbstractSyntaxTrees.TimesCommand;
+import Triangle.AbstractSyntaxTrees.RepeatTimesCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
@@ -195,6 +197,20 @@ public final class Encoder implements Visitor {
     emit(Machine.JUMPIFop, Machine.trueRep, Machine.CBr, loopAddr);
     return null;
   }
+  public Object visitTimesCommand(TimesCommand ast, Object o) {
+    Frame frame = (Frame) o;
+    int jumpAddr, loopAddr;
+
+    jumpAddr = nextInstrAddr;
+    emit(Machine.JUMPop, 0, Machine.CBr, 0);
+    loopAddr = nextInstrAddr;
+    ast.C.visit(this, frame);
+    patch(jumpAddr, nextInstrAddr);
+
+    emit(Machine.JUMPIFop, Machine.trueRep, Machine.CBr, loopAddr);
+    return null;
+  }  
+  
  public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object O){
        return null;
     }
@@ -1119,6 +1135,11 @@ public final class Encoder implements Visitor {
     public Object visitRepeatCommand(RepeatCommand aThis, Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public Object visitRepeatTimesCommand(RepeatTimesCommand aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }    
     
     @Override
     public Object visitRepeatUntilAST(RepeatUntilAST aThis, Object o) {

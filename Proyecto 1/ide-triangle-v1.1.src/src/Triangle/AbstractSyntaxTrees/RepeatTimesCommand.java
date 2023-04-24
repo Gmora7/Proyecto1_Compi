@@ -5,23 +5,24 @@
 package Triangle.AbstractSyntaxTrees;
 
 import Triangle.SyntacticAnalyzer.SourcePosition;
+
 /**
  *
- * @author gmora
+ * @author Maria Jose
  */
-public class RepeatCommand extends Command{
+public class RepeatTimesCommand extends Command{
 
     
-    public RepeatCommand (WhileCommand While, SourcePosition thePosition) {
+    public RepeatTimesCommand (TimesCommand Times, SourcePosition thePosition) {
     super (thePosition);
-    WhileC = While;
+    TimesC = Times;
   }
 
 
      public Object visit(Visitor v, Object o) {
-    return v.visitRepeatCommand(this, o);
+    return v.visitRepeatTimesCommand(this, o);
   }
      
-  public WhileCommand WhileC;
+  public TimesCommand TimesC;
 
 }

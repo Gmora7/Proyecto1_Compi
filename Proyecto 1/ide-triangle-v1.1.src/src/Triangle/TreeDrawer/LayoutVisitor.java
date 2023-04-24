@@ -109,6 +109,8 @@ import Triangle.AbstractSyntaxTrees.ForBecomesAST;
 import Triangle.AbstractSyntaxTrees.ForBecomesCommand;
 import Triangle.AbstractSyntaxTrees.RepeatForUntil;
 import Triangle.AbstractSyntaxTrees.RepeatForWhile;
+import Triangle.AbstractSyntaxTrees.TimesCommand;
+import Triangle.AbstractSyntaxTrees.RepeatTimesCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
@@ -153,6 +155,9 @@ public class LayoutVisitor implements Visitor {
     return layoutBinary("WhileCom.", ast.E, ast.C);
   }
 
+  public Object visitTimesCommand(TimesCommand ast, Object obj) {
+    return layoutUnary("Times Command", ast.C);
+  }
 
   // Expressions
   public Object visitArrayExpression(ArrayExpression ast, Object obj) {
@@ -672,6 +677,12 @@ public class LayoutVisitor implements Visitor {
     @Override
     public Object visitRepeatCommand(RepeatCommand aThis, Object o) {
         return(layoutUnary("Repeat Command", aThis.WhileC));
+        
+    }
+    
+    @Override
+    public Object visitRepeatTimesCommand(RepeatTimesCommand aThis, Object o) {
+        return(layoutUnary("Repeat Times Command", aThis.TimesC));
         
     }
     @Override

@@ -97,6 +97,8 @@ import Triangle.AbstractSyntaxTrees.ForBecomesAST;
 import Triangle.AbstractSyntaxTrees.ForBecomesCommand;
 import Triangle.AbstractSyntaxTrees.RepeatForUntil;
 import Triangle.AbstractSyntaxTrees.RepeatForWhile;
+import Triangle.AbstractSyntaxTrees.TimesCommand;
+import Triangle.AbstractSyntaxTrees.RepeatTimesCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
@@ -159,6 +161,9 @@ public class TreeVisitor implements Visitor {
         return(createBinary("While Do Command", ast.E, ast.C));
     }
 
+    public Object visitTimesCommand(TimesCommand ast, Object obj) {
+        return(createUnary("Times Command", ast.C));
+    }
     //
     public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object obj){
         if(ast.CL == null)
@@ -655,5 +660,11 @@ public class TreeVisitor implements Visitor {
     @Override
     public Object visitDotDCommandAST(DotDCommand aThis, Object o) {
         return(createUnary(" .. Command", aThis.CLC));
-    }    
+    }
+
+    @Override
+    public Object visitRepeatTimesCommand(RepeatTimesCommand ast, Object o) {
+        
+        return (createUnary("Repeat Times Command", ast.TimesC)); 
+    }
 }

@@ -114,6 +114,8 @@ import Triangle.AbstractSyntaxTrees.ForBecomesAST;
 import Triangle.AbstractSyntaxTrees.ForBecomesCommand;
 import Triangle.AbstractSyntaxTrees.RepeatForUntil;
 import Triangle.AbstractSyntaxTrees.RepeatForWhile;
+import Triangle.AbstractSyntaxTrees.TimesCommand;
+import Triangle.AbstractSyntaxTrees.RepeatTimesCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
@@ -251,6 +253,11 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     return null;
   }
 
+    public Object visitTimesCommand(TimesCommand ast, Object o) {
+    
+    ast.C.visit(this, null);
+    return null;
+  }
 
   // Expressions
 
@@ -1054,6 +1061,11 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     @Override
     public Object visitRepeatCommand(RepeatCommand aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    @Override
+    public Object visitRepeatTimesCommand(RepeatTimesCommand aThis, Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

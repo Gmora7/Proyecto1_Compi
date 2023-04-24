@@ -105,6 +105,8 @@ import Triangle.AbstractSyntaxTrees.ForBecomesAST;
 import Triangle.AbstractSyntaxTrees.ForBecomesCommand;
 import Triangle.AbstractSyntaxTrees.RepeatForUntil;
 import Triangle.AbstractSyntaxTrees.RepeatForWhile;
+import Triangle.AbstractSyntaxTrees.TimesCommand;
+import Triangle.AbstractSyntaxTrees.RepeatTimesCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
@@ -559,8 +561,17 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     case Token.REPEAT:{
         
         acceptIt();
-        Identifier iAST = parseIdentifierOpt();
-        switch(currentToken.kind){
+        Expression eRpAST ;
+        eRpAST = parseExpression();
+        if(eRpAST != null){
+            acceptIt();
+            TimesCommand times = TimesDo(commandPos);
+            // Crear el arbol final
+
+            commandAST = new RepeatTimesCommand( times, commandPos);
+        }
+        else{
+                    switch(currentToken.kind){
             // --------------------------------> Caso 1 <--------------------------------
             // "repeat" "while" Expression "do" Command "end"
             
@@ -570,7 +581,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
                 WhileCommand While = whileDo(commandPos);
                 // Crear el arbol final
                
-                commandAST = new RepeatCommand( iAST,While, commandPos);
+                commandAST = new RepeatCommand( While, commandPos);
            
                 break;
             }
@@ -580,7 +591,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
             case Token.UNTIL: {
                 acceptIt();
                 UntilCommand UntilAST = UntilDo(commandPos);
-                commandAST = new RepeatUntilAST(iAST, UntilAST, commandPos);
+                commandAST = new RepeatUntilAST( UntilAST, commandPos);
                 break;
             }
             // --------------------------------> Caso 3 <--------------------------------
@@ -598,13 +609,13 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
                     case Token.WHILE:
                         acceptIt();
                         DoWhileCommand WhileAST = DoWhile(commandPos); 
-                        commandAST = new RepeatDoWhileAST(iAST, DoAST, WhileAST, commandPos);
+                        commandAST = new RepeatDoWhileAST(DoAST, WhileAST, commandPos);
                         break;
                     // "repeat" "do" Command "until" Expression "end"    
                     case Token.UNTIL:
                         acceptIt();
                         DoUntilCommand UntilAST = DoUntil(commandPos);
-                        commandAST = new RepeatDoUntilAST(iAST, DoAST, UntilAST, commandPos);
+                        commandAST = new RepeatDoUntilAST( DoAST, UntilAST, commandPos);
                         break;
                     default:
                         syntacticError("Expected 'while' or 'until' after the command", currentToken.spelling);
@@ -617,6 +628,8 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
                 syntacticError("Expected 'while', 'do', 'until' or an expression after repeat", currentToken.spelling);
                 break;
         }
+        }
+        //Identifier iAST = parseIdentifierOpt();
        
     }
     break;
@@ -754,7 +767,22 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     }
     return expressionAST;
   }
-
+//  Expression parseExpressionOpt() throws SyntaxError {
+//    Expression E = null;
+//    SourcePosition expressionPos = new SourcePosition();
+//
+//    start (expressionPos);
+//    if (currentToken.kind != Token.) {
+//      previousTokenPosition = currentToken.position;
+//      String spelling = currentToken.spelling;
+//      E = new Expression(spelling, previousTokenPosition);
+//      currentToken = lexicalAnalyser.scan();
+//    } else {
+//      E = null;
+//    }
+//    return E;
+//  }
+  
   Expression parseSecondaryExpression() throws SyntaxError {
     Expression expressionAST = null; // in case there's a syntactic error
 
@@ -1529,7 +1557,37 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         commandAST = new DoCommand(cAST, commandPos);
         return commandAST;
     }
-  
+  private TimesCommand TimesDo(SourcePosition commandPos) throws SyntaxError{
+        
+        start(commandPos);
+        TimesCommand TcommandAST = null;
+        
+        // Aceptar el command
+        accept(Token.DO);
+        Command cAST = parseCommand();
+        
+        // Crear AST del Do
+        DoCommand DoAST;
+        DoAST = new DoCommand(cAST, commandPos);
+        
+        
+        if(currentToken.kind == Token.END){
+            
+            acceptIt();
+            finish(commandPos);
+            TcommandAST = new TimesCommand ( DoAST, commandPos);
+            
+        }
+       
+        // Error
+        else{
+            syntacticError("Expected END here", currentToken.spelling);
+        }
+        
+        // Retornar el arbol}
+        
+        return TcommandAST;
+    }  
   Command parseBarThen() throws SyntaxError {
 
   Command commandAST = null; 

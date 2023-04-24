@@ -25,7 +25,9 @@ public interface Visitor {
   public abstract Object visitDoCommandAST(DoCommand aThis, Object o);
   public abstract Object visitSequentialCommand(SequentialCommand ast, Object o);
   public abstract Object visitWhileCommand(WhileCommand ast, Object o);
+  public abstract Object visitTimesCommand(TimesCommand ast, Object o);  
   public abstract Object visitRepeatCommand(RepeatCommand aThis, Object o);
+  public abstract Object visitRepeatTimesCommand(RepeatTimesCommand aThis, Object o);
   public abstract Object visitRepeatUntilAST(RepeatUntilAST aThis, Object o);
   public abstract Object visitUntilCommand(UntilCommand aThis, Object o);
   public abstract Object visitDoWhileCommand(DoWhileCommand aThis, Object o);

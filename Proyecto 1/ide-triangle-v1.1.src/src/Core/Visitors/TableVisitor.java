@@ -98,6 +98,8 @@ import Triangle.AbstractSyntaxTrees.ForBecomesAST;
 import Triangle.AbstractSyntaxTrees.ForBecomesCommand;
 import Triangle.AbstractSyntaxTrees.RepeatForUntil;
 import Triangle.AbstractSyntaxTrees.RepeatForWhile;
+import Triangle.AbstractSyntaxTrees.TimesCommand;
+import Triangle.AbstractSyntaxTrees.RepeatTimesCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
@@ -195,7 +197,12 @@ public class TableVisitor implements Visitor {
       
       return(null);
   }
-  
+
+  public Object visitTimesCommand(TimesCommand ast, Object o) { 
+      ast.C.visit(this, null);
+      
+      return(null);
+  }  
 //
 public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object o) { 
     ast.CL.visit(this, null);
@@ -772,7 +779,6 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
     @Override
     public Object visitRepeatCommand(RepeatCommand aThis, Object o) {
         
-        aThis.Identifier.visit(this, null);
         aThis.WhileC.visit(this, null);
         return(null);
     }
@@ -864,6 +870,11 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
         return(null);
     }
     
-    
+    @Override
+    public Object visitRepeatTimesCommand(RepeatTimesCommand aThis, Object o) {
+        
+        aThis.TimesC.visit(this, null);
+        return(null);
+    }
 
 }
