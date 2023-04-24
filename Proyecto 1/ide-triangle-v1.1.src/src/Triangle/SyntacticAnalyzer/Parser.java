@@ -1057,18 +1057,15 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
       {
         acceptIt();
         Identifier iAST = parseIdentifier();
-        
-        if(currentToken.kind == Token.BECOMES){
+        if(currentToken.kind == Token.COLON ||currentToken.kind == Token.BECOMES ){
             acceptIt();
-            Expression eAST = parseExpression();
+            TypeDenoter tAST = parseTypeDenoter();
             finish(declarationPos);
-            declarationAST = new VarDeclarationBecomes(iAST, eAST, declarationPos);
+            declarationAST = new VarDeclaration(iAST, tAST, declarationPos);   
         }
         else{
-            syntacticError("Expected :=", currentToken.spelling);
-            
+            syntacticError("Expected ':' or ':='", currentToken.spelling);
         }
-   
       }
       break;
 
