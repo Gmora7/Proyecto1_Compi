@@ -562,80 +562,79 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         
         acceptIt();
         Expression eRpAST ;
-        
-        try {
-            System.out.println("Antes ");
-            eRpAST = parseExpression();
-            
+    
+        System.out.println("Something went wrong.");
+        switch(currentToken.kind){
+        // --------------------------------> Caso 1 <--------------------------------
+        // "repeat" "while" Expression "do" Command "end"
+
+        case Token.WHILE: {
+            System.out.println("WHILE");
+            // Crear el primer arbol
             acceptIt();
+            WhileCommand While = whileDo(commandPos);
+            // Crear el arbol final
+
+            commandAST = new RepeatCommand( While, commandPos);
+
+            break;
+        }
+        // --------------------------------> Caso 2 <--------------------------------
+        // "repeat" "until" Expression "do" Command "end"
+
+        case Token.UNTIL: {
+            acceptIt();
+            UntilCommand UntilAST = UntilDo(commandPos);
+            commandAST = new RepeatUntilAST( UntilAST, commandPos);
+            break;
+        }
+        // --------------------------------> Caso 3 <--------------------------------
+
+        case Token.DO: {
+            acceptIt();
+            Command cAST = parseCommand();
+
+            DoCommand DoAST;
+            DoAST = new DoCommand(cAST, commandPos);
+
+            //Verificar si es mejor cambiar a if 
+            switch (currentToken.kind) {
+                // "repeat" "do" Command "while" Expression "end"
+                case Token.WHILE:
+                    acceptIt();
+                    DoWhileCommand WhileAST = DoWhile(commandPos); 
+                    commandAST = new RepeatDoWhileAST(DoAST, WhileAST, commandPos);
+                    break;
+                // "repeat" "do" Command "until" Expression "end"    
+                case Token.UNTIL:
+                    acceptIt();
+                    DoUntilCommand UntilAST = DoUntil(commandPos);
+                    commandAST = new RepeatDoUntilAST( DoAST, UntilAST, commandPos);
+                    break;
+                default:
+                    syntacticError("Expected 'while' or 'until' after the command", currentToken.spelling);
+                    break;
+        }
+            break;
+        }
+        case Token.TIMES:{
+//            acceptIt();
+
+            eRpAST = parseExpression();
+
+//            acceptIt();
             TimesCommand times = TimesDo(commandPos);
             // Crear el arbol final
 
             commandAST = new RepeatTimesCommand( times, commandPos);
-            
-        }
+
+
+            }
+        default:
+            syntacticError("Expected 'while', 'do', 'until' or an expression after repeat", currentToken.spelling);
+            break;
+    }
         
-        catch(Exception e) {
-            System.out.println("Something went wrong.");
-            switch(currentToken.kind){
-            // --------------------------------> Caso 1 <--------------------------------
-            // "repeat" "while" Expression "do" Command "end"
-            
-            case Token.WHILE: {
-                System.out.println("WHILE");
-                // Crear el primer arbol
-                acceptIt();
-                WhileCommand While = whileDo(commandPos);
-                // Crear el arbol final
-
-                commandAST = new RepeatCommand( While, commandPos);
-
-                break;
-            }
-            // --------------------------------> Caso 2 <--------------------------------
-            // "repeat" "until" Expression "do" Command "end"
-
-            case Token.UNTIL: {
-                acceptIt();
-                UntilCommand UntilAST = UntilDo(commandPos);
-                commandAST = new RepeatUntilAST( UntilAST, commandPos);
-                break;
-            }
-            // --------------------------------> Caso 3 <--------------------------------
-
-            case Token.DO: {
-                acceptIt();
-                Command cAST = parseCommand();
-
-                DoCommand DoAST;
-                DoAST = new DoCommand(cAST, commandPos);
-
-                //Verificar si es mejor cambiar a if 
-                switch (currentToken.kind) {
-                    // "repeat" "do" Command "while" Expression "end"
-                    case Token.WHILE:
-                        acceptIt();
-                        DoWhileCommand WhileAST = DoWhile(commandPos); 
-                        commandAST = new RepeatDoWhileAST(DoAST, WhileAST, commandPos);
-                        break;
-                    // "repeat" "do" Command "until" Expression "end"    
-                    case Token.UNTIL:
-                        acceptIt();
-                        DoUntilCommand UntilAST = DoUntil(commandPos);
-                        commandAST = new RepeatDoUntilAST( DoAST, UntilAST, commandPos);
-                        break;
-                    default:
-                        syntacticError("Expected 'while' or 'until' after the command", currentToken.spelling);
-                        break;
-            }
-                break;
-            }
-
-            default:
-                syntacticError("Expected 'while', 'do', 'until' or an expression after repeat", currentToken.spelling);
-                break;
-        }
-        }
             
         
         //Identifier iAST = parseIdentifierOpt();
