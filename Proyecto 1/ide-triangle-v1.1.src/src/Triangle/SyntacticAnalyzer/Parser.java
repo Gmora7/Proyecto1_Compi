@@ -660,10 +660,10 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 
             accept(Token.DOTDOT);
 
-            Expression eAST = parseExpression();
+            Expression eASTF = parseExpression();
 
             DotDCommand DDoAST ;
-            DDoAST = new DotDCommand(eAST, commandPos); 
+            DDoAST = new DotDCommand(eASTF, commandPos); 
             
             if(currentToken.kind == Token.DO){
                 acceptIt();
@@ -682,18 +682,19 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
             
                 UntilCommand UntilAST = UntilDo(commandPos);
 
-                commandAST = new RepeatForUntil(iASTF, ForBecomesAST,DDoAST, UntilAST, commandPos);
+                commandAST = new RepeatForUntil(ForBecomesAST,DDoAST, UntilAST, commandPos);
             }
             else{
                 syntacticError("Expected 'do', 'while' or 'until' ",currentToken.spelling);
             }
+            break;
         }
         else if (currentToken.kind == Token.IN){
             
         }
         else{
             //Cambiar error si se agrega el for in completo
-            syntacticError("Expected 'from' ",
+            syntacticError("Expected ':=' ",
                     "");
         }
     }
