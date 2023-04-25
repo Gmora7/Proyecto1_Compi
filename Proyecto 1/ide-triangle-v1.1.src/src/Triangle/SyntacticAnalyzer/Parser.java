@@ -559,17 +559,18 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 //  Reapeat 
       
     case Token.REPEAT:{
-        
         acceptIt();
-        Expression eRpAST ;
-    
-        System.out.println("Something went wrong.");
+        Expression expressionAST = null;
+        SourcePosition expressionPos = new SourcePosition();
+        start(expressionPos);
+        
+        
+
         switch(currentToken.kind){
         // --------------------------------> Caso 1 <--------------------------------
         // "repeat" "while" Expression "do" Command "end"
 
         case Token.WHILE: {
-            System.out.println("WHILE");
             // Crear el primer arbol
             acceptIt();
             WhileCommand While = whileDo(commandPos);
@@ -617,29 +618,133 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         }
             break;
         }
-        case Token.TIMES:{
-//            acceptIt();
+        
+        
 
-            eRpAST = parseExpression();
-
-//            acceptIt();
+       //
+        
+        case Token.INTLITERAL:
+      {
+        IntegerLiteral ilAST = parseIntegerLiteral();
+        finish(expressionPos);
+        expressionAST = new IntegerExpression(ilAST, expressionPos);
+        
+        if(currentToken.kind == Token.TIMES){
+            acceptIt();
+            
             TimesCommand times = TimesDo(commandPos);
             // Crear el arbol final
 
             commandAST = new RepeatTimesCommand( times, commandPos);
 
+            
+            }
+         break;
+      }
+     
+
+        case Token.CHARLITERAL:
+          {
+            CharacterLiteral clAST= parseCharacterLiteral();
+            finish(expressionPos);
+            expressionAST = new CharacterExpression(clAST, expressionPos);
+            if(currentToken.kind == Token.TIMES){
+                acceptIt();
+                TimesCommand times = TimesDo(commandPos);
+            // Crear el arbol final
+
+                commandAST = new RepeatTimesCommand( times, commandPos);
+
+            
+            }
+           break;
+          }
+          
+
+        case Token.LBRACKET:
+          {
+            acceptIt();
+            ArrayAggregate aaAST = parseArrayAggregate();
+            accept(Token.RBRACKET);
+            finish(expressionPos);
+            expressionAST = new ArrayExpression(aaAST, expressionPos);
+            if(currentToken.kind == Token.TIMES){
+                acceptIt();
+                TimesCommand times = TimesDo(commandPos);
+            // Crear el arbol final
+                commandAST = new RepeatTimesCommand( times, commandPos);
+
+            
+            }
+             break;
+          }
+          
+
+        case Token.LCURLY:
+          {
+            acceptIt();
+            RecordAggregate raAST = parseRecordAggregate();
+            accept(Token.RCURLY);
+            finish(expressionPos);
+            expressionAST = new RecordExpression(raAST, expressionPos);
+            if(currentToken.kind == Token.TIMES){
+                acceptIt();
+
+                TimesCommand times = TimesDo(commandPos);
+            // Crear el arbol final
+
+                commandAST = new RepeatTimesCommand( times, commandPos);
+
+            
+            }
+             break;
+          }
+        
+
+
+        case Token.OPERATOR:
+          {
+            Operator opAST = parseOperator();
+            Expression eAST = parsePrimaryExpression();
+            finish(expressionPos);
+            expressionAST = new UnaryExpression(opAST, eAST, expressionPos);
+            if(currentToken.kind == Token.TIMES){
+                acceptIt();
+                TimesCommand times = TimesDo(commandPos);
+            // Crear el arbol final
+
+                commandAST = new RepeatTimesCommand( times, commandPos);
+
+            
+            }
+             break;
+          }
+          
+
+        case Token.LPAREN:{
+          acceptIt();
+          expressionAST = parseExpression();
+          accept(Token.RPAREN);
+          if(currentToken.kind == Token.TIMES){
+              acceptIt();
+              TimesCommand times = TimesDo(commandPos);
+            // Crear el arbol final
+              commandAST = new RepeatTimesCommand( times, commandPos);
 
             }
+           break;
+        }
+
+        ////////////
+   
         default:
             syntacticError("Expected 'while', 'do', 'until' or an expression after repeat", currentToken.spelling);
             break;
     }
-        
-            
-        
-        //Identifier iAST = parseIdentifierOpt();
+    
        
     }
+    
     break;
     
     //-------------------- SELECT ---------------------------------
@@ -726,7 +831,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         currentToken.spelling);
       break;
     }
-    System.out.println(commandAST.toString());
+
     return commandAST;
   }
 
@@ -886,7 +991,6 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     }
     break;
     default:
-      System.out.println("Despues ");  
       syntacticError("\"%\" cannot start an expression",
         currentToken.spelling);
       break;

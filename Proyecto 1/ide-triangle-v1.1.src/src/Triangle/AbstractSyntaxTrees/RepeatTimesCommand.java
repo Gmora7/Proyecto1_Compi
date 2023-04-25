@@ -13,7 +13,12 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
 public class RepeatTimesCommand extends Command{
 
     
-    public RepeatTimesCommand (TimesCommand Times, SourcePosition thePosition) {
+    public RepeatTimesCommand (Expression eAST, TimesCommand Times, SourcePosition thePosition) {
+    super (thePosition);
+    E= eAST;
+    TimesC = Times;
+  }
+public RepeatTimesCommand (TimesCommand Times, SourcePosition thePosition) {
     super (thePosition);
     TimesC = Times;
   }
@@ -22,7 +27,7 @@ public class RepeatTimesCommand extends Command{
      public Object visit(Visitor v, Object o) {
     return v.visitRepeatTimesCommand(this, o);
   }
-     
+  public Expression E;
   public TimesCommand TimesC;
 
 }
