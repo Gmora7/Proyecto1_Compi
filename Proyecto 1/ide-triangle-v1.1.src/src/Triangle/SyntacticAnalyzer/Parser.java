@@ -635,7 +635,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
             TimesCommand times = TimesDo(commandPos);
             // Crear el arbol final
 
-            commandAST = new RepeatTimesCommand( times, commandPos);
+            commandAST = new RepeatTimesCommand(expressionAST, times, commandPos);
 
             
             }
@@ -653,7 +653,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
                 TimesCommand times = TimesDo(commandPos);
             // Crear el arbol final
 
-                commandAST = new RepeatTimesCommand( times, commandPos);
+                commandAST = new RepeatTimesCommand( expressionAST,times, commandPos);
 
             
             }
@@ -672,7 +672,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
                 acceptIt();
                 TimesCommand times = TimesDo(commandPos);
             // Crear el arbol final
-                commandAST = new RepeatTimesCommand( times, commandPos);
+                commandAST = new RepeatTimesCommand( expressionAST,times, commandPos);
 
             
             }
@@ -693,7 +693,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
                 TimesCommand times = TimesDo(commandPos);
             // Crear el arbol final
 
-                commandAST = new RepeatTimesCommand( times, commandPos);
+                commandAST = new RepeatTimesCommand( expressionAST,times, commandPos);
 
             
             }
@@ -713,7 +713,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
                 TimesCommand times = TimesDo(commandPos);
             // Crear el arbol final
 
-                commandAST = new RepeatTimesCommand( times, commandPos);
+                commandAST = new RepeatTimesCommand( expressionAST,times, commandPos);
 
             
             }
@@ -729,7 +729,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
               acceptIt();
               TimesCommand times = TimesDo(commandPos);
             // Crear el arbol final
-              commandAST = new RepeatTimesCommand( times, commandPos);
+              commandAST = new RepeatTimesCommand( expressionAST,times, commandPos);
 
             }
            break;
