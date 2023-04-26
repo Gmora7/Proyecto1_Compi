@@ -97,7 +97,6 @@ import Triangle.AbstractSyntaxTrees.SingleCaseRange;
 import Triangle.AbstractSyntaxTrees.MultipleCaseRange;
 import Triangle.AbstractSyntaxTrees.RepeatCommand;
 import Triangle.AbstractSyntaxTrees.SelectCommand;
-import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
 import Triangle.AbstractSyntaxTrees.UntilCommand;
 import Triangle.AbstractSyntaxTrees.DoUntilCommand;
 import Triangle.AbstractSyntaxTrees.VarDeclarationBecomes;
@@ -110,6 +109,7 @@ import Triangle.AbstractSyntaxTrees.RepeatTimesCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
+import Triangle.AbstractSyntaxTrees.DotDCommandLiteral;
 
 public class Parser {
 
@@ -363,12 +363,12 @@ public class Parser {
     start(commandPos); 
     CaseLiteralCommand c2AST = parseCaseLiteral();
     
-    if (currentToken.kind == Token.TO) {
+    if (currentToken.kind == Token.DOTDOT) {
         acceptIt();
         CaseLiteralCommand c3AST = parseCaseLiteral();
-        ToCommandLiteral toCommandLiteralAST = new ToCommandLiteral(c3AST, commandPos);
+        DotDCommandLiteral DotDCommandLiteralAST = new DotDCommandLiteral(c3AST, commandPos);
         finish(commandPos);
-        caseRangeCommandAST = new CaseRangeCommand(c2AST, toCommandLiteralAST, commandPos);
+        caseRangeCommandAST = new CaseRangeCommand(c2AST, DotDCommandLiteralAST, commandPos);
     } else if (currentToken.kind != Token.THEN && currentToken.kind != Token.BAR) {
         caseRangeCommandAST = null; 
         syntacticError("character literal or integer literal expected here", "");  

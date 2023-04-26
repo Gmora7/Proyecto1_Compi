@@ -39,7 +39,6 @@ public interface Visitor {
   public abstract Object visitCaseLiterals(CaseLiterals aThis, Object o);
   public abstract Object visitCaseRangeCommand(CaseRangeCommand aThis, Object o);
   public abstract Object visitCasesCommand(CasesCommand aThis, Object o);
-  public abstract Object visitToCommandLiteralAST(ToCommandLiteral aThis, Object o);
   public abstract Object visitVarDeclarationBecomes(VarDeclarationBecomes aThis, Object o);
   public abstract Object visitForBecomesCommand(ForBecomesCommand aThis, Object o);  
   public abstract Object visitForBecomesAST(ForBecomesAST aThis, Object o);
@@ -47,7 +46,9 @@ public interface Visitor {
   public abstract Object visitRepeatForUntil(RepeatForUntil aThis, Object o);  
   public abstract Object visitDotDCommandAST(DotDCommand aThis, Object o);
   public abstract Object visitDotDCommand2(DotDCommand2 aThis, Object o);  
-  public abstract Object visitPrivateDeclaration(PrivateDeclaration aThis, Object o);  
+  public abstract Object visitPrivateDeclaration(PrivateDeclaration aThis, Object o); 
+  public abstract Object visitDotDCommandLiteral(DotDCommandLiteral aThis, Object o);  
+  
   
 
   // Expressions

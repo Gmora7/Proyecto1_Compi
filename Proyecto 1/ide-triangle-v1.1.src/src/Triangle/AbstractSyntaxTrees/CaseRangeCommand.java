@@ -15,19 +15,19 @@ public class CaseRangeCommand extends Command{
     public CaseRangeCommand (CaseLiteralCommand clAST, SourcePosition thePosition){
         super(thePosition);
         CLC = clAST;
-        TCL = null;
+        DCL = null;
     }
 
-    public CaseRangeCommand (CaseLiteralCommand clAST, ToCommandLiteral tcAST, SourcePosition thePosition){
+    public CaseRangeCommand (CaseLiteralCommand clAST, DotDCommandLiteral tcAST, SourcePosition thePosition){
         super(thePosition);
         CLC = clAST;
-        TCL = tcAST;
+        DCL = tcAST;
     }
     
     public CaseRangeCommand (SourcePosition thePosition){
         super(thePosition);
         CLC = null;
-        TCL = null;
+        DCL = null;
     }
     
     public Object visit(Visitor v, Object o){
@@ -35,5 +35,5 @@ public class CaseRangeCommand extends Command{
     }
     
     public CaseLiteralCommand CLC;
-    public ToCommandLiteral TCL; 
+    public DotDCommandLiteral DCL; 
 }

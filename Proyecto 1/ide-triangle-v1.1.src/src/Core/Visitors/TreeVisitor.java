@@ -90,7 +90,6 @@ import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCases;
 import Triangle.AbstractSyntaxTrees.SingleThen;
 import Triangle.AbstractSyntaxTrees.ThenCommand;
-import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
 import Triangle.AbstractSyntaxTrees.UntilCommand;
 import Triangle.AbstractSyntaxTrees.VarDeclarationBecomes;
 import Triangle.AbstractSyntaxTrees.ForBecomesAST;
@@ -101,6 +100,7 @@ import Triangle.AbstractSyntaxTrees.TimesCommand;
 import Triangle.AbstractSyntaxTrees.RepeatTimesCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
+import Triangle.AbstractSyntaxTrees.DotDCommandLiteral;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -191,11 +191,11 @@ public class TreeVisitor implements Visitor {
     }
     
     public Object visitCaseRangeCommand(CaseRangeCommand ast, Object obj){
-        if(ast.TCL == null){
+        if(ast.DCL == null){
             return(createUnary("Case Range Command", ast.CLC));
         }
         else{
-            return(createBinary("Case Range Command", ast.CLC, ast.TCL));
+            return(createBinary("Case Range Command", ast.CLC, ast.DCL));
         }
     }
     
@@ -203,7 +203,7 @@ public class TreeVisitor implements Visitor {
         return(createUnary("Case To Literal", ast.CLCT));
     }
     
-    public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object obj){
+    public Object visitDotDCommandLiteralAST(DotDCommandLiteral ast, Object obj){
         return(createUnary("Case To Literal", ast.CLC));
     }
    
@@ -666,5 +666,10 @@ public class TreeVisitor implements Visitor {
     public Object visitRepeatTimesCommand(RepeatTimesCommand ast, Object o) {
         
         return (createUnary("Repeat Times Command", ast.TimesC)); 
+    }
+
+    @Override
+    public Object visitDotDCommandLiteral(DotDCommandLiteral aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

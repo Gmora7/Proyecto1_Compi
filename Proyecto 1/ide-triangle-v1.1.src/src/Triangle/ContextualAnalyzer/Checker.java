@@ -97,7 +97,6 @@ import Triangle.AbstractSyntaxTrees.SingleThen;
 import Triangle.AbstractSyntaxTrees.SubscriptVname;
 import Triangle.AbstractSyntaxTrees.Terminal;
 import Triangle.AbstractSyntaxTrees.ThenCommand;
-import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
 import Triangle.AbstractSyntaxTrees.TypeDeclaration;
 import Triangle.AbstractSyntaxTrees.TypeDenoter;
 import Triangle.AbstractSyntaxTrees.UnaryExpression;
@@ -118,6 +117,7 @@ import Triangle.AbstractSyntaxTrees.TimesCommand;
 import Triangle.AbstractSyntaxTrees.RepeatTimesCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
+import Triangle.AbstractSyntaxTrees.DotDCommandLiteral;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
 import Triangle.SyntacticAnalyzer.SourcePosition;
 
@@ -134,11 +134,6 @@ public final class Checker implements Visitor {
 public Object visitCaseRangeCommand(CaseRangeCommand ast, Object o) {
     return null;
   }
-
-
-public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object obj){
-    return null;
-}
 
 public Object visitDotDCommand2(DotDCommand2 ast, Object obj){
    return null;
@@ -1128,4 +1123,9 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     public Object visitDotDCommandAST(DotDCommand aThis, Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }    
+
+    @Override
+    public Object visitDotDCommandLiteral(DotDCommandLiteral aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

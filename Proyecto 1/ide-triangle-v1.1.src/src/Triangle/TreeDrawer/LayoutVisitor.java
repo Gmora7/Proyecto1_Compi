@@ -93,7 +93,6 @@ import Triangle.AbstractSyntaxTrees.SingleRecordAggregate;
 import Triangle.AbstractSyntaxTrees.SingleThen;
 import Triangle.AbstractSyntaxTrees.SubscriptVname;
 import Triangle.AbstractSyntaxTrees.ThenCommand;
-import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
 import Triangle.AbstractSyntaxTrees.TypeDeclaration;
 import Triangle.AbstractSyntaxTrees.UnaryExpression;
 import Triangle.AbstractSyntaxTrees.UnaryOperatorDeclaration;
@@ -113,6 +112,7 @@ import Triangle.AbstractSyntaxTrees.TimesCommand;
 import Triangle.AbstractSyntaxTrees.RepeatTimesCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
+import Triangle.AbstractSyntaxTrees.DotDCommandLiteral;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
 
 public class LayoutVisitor implements Visitor {
@@ -609,12 +609,7 @@ public class LayoutVisitor implements Visitor {
     public Object visitCasesCommand(CasesCommand aThis, Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    @Override
-    public Object visitToCommandLiteralAST(ToCommandLiteral aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+   
     @Override
     public Object visitDotDCommand2(DotDCommand2 aThis, Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -761,5 +756,10 @@ public class LayoutVisitor implements Visitor {
     public Object visitDotDCommandAST(DotDCommand aThis, Object o) {
         return(layoutUnary("DotDot Command", aThis.CLC));
     }  
+
+    @Override
+    public Object visitDotDCommandLiteral(DotDCommandLiteral aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

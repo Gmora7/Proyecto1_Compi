@@ -108,7 +108,6 @@ import Triangle.AbstractSyntaxTrees.SingleCaseRange;
 import Triangle.AbstractSyntaxTrees.MultipleCaseRange;
 import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCases;
-import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
 import Triangle.AbstractSyntaxTrees.SingleThen;
 import Triangle.AbstractSyntaxTrees.MultipleThen;
 import Triangle.AbstractSyntaxTrees.ThenCommand;
@@ -122,6 +121,7 @@ import Triangle.AbstractSyntaxTrees.TimesCommand;
 import Triangle.AbstractSyntaxTrees.RepeatTimesCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
+import Triangle.AbstractSyntaxTrees.DotDCommandLiteral;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
 
 public final class Encoder implements Visitor {
@@ -214,13 +214,8 @@ public final class Encoder implements Visitor {
  public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object O){
        return null;
     }
-    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+   
     public Object visitCaseRangeCommand(CaseRangeCommand ast, Object O){
-       return null;
-    }
-
-    //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
-    public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object obj){
        return null;
     }
     
@@ -228,12 +223,10 @@ public final class Encoder implements Visitor {
        return null;
     }    
     
-     //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
     public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
        return null;
     }
 
-     //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
     public Object visitCaseLiterals(CaseLiterals ast, Object obj){
        return null;
     }
@@ -249,7 +242,6 @@ public final class Encoder implements Visitor {
         return null;
     }
     
-    
     public Object visitSingleCaseRange(SingleCaseRange ast, Object obj){
         return null;
     }
@@ -257,7 +249,6 @@ public final class Encoder implements Visitor {
     public Object visitSingleThen(SingleThen ast, Object obj){
         return null;
     }
-    
     
     public Object visitSingleCase(SingleCase ast, Object obj){
         return null;
@@ -1197,6 +1188,11 @@ public final class Encoder implements Visitor {
     }    
     @Override
     public Object visitDotDCommandAST(DotDCommand aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object visitDotDCommandLiteral(DotDCommandLiteral aThis, Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

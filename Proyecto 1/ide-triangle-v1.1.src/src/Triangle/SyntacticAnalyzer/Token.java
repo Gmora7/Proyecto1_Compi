@@ -108,7 +108,7 @@ final class Token extends Object {
     IS			= 38,
     BAR                 = 39, //Agregamos BAR "|"
     DOLLAR              = 40, //Agregamos DOLLAR
-    DOTDOT              = 41, // no supe como ponerle xd
+    DOTDOT              = 41, //Agregamos DOTDOT
           
     // brackets...
     LPAREN		= 42,

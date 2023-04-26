@@ -83,7 +83,6 @@ import Triangle.AbstractSyntaxTrees.CaseLiterals;
 import Triangle.AbstractSyntaxTrees.CaseRangeCommand;
 import Triangle.AbstractSyntaxTrees.SingleCaseRange;
 import Triangle.AbstractSyntaxTrees.MultipleCaseRange;
-import Triangle.AbstractSyntaxTrees.ToCommandLiteral;
 import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCases;
@@ -102,6 +101,7 @@ import Triangle.AbstractSyntaxTrees.TimesCommand;
 import Triangle.AbstractSyntaxTrees.RepeatTimesCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
+import Triangle.AbstractSyntaxTrees.DotDCommandLiteral;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
 import Triangle.CodeGenerator.Field;
 import Triangle.CodeGenerator.KnownAddress;
@@ -214,11 +214,11 @@ public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object o) {
 
 public Object visitCaseRangeCommand(CaseRangeCommand ast, Object o) { 
     ast.CLC.visit(this, null);
-    ast.TCL.visit(this, null);
+    ast.DCL.visit(this, null);
     return(null);
  }
 
-public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object o){
+public Object visitDotDCommandLiteralAST(DotDCommandLiteral ast, Object o){
     ast.CLC.visit(this, null);
     return(null);
 }
@@ -875,6 +875,11 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
         
         aThis.TimesC.visit(this, null);
         return(null);
+    }
+
+    @Override
+    public Object visitDotDCommandLiteral(DotDCommandLiteral aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

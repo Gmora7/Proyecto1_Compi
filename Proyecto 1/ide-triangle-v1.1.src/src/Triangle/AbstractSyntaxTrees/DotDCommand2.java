@@ -9,9 +9,9 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  * @author Usuario
  */
 public class DotDCommand2 extends Command{
-   public DotDCommand2 (CaseLiteralCommand east, SourcePosition thePosition) {
+   public DotDCommand2 (CaseLiteralCommand cast, SourcePosition thePosition) {
     super (thePosition);
-    CLCT = east;
+    CLCT = cast;
   }
 
   public Object visit(Visitor v, Object o) {
