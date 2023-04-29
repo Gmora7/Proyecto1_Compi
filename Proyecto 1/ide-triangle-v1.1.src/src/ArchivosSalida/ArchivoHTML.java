@@ -18,12 +18,15 @@ public class ArchivoHTML {
     
     public ArchivoHTML(String fileName){
         this.fileName = fileName;
+        
     }
     
     public void crearHTML(String fileName, int flag)throws IOException{
-        writerHTML = new FileWriter(fileName, true);
+        
         if (flag == 1){
             try  {
+            File htmlFile = new File(fileName);
+            writerHTML = new FileWriter(fileName);
             writerHTML.write("<!DOCTYPE html>");
             writerHTML.write("\n");
             writerHTML.write("<html>");
@@ -40,6 +43,8 @@ public class ArchivoHTML {
         }
         else{
             try  {
+            File htmlFile = new File(fileName);
+            writerHTML = new FileWriter(fileName);
             writerHTML.write("</p>" + "\n" +"</html>");
             writerHTML.close();
             } 
@@ -50,9 +55,17 @@ public class ArchivoHTML {
         }
         
     }
-
+    public void escribir(String texto){
+        try {
+            writerHTML.write(texto);
+            writerHTML.close();
+    } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al incluir texto en el HTML " + e.getMessage());
+            
+        }
+    }
     public void defaultHTML(String texto) throws IOException{
-        writerHTML = new FileWriter(this.fileName, true);
         try {
             writerHTML.write(texto);
             writerHTML.close();

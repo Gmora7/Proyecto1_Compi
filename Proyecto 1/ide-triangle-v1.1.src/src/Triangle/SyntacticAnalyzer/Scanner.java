@@ -61,7 +61,7 @@ public final class Scanner {
     this.htmlCreado = 1;
     this.archivoHTML = archivoHTML;
   }
-  public void completarHTML(ArchivoHTML archivoHTML){
+  public void completarHTML(ArchivoHTML archivoHTML) throws IOException{
     this.archivoHTML = archivoHTML;
     Token token;
     do {
@@ -102,7 +102,7 @@ public final class Scanner {
     }
   }
 
-  private int scanToken(){
+  private int scanToken() throws IOException{
     String Otro;
     switch (currentChar) {
 
@@ -284,7 +284,7 @@ public final class Scanner {
     }
   }
 
-  public Token scan (){
+  public Token scan () throws IOException{
     Token tok;
     SourcePosition pos;
     int kind;
