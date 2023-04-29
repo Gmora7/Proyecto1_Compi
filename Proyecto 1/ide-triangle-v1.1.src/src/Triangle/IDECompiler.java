@@ -72,7 +72,7 @@ public class IDECompiler {
             //System.out.println("Contextual Analysis ...");
             //Checker checker = new Checker(report);
             //checker.check(rootAST);
-
+            System.out.println("crear XML");
             String xml = sourceName.substring(0, sourceName.length()-3)+"XML";
             ArchivoXML.crearXML(rootAST, xml);
 
