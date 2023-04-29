@@ -15,6 +15,7 @@ import Triangle.ContextualAnalyzer.Checker;
 import Triangle.CodeGenerator.Encoder;
 import ArchivosSalida.ArchivoXML;
 import ArchivosSalida.ArchivoHTML;
+import java.io.File;
 import java.io.IOException;
 
 
@@ -63,7 +64,7 @@ public class IDECompiler {
 
         
         archivoHTML.crearHTML(sourceName);
-        scanner.completarHTML();
+        scanner.completarHTML(new ArchivoHTML(sourceName.substring(sourceName.lastIndexOf(File.separatorChar)).replace(".tri", "")));
         archivoHTML.cerrarHTML(sourceName);
         if (report.numErrors == 0) {
             //System.out.println("Contextual Analysis ...");
