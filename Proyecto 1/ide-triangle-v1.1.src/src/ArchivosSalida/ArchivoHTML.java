@@ -79,11 +79,11 @@ public class ArchivoHTML {
         escribir(textoHTML);
     }
            
-    public void comentariosHTML(String comentario) throws IOException{
+    public void comentariosHTML(String comentario){
         String textoHTML = "<span style=\"color:green\">" + comentario + "</span><br>\n";
         escribir(textoHTML);
     }
-    public void otrosHTML(String otros) throws IOException{
+    public void otrosHTML(String otros){
         String textoHTML = " <font style='padding-left:1em' color:'#000000'><tt> "+ otros +" </tt></font>\n";
         escribir(textoHTML);
     }
