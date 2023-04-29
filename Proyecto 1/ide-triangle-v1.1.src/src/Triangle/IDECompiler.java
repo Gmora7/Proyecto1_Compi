@@ -49,25 +49,32 @@ public class IDECompiler {
         
         System.out.println("Syntactic Analysis ...");
         SourceFile source = new SourceFile(sourceName);
-        String html = sourceName.substring(0, sourceName.length()-3)+"HTML";
+        String html = sourceName.substring(0, sourceName.length()-3)+"html";
         ArchivoHTML archivoHTML = new ArchivoHTML(html);
         Scanner scanner = new Scanner(source, archivoHTML);
  
-        archivoHTML.crearHTML(sourceName);
-        archivoHTML.programaFuente(scanner);
+
         
+        SourceFile source2 = new SourceFile(sourceName);
+        Scanner scanner2 = new Scanner(source2);        
         report = new IDEReporter();
-        Parser parser = new Parser(scanner, report);
+        Parser parser = new Parser(scanner2, report);
         boolean success = false;
 
         rootAST = parser.parseProgram();
-        String xml = sourceName.substring(0, sourceName.length()-3)+"XML";
-        ArchivoXML.crearXML(rootAST, xml);
+        
         if (report.numErrors == 0) {
             //System.out.println("Contextual Analysis ...");
             //Checker checker = new Checker(report);
             //checker.check(rootAST);
-            
+            archivoHTML.crearHTML(html,1);
+            System.out.println("crear HTML");
+            scanner.completarHTML(archivoHTML);
+            System.out.println("completar HTML");
+            archivoHTML.crearHTML(html, 2); //Cerrar HTML
+            System.out.println("TERMINAR HTML");
+            String xml = sourceName.substring(0, sourceName.length()-3)+"XML";
+            ArchivoXML.crearXML(rootAST, xml);
 
             if (report.numErrors == 0) {
                 //System.out.println("Code Generation ...");
