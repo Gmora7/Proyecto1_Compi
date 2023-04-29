@@ -13,6 +13,7 @@
  */
 
 package Triangle.SyntacticAnalyzer;
+import ArchivosSalida.ArchivoHTML;
 
 
 public final class Scanner {
@@ -23,6 +24,7 @@ public final class Scanner {
   private char currentChar;
   private StringBuffer currentSpelling;
   private boolean currentlyScanningToken;
+  private ArchivoHTML archivoHTML;
 
   private boolean isLetter(char c) {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
@@ -43,13 +45,25 @@ public final class Scanner {
 
 
 ///////////////////////////////////////////////////////////////////////////////
-
   public Scanner(SourceFile source) {
     sourceFile = source;
     currentChar = sourceFile.getSource();
     debug = false;
   }
-
+  
+  public Scanner(SourceFile source, ArchivoHTML archivoHTML) {
+    sourceFile = source;
+    currentChar = sourceFile.getSource();
+    debug = false;
+    
+    this.archivoHTML = archivoHTML;
+  }
+  public void completarHTML(){
+    Token token;
+    do {
+      token = this.scan();
+    }while(token.kind != Token.EOT);
+  }
   public void enableDebugging() {
     debug = true;
   }
@@ -84,7 +98,7 @@ public final class Scanner {
   }
 
   private int scanToken() {
-
+    String Otro;
     switch (currentChar) {
 
     case 'a':  case 'b':  case 'c':  case 'd':  case 'e':
@@ -115,78 +129,109 @@ public final class Scanner {
     case '<':  case '>':  case '\\':  case '&':  case '@':
     case '%':  case '^':  case '?':
       takeIt();
+      String Operadores = String.valueOf(currentChar);
       while (isOperator(currentChar))
+        Operadores += currentChar;  
         takeIt();
+      archivoHTML.defaultHTML(Operadores);
       return Token.OPERATOR;
 
     case '\'':
       takeIt();
+      String Char = String.valueOf(currentChar);
       takeIt(); // the quoted character
       if (currentChar == '\'') {
       	takeIt();
+        archivoHTML.literalesHTML(Char);
         return Token.CHARLITERAL;
       } else
         return Token.ERROR;
 
     case '.':
+      Otro = String.valueOf(currentChar);
       takeIt();
       if (currentChar == '.') {
         takeIt();
+        archivoHTML.otrosHTML(Otro);
         return Token.DOTDOT;
       } else
         return Token.DOT;
 
     case ':':
+      Otro = String.valueOf(currentChar);  
       takeIt();
       if (currentChar == '=') {
         takeIt();
+        archivoHTML.otrosHTML(Otro);
         return Token.BECOMES;
       } else
         return Token.COLON;
 
     case ';':
+      Otro = String.valueOf(currentChar);
+      archivoHTML.otrosHTML(Otro);
       takeIt();
       return Token.SEMICOLON;
 
     case ',':
+      Otro = String.valueOf(currentChar);
+      archivoHTML.otrosHTML(Otro);
       takeIt();
       return Token.COMMA;
 
     case '~':
+      Otro = String.valueOf(currentChar);
+      archivoHTML.otrosHTML(Otro);  
       takeIt();
       return Token.IS;
       
       //Se agregó BAR 
     case '|':
+      Otro = String.valueOf(currentChar);
+      archivoHTML.otrosHTML(Otro);  
       takeIt();
       return Token.BAR;  
       
       //Se agregó DOLLAR
     case '$':
+      Otro = String.valueOf(currentChar);
+      archivoHTML.otrosHTML(Otro);  
       takeIt();
       return Token.DOLLAR; 
       
     case '(':
+      Otro = String.valueOf(currentChar);
+      archivoHTML.otrosHTML(Otro);  
       takeIt();
       return Token.LPAREN;
 
     case ')':
+      Otro = String.valueOf(currentChar);
+      archivoHTML.otrosHTML(Otro);  
       takeIt();
       return Token.RPAREN;
 
     case '[':
+      Otro = String.valueOf(currentChar);
+      archivoHTML.otrosHTML(Otro);  
       takeIt();
       return Token.LBRACKET;
 
     case ']':
+      Otro = String.valueOf(currentChar);
+      archivoHTML.otrosHTML(Otro);  
       takeIt();
       return Token.RBRACKET;
 
     case '{':
+      Otro = String.valueOf(currentChar);
+      archivoHTML.otrosHTML(Otro);  
       takeIt();
       return Token.LCURLY;
 
     case '}':
+      Otro = String.valueOf(currentChar);
+      archivoHTML.otrosHTML(Otro);  
       takeIt();
       return Token.RCURLY;
 
@@ -195,6 +240,8 @@ public final class Scanner {
 
     default:
       takeIt();
+      Otro = String.valueOf(currentChar);
+      archivoHTML.otrosHTML(Otro);
       return Token.ERROR;
     }
   }
@@ -221,6 +268,14 @@ public final class Scanner {
 
     pos.finish = sourceFile.getCurrentLine();
     tok = new Token(kind, currentSpelling.toString(), pos);
+    boolean wasIdentifier = (kind == Token.IDENTIFIER);
+    tok = new Token(kind, currentSpelling.toString(), pos);
+    if(wasIdentifier && tok.kind != Token.IDENTIFIER)
+      archivoHTML.palabrasReservadasHTML(tok.spelling);
+    else if (wasIdentifier){
+      archivoHTML.otrosHTML(tok.spelling);
+
+    }
     if (debug)
       System.out.println(tok);
     return tok;
