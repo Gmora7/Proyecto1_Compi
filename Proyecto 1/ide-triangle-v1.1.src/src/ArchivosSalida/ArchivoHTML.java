@@ -54,8 +54,8 @@ public class ArchivoHTML {
     public void defaultHTML(String texto) {
 //        writerHTML = new FileWriter(this.fileName, true);
         try {
-            writerHTML.write(texto);
-            writerHTML.close();
+            this.writerHTML.write(texto);
+            this.writerHTML.close();
     } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error al incluir texto en el HTML " + e.getMessage());
@@ -66,9 +66,9 @@ public class ArchivoHTML {
 //        writerHTML = new FileWriter(this.fileName, true);
         try {
 
-            writerHTML.write(" <font style='padding-left:1em'><b><tt> "+PalabraReservada+" </tt></b></font> ");
-            writerHTML.write("\n");
-            writerHTML.flush();
+            this.writerHTML.write(" <font style='padding-left:1em'><b><tt> "+PalabraReservada+" </tt></b></font> ");
+            this.writerHTML.write("\n");
+            this.writerHTML.flush();
            
     } catch (IOException e) {
             e.printStackTrace();            
@@ -79,9 +79,9 @@ public class ArchivoHTML {
 //        writerHTML = new FileWriter(this.fileName, true);
         try {
 
-            writerHTML.write(" <font style='padding-left:1em' color=\"#5050DB\"><tt> "+ Literales +" </tt></font> ");
-            writerHTML.write("\n");
-            writerHTML.close();
+            this.writerHTML.write(" <font style='padding-left:1em' color=\"#5050DB\"><tt> "+ Literales +" </tt></font> ");
+            this.writerHTML.write("\n");
+            this.writerHTML.close();
            
     } catch (IOException e) {
             e.printStackTrace();
@@ -93,8 +93,8 @@ public class ArchivoHTML {
 //        writerHTML = new FileWriter(this.fileName, true);
         try {
 
-            writerHTML.write("<span style=\"color:green\">" + comentario + "</span><br>\n");
-            writerHTML.close();
+            this.writerHTML.write("<span style=\"color:green\">" + comentario + "</span><br>\n");
+            this.writerHTML.close();
            
     } catch (IOException e) {
             e.printStackTrace();
@@ -105,9 +105,9 @@ public class ArchivoHTML {
     public void otrosHTML(String otros){
         
         try {
-            writerHTML.write(" <font style='padding-left:1em' color:'#000000'><tt> "+ otros +" </tt></font> ");
-            writerHTML.write("\n");
-            writerHTML.close();
+            this.writerHTML.write(" <font style='padding-left:1em' color:'#000000'><tt> "+ otros +" </tt></font> ");
+            this.writerHTML.write("\n");
+            this.writerHTML.close();
            
     } catch (IOException e) {
             e.printStackTrace();
