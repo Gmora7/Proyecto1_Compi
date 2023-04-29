@@ -61,13 +61,14 @@ public final class Scanner {
     this.htmlCreado = 1;
     this.archivoHTML = archivoHTML;
   }
-  public void completarHTML(ArchivoHTML archivoHTML) throws IOException{
+  public void completarHTML(ArchivoHTML archivoHTML){
     this.archivoHTML = archivoHTML;
-    Token token = this.scan();
-    while(token.kind != Token.EOT){
-        token = this.scan();
+    Token token;
+    do {
+      token = this.scan();
+    }while(token.kind != Token.EOT);
     }
-  }
+  
   public void enableDebugging() {
     debug = true;
   }
@@ -101,7 +102,7 @@ public final class Scanner {
     }
   }
 
-  private int scanToken() throws IOException {
+  private int scanToken(){
     String Otro;
     switch (currentChar) {
 
@@ -283,7 +284,7 @@ public final class Scanner {
     }
   }
 
-  public Token scan () throws IOException {
+  public Token scan (){
     Token tok;
     SourcePosition pos;
     int kind;

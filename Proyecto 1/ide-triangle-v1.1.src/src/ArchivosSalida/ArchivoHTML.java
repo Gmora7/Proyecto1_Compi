@@ -51,8 +51,8 @@ public class ArchivoHTML {
         
     }
 
-    public void defaultHTML(String texto) throws IOException{
-        writerHTML = new FileWriter(this.fileName, true);
+    public void defaultHTML(String texto) {
+//        writerHTML = new FileWriter(this.fileName, true);
         try {
             writerHTML.write(texto);
             writerHTML.close();
@@ -62,8 +62,8 @@ public class ArchivoHTML {
             
         }
     }
-    public void palabrasReservadasHTML(String PalabraReservada) throws IOException{
-        writerHTML = new FileWriter(this.fileName, true);
+    public void palabrasReservadasHTML(String PalabraReservada){
+//        writerHTML = new FileWriter(this.fileName, true);
         try {
 
             writerHTML.write(" <font style='padding-left:1em'><b><tt> "+PalabraReservada+" </tt></b></font> ");
@@ -75,8 +75,8 @@ public class ArchivoHTML {
         }
         
     }
-    public void literalesHTML(String Literales) throws IOException{
-        writerHTML = new FileWriter(this.fileName, true);
+    public void literalesHTML(String Literales) {
+//        writerHTML = new FileWriter(this.fileName, true);
         try {
 
             writerHTML.write(" <font style='padding-left:1em' color=\"#5050DB\"><tt> "+ Literales +" </tt></font> ");
@@ -89,8 +89,8 @@ public class ArchivoHTML {
             
         }
     }
-    public void comentariosHTML(String comentario) throws IOException{
-        writerHTML = new FileWriter(this.fileName, true);
+    public void comentariosHTML(String comentario){
+//        writerHTML = new FileWriter(this.fileName, true);
         try {
 
             writerHTML.write("<span style=\"color:green\">" + comentario + "</span><br>\n");
@@ -102,8 +102,8 @@ public class ArchivoHTML {
             
         }
     }
-    public void otrosHTML(String otros) throws IOException{
-        writerHTML = new FileWriter(this.fileName, true);
+    public void otrosHTML(String otros){
+        
         try {
             writerHTML.write(" <font style='padding-left:1em' color:'#000000'><tt> "+ otros +" </tt></font> ");
             writerHTML.write("\n");
