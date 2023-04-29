@@ -53,11 +53,11 @@ public class IDECompiler {
         ArchivoHTML archivoHTML = new ArchivoHTML(html);
         Scanner scanner = new Scanner(source, archivoHTML);
  
-        archivoHTML.crearHTML(html,1);
+//        archivoHTML.crearHTML(html,1);
         System.out.println("crear HTML");
         scanner.completarHTML(archivoHTML);
         System.out.println("completar HTML");
-        archivoHTML.crearHTML(html, 2); //Cerrar HTML
+//        archivoHTML.crearHTML(html, 2); //Cerrar HTML
         System.out.println("TERMINAR HTML");
         
         SourceFile source2 = new SourceFile(sourceName);

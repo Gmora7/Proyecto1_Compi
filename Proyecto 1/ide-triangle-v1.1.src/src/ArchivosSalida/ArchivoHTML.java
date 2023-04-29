@@ -13,17 +13,17 @@ import java.io.IOException;
  * @author Maria Jose
  */
 public class ArchivoHTML {
-    FileWriter writerHTML;
-    String fileName;
+    private FileWriter writerHTML;
+    private String fileName;
     
     public ArchivoHTML(String fileName){
-        
-        this.fileName = fileName;
+        File htmlFile = new File(fileName);
+        crearHTML(htmlFile, 1);
         
     }
     
-    public void crearHTML(String fileName, int flag)throws IOException{
-        File htmlFile = new File(fileName);
+    public void crearHTML(File htmlFile, int flag){
+        
         if (flag == 1){
             try  {
             
@@ -39,7 +39,7 @@ public class ArchivoHTML {
             } 
             catch (IOException e) {
             System.err.println("Error al crear HTML del programa fuente " + e.getMessage());
-            throw e;
+            e.printStackTrace();
                 }
         }
         else{

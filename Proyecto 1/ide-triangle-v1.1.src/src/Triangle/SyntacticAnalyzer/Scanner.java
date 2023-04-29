@@ -67,6 +67,8 @@ public final class Scanner {
     do {
       token = this.scan();
     }while(token.kind != Token.EOT);
+    archivoHTML.escribir("</p>" + "\n" +"</html>");
+   
     }
   
   public void enableDebugging() {
