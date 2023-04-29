@@ -40,6 +40,8 @@ import Core.Visitors.TreeVisitor;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -609,15 +611,16 @@ public class Main extends javax.swing.JFrame {
         }
         
         if (((FileFrame)desktopPane.getSelectedFrame()).getPreviouslySaved()) {
-            ((FileFrame)desktopPane.getSelectedFrame()).selectConsole();
-            ((FileFrame)desktopPane.getSelectedFrame()).clearConsole();
-            ((FileFrame)desktopPane.getSelectedFrame()).clearTAMCode();
-            ((FileFrame)desktopPane.getSelectedFrame()).clearTree();
-            ((FileFrame)desktopPane.getSelectedFrame()).clearTable();
-            new File(desktopPane.getSelectedFrame().getTitle().replace(".tri", ".tam")).delete();
-            
-            output.setDelegate(delegateConsole);            
             try {
+                ((FileFrame)desktopPane.getSelectedFrame()).selectConsole();
+                ((FileFrame)desktopPane.getSelectedFrame()).clearConsole();
+                ((FileFrame)desktopPane.getSelectedFrame()).clearTAMCode();
+                ((FileFrame)desktopPane.getSelectedFrame()).clearTree();
+                ((FileFrame)desktopPane.getSelectedFrame()).clearTable();
+                new File(desktopPane.getSelectedFrame().getTitle().replace(".tri", ".tam")).delete();
+                
+                output.setDelegate(delegateConsole);
+                
                 if (compiler.compileProgram(desktopPane.getSelectedFrame().getTitle())) {
                     output.setDelegate(delegateTAMCode);
                     //disassembler.Disassemble(desktopPane.getSelectedFrame().getTitle().replace(".tri", ".tam"));
@@ -634,6 +637,7 @@ public class Main extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
         }
     }//GEN-LAST:event_compileMenuItemActionPerformed
 
