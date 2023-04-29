@@ -58,8 +58,7 @@ public class IDECompiler {
 
         
         archivoHTML.crearHTML(sourceName);
-        scanner.completarHTML(new ArchivoHTML(sourceName.substring(sourceName.lastIndexOf(File.separatorChar)).replace(".tri", "")));
-        archivoHTML.cerrarHTML(sourceName);
+        archivoHTML.programaFuente(scanner);
         
         report = new IDEReporter();
         Parser parser = new Parser(scanner, report);
