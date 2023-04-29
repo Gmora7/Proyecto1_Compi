@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Program>
+<LetCommand>
+<SequentialDeclaration>
+<VarDeclaration>
+</VarDeclaration>
+<SimpleTypeDenoter>
+</SimpleTypeDenoter>
+<Identifier>
+</Identifier>
+<VarDeclaration>
+</VarDeclaration>
+<SimpleTypeDenoter>
+</SimpleTypeDenoter>
+<Identifier>
+</Identifier>
+</SequentialDeclaration>
+<AssingCommand>
+<SimpleVname>
+<Identifier>
+</Identifier>
+</SimpleVname>
+<IntegerExpresssion>
+</IntegerExpresssion>
+</AssingCommand>
+</LetCommand>
+</Program>

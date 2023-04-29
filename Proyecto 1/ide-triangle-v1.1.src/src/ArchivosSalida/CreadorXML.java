@@ -101,6 +101,13 @@ import Triangle.AbstractSyntaxTrees.VarFormalParameter;
 import Triangle.AbstractSyntaxTrees.Visitor;
 import Triangle.AbstractSyntaxTrees.VnameExpression;
 import Triangle.AbstractSyntaxTrees.WhileCommand;
+import Triangle.CodeGenerator.Field;
+import Triangle.CodeGenerator.KnownAddress;
+import Triangle.CodeGenerator.KnownRoutine;
+import Triangle.CodeGenerator.KnownValue;
+import Triangle.CodeGenerator.UnknownAddress;
+import Triangle.CodeGenerator.UnknownRoutine;
+import Triangle.CodeGenerator.UnknownValue;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -212,12 +219,18 @@ private void addLine(String line) {
 
     @Override
     public Object visitRepeatForWhile(RepeatForWhile aThis, Object o) { 
+        
         addLine("<RepeatForWhile>");
-        aThis.I.visit(this, null);
+        
+        if(aThis.I != null){
+            aThis.I.visit(this, null);
+        }
         aThis.E.visit(this, null);
         aThis.ForBecomes.visit(this, null);
         aThis.whileC.visit(this, null);
+      
         addLine("</RepeatForWhile>");
+        
         return(null);
     }
 
@@ -245,367 +258,588 @@ private void addLine(String line) {
         aThis.TimesC.visit(this, null);
         addLine("</RepeatTimesCommand>");
         return(null);
-    }   
-
+    }  
+    
     @Override
-    public Object visitAssignCommand(AssignCommand ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Object visitAssignCommand(AssignCommand ast, Object o) { 
+      addLine("<AssingCommand>");
+      ast.V.visit(this, null);
+      ast.E.visit(this, null);
+      addLine("</AssingCommand>");
+      return(null);
+  }
+  
+  public Object visitCallCommand(CallCommand ast, Object o) { 
+      addLine("<CallCommand>");
+      ast.I.visit(this, null);
+      ast.APS.visit(this, null);
+      addLine("</CallCommand>");
+      return(null);
+  }
+  @Override
+  public Object visitCaseCommand(CaseCommand ast, Object o) { 
+      addLine("<CaseCommand>");
+      ast.CL.visit(this, null);
+      ast.C.visit(this, null);
+      addLine("</CaseCommand>");
+      return(null);
+  }
+  @Override
+  public Object visitCasesCommand(CasesCommand ast, Object o) { 
+      addLine("<CasesCommand>");
+      ast.SC.visit(this, null);
+      ast.MC.visit(this, null);
+      addLine("</CasesCommand>");
+      return(null);
+  }
+  @Override
+  public Object visitSelectCommand(SelectCommand ast, Object o) { 
+      addLine("<SelectCommand>");
+      ast.CC.visit(this, null);
+      ast.C.visit(this, null);
+      ast.E.visit(this, null);
+      addLine("<SelectCommand>");
+      return(null);
+  }
+  @Override
+  public Object visitEmptyCommand(EmptyCommand ast, Object o) { 
+      addLine("<EmptyCommand>");
+      addLine("</EmptyCommand>");
+      return(null);
+  }
+  @Override
+  public Object visitIfCommand(IfCommand ast, Object o) { 
+      addLine("<IfCommand>");
+      ast.E.visit(this, null);
+      ast.C1.visit(this, null);
+      ast.C2.visit(this, null);
+      addLine("<IfCommand>");
+      return(null);
+  }
+  @Override
+  public Object visitLetCommand(LetCommand ast, Object o) {     
+      addLine("<LetCommand>");
+      ast.D.visit(this, null);
+      ast.C.visit(this, null);
+      addLine("</LetCommand>");
+      
+      return(null);
+  }
+  @Override
+  public Object visitSequentialCommand(SequentialCommand ast, Object o) { 
+      addLine("<SequentialCommand>");
+      ast.C1.visit(this, null);
+      ast.C2.visit(this, null);
+      addLine("</SequentialCommand>");
+      
+      return(null);
+  }
+  @Override
+  public Object visitSequentialCases(SequentialCases ast, Object o) { 
+      addLine("<SequentialCases>");
+      ast.CC1.visit(this, null);
+      ast.CC2.visit(this, null);
+      addLine("</SequentialCases>");
+      return(null);
+  }
+  @Override
+  public Object visitWhileCommand(WhileCommand ast, Object o) { 
+      addLine("<WhileCommand>");
+      ast.E.visit(this, null);
+      ast.C.visit(this, null);
+      addLine("</WhileCommand>");
+      return(null);
+  }
+@Override
+  public Object visitTimesCommand(TimesCommand ast, Object o) { 
+      addLine("<TimesCommand>");
+      ast.C.visit(this, null);
+      addLine("</TimesCommand>");
+      return(null);
+  }  
+@Override
+    public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object o) { 
+        addLine("<CaseLiteralCommand>");
+        ast.CL.visit(this, null);
+        ast.IL.visit(this, null);
+        addLine("</CaseLiteralCommand>");
+        return(null);
     }
-
+@Override
+    public Object visitCaseRangeCommand(CaseRangeCommand ast, Object o) { 
+        addLine("<CaseRangeCommand>");
+        ast.CLC.visit(this, null);
+        ast.DCL.visit(this, null);
+        addLine("</CaseRangeCommand>");
+        return(null);
+     }
+    
+    public Object visitDotDCommandLiteralAST(DotDCommandLiteral ast, Object o){
+        addLine("<DotDCommandLiteral>");
+        ast.CLC.visit(this, null);
+        addLine("</DotDCommandLiteral>");
+        return(null);
+    }
+@Override
+    public Object visitDotDCommand2(DotDCommand2 ast, Object o){
+        addLine("<DotDCommand>");
+        ast.CLCT.visit(this, null);
+        addLine("</DotDCommand>");
+        return(null);
+    }
     @Override
-    public Object visitCallCommand(CallCommand ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
+        addLine("<BarCommandCaseRange>");
+        ast.CRC.visit(this, null);
+        addLine("</BarCommandCaseRange>");
+        return(null);
     }
+@Override
+     public Object visitCaseLiterals(CaseLiterals ast, Object o) { 
+         addLine("<CaseLiterals>");
+         ast.MCR.visit(this, null);
+         ast.SCR.visit(this, null);
+         addLine("</CaseLiterals>");
+          return(null);
+      }
+@Override
+     public Object visitThenCommandAST(ThenCommand aThis, Object o) { // 
+         addLine("<ThenCommand>");
+          aThis.C.visit(this, null);
+          addLine("</ThenCommand>");
+          return(null);
+        }
+     @Override
+     public Object visitVarDeclarationBecomes(VarDeclarationBecomes aThis, Object o) { // 
+            addLine("<VarDeclarationBecomes>");
+            aThis.E.visit(this, null);
+            aThis.I.visit(this, null);
+            addLine("</VarDeclarationBecomes>");
+            return(null);
+        }
+     
+     @Override
+     public Object visitArrayExpression(ArrayExpression ast, Object o) { 
+        addLine("<ArrayExpresssion>");
+        ast.AA.visit(this, null);
+        addLine("</ArrayExpresssion>");
+        return(null);
+  }
+  @Override
+  public Object visitBinaryExpression(BinaryExpression ast, Object o) { 
+      addLine("<BinaryExpresssion>");
+      ast.E1.visit(this, null);
+      ast.E2.visit(this, null);
+      ast.O.visit(this, null);
+      addLine("</BinaryExpresssion>");
+      return(null);
+  }
+  @Override
+  public Object visitCallExpression(CallExpression ast, Object o) { 
+      addLine("<CallExpresssion>");
+      ast.I.visit(this, null);
+      ast.APS.visit(this, null);
+      addLine("</CallExpresssion>");
+      return(null);
+  }
+  @Override
+  public Object visitCharacterExpression(CharacterExpression ast, Object o) { 
+      addLine("<CharacterExpresssion>");
+      ast.CL.visit(this, null);
+      addLine("</CharacterExpresssion>");
+      return(null);
+  }
+  @Override
+  public Object visitEmptyExpression(EmptyExpression ast, Object o) {  
+      addLine("<EmptyExpresssion>");
+      addLine("</EmptyExpresssion>");
+      return(null);
+  }
+  @Override
+  public Object visitIfExpression(IfExpression ast, Object o) {  
+      addLine("<IfExpresssion>");
+      ast.E1.visit(this, null);
+      ast.E2.visit(this, null);
+      ast.E3.visit(this, null);
+      addLine("</IfExpresssion>");
+      return(null);
+  }
+  @Override
+  public Object visitIntegerExpression(IntegerExpression ast, Object o) { 
+      addLine("<IntegerExpresssion>");
+      addLine("</IntegerExpresssion>");
+      return(null);
+  }
+  @Override
+  public Object visitLetExpression(LetExpression ast, Object o) { 
+      addLine("<LetExpresssion>");
+      ast.D.visit(this, null);
+      ast.E.visit(this, null);
+      addLine("</LetExpresssion>");
+      return(null);
+  }
+  @Override
+  public Object visitRecordExpression(RecordExpression ast, Object o) {   
+      addLine("<RecordExpresssion>");
+      ast.RA.visit(this, null);
+      addLine("</RecordExpresssion>");
+      return(null);
+  }
+  @Override
+  public Object visitUnaryExpression(UnaryExpression ast, Object o) { 
+      addLine("<UnaryExpresssion>");
+      ast.E.visit(this, null);
+      ast.O.visit(this, null);
+      addLine("</UnaryExpresssion>");
+      return(null);
+  }
+  @Override
+  public Object visitVnameExpression(VnameExpression ast, Object o) {
+      addLine("<VnameExpresssion>");
+      ast.V.visit(this, null);
+      addLine("</VnameExpresssion>");
+      return(null);
+  }
+   @Override
+   public Object visitBinaryOperatorDeclaration(BinaryOperatorDeclaration ast, Object o) {    
+      addLine("<BinaryOperatorDeclaration>");
+      addLine("</BinaryOperatorDeclaration>");
+      return(null);
+  }
+   @Override
+  public Object visitConstDeclaration(ConstDeclaration ast, Object o) {   
+     addLine("<ConstDeclaration>");
+      ast.E.visit(this, null);
+      ast.I.visit(this, null);
+      addLine("</ConstDeclaration>");
+      return(null);
+  }
+  @Override
+  public Object visitFuncDeclaration(FuncDeclaration ast, Object o) {    
+      addLine("<FuncDeclaration>");
+      ast.T.visit(this, null);            
+      ast.FPS.visit(this, null);
+      ast.E.visit(this, null);
+      addLine("</FuncDeclaration>");    
+      return(null);
+  }
+  @Override
+  public Object visitProcDeclaration(ProcDeclaration ast, Object o) { 
+      
+      addLine("<ProcDeclaration>");
+      ast.FPS.visit(this, null);
+      ast.C.visit(this, null);
+      addLine("</ProcDeclaration>");   
+      return(null);
+  }
+  @Override
+  public Object visitSequentialDeclaration(SequentialDeclaration ast, Object o) {
+      addLine("<SequentialDeclaration>");  
+      ast.D1.visit(this, null);
+      ast.D2.visit(this, null);
+      addLine("</SequentialDeclaration>");  
+      return(null);
+  }
+  @Override
+  public Object visitTypeDeclaration(TypeDeclaration ast, Object o) { 
+      addLine("<TypeDeclaration>");  
+      ast.T.visit(this, null);
+      addLine("</TypeDeclaration>");  
+      return(null);
+  }
+  @Override
+  public Object visitUnaryOperatorDeclaration(UnaryOperatorDeclaration ast, Object o) {    
+      addLine("<UnaryOperatorDeclaration>");  
+      addLine("</UnaryOperatorDeclaration>");  
+      return(null);
+  }
+  @Override
+  public Object visitVarDeclaration(VarDeclaration ast, Object o) {      
+      addLine("<VarDeclaration>");  
+      addLine("</VarDeclaration>");
+      ast.T.visit(this, null);
+      return(null);
+  }
+  @Override
+  public Object visitPrivateDeclaration(PrivateDeclaration ast, Object o) { 
+      addLine("<PrivateDeclaration>");
+      ast.D1.visit(this, null);
+      ast.D2.visit(this, null);
+      addLine("</PrivateDeclaration>");
+      return(null);
+  }    
+@Override
+  public Object visitMultipleArrayAggregate(MultipleArrayAggregate ast, Object o) { 
+      addLine("<MultipleArrayAggregate>");
+      ast.AA.visit(this, null);
+      ast.E.visit(this, null);
+      addLine("</MultipleArrayAggregate>");
+      return(null);
+  }
+  @Override
+  public Object visitSingleArrayAggregate(SingleArrayAggregate ast, Object o) { 
+      addLine("<SingleArrayAggregate>");
+      ast.E.visit(this, null);
+      addLine("</SingleArrayAggregate>");
+      return(null);
+  }
+@Override
+  // Record Aggregates
+  public Object visitMultipleRecordAggregate(MultipleRecordAggregate ast, Object o) { 
+      addLine("<MultipleRecordAggregate>");
+      ast.E.visit(this, null);
+      ast.I.visit(this, null);
+      ast.RA.visit(this, null);
+      addLine("</MultipleRecordAggregate>");
+      return(null);
+  }
+  @Override
+  public Object visitSingleRecordAggregate(SingleRecordAggregate ast, Object o) { 
+      addLine("<singleRecordAggregate>");
+      ast.E.visit(this, null);
+      ast.I.visit(this, null);
+      addLine("</singleRecordAggregate>");
+      return(null);
+  }
+   @Override
+  public Object visitConstFormalParameter(ConstFormalParameter ast, Object o) {       
+      addLine("<ConstFormalParameter>");
+      ast.I.visit(this, null);
+      ast.T.visit(this, null);
+      addLine("</ConstFormalParameter>");
+      return(null);
+  }
+  @Override
+  public Object visitFuncFormalParameter(FuncFormalParameter ast, Object o) {       
+      addLine("<FuncFormalParameter>");
+      ast.FPS.visit(this, null);      
+      ast.T.visit(this, null);     
+      addLine("</FuncFormalParameter>");
+      return(null);
+  }
+  @Override
+  public Object visitProcFormalParameter(ProcFormalParameter ast, Object o) {       
+      addLine("<ProcFormalParameter>");
+      ast.FPS.visit(this, null);      
+      addLine("</ProcFormalParameter>");
+      return(null);
+  }
+  @Override
+  public Object visitVarFormalParameter(VarFormalParameter ast, Object o) {       
+      addLine("<ProcFormalParameter>");
+      ast.T.visit(this, null);
+      addLine("</ProcFormalParameter>");
+      return(null);
+  }
+  @Override
+  public Object visitEmptyFormalParameterSequence(EmptyFormalParameterSequence ast, Object o) { 
+      addLine("<EmptyFormalParameterSequence>");
+      addLine("</EmptyFormalParameter>");
+      return(null);
+  }
+  @Override
+  public Object visitMultipleFormalParameterSequence(MultipleFormalParameterSequence ast, Object o) { 
+      addLine("<MultipleFormalParameterSequence>");
+      ast.FP.visit(this, null);
+      ast.FPS.visit(this, null);
+      addLine("</MultipleFormalParameterSequence>");
+      return(null);
+  }
+  @Override
+  public Object visitSingleFormalParameterSequence(SingleFormalParameterSequence ast, Object o) { 
+      addLine("<SingleFormalParameterSequence>");
+      ast.FP.visit(this, null);
+      addLine("</SingleFormalParameterSequence>");
+      return(null);
+  }
+@Override
+  // Actual Parameters
+  public Object visitConstActualParameter(ConstActualParameter ast, Object o) { 
+       addLine("<ConstActualParameter>");
+      ast.E.visit(this, null);
+      addLine("</ConstActualParameter>");
+      return(null);
+  }
+  @Override
+  public Object visitFuncActualParameter(FuncActualParameter ast, Object o) { 
+      addLine("<FuncActualParameter>");
+      ast.I.visit(this, null);
+      addLine("</FuncActualParameter>");
+      return(null);
+  }
+  @Override
+  public Object visitProcActualParameter(ProcActualParameter ast, Object o) { 
+      addLine("<ProcActualParameter>");
+      ast.I.visit(this, null);
+      addLine("</ProcActualParameter>");
+      return(null);
+  }
+  @Override
+  public Object visitVarActualParameter(VarActualParameter ast, Object o) { 
+      addLine("<VarActualParameter>");
+      ast.V.visit(this, null);
+      addLine("</VarActualParameter>");
+      return(null);
+  }
+  @Override
+  public Object visitEmptyActualParameterSequence(EmptyActualParameterSequence ast, Object o) {   
+      addLine("<EmptyActualParameterSequence>");
+      addLine("</EmptyActualParameterSequence>");
+      return(null);
+  }
+  @Override
+  public Object visitMultipleActualParameterSequence(MultipleActualParameterSequence ast, Object o) { 
+      addLine("<MultipleActualParameterSequence>");
+      ast.AP.visit(this, null);
+      ast.APS.visit(this, null);
+      addLine("</MultipleActualParameterSequence>");
+      return(null);
+  }
+  @Override
+  public Object visitSingleActualParameterSequence(SingleActualParameterSequence ast, Object o) {  
+      addLine("<SingleActualParameterSequence>");
+      ast.AP.visit(this, null);
+      addLine("</SingleActualParameterSequence>");
+      return(null);
+  }
+  @Override
+  public Object visitAnyTypeDenoter(AnyTypeDenoter ast, Object o) {  
+      addLine("<AnyTypeDenoter>");
+      addLine("</AnyTypeDenoter>");
+      return(null);
+  }
+  @Override
+  public Object visitArrayTypeDenoter(ArrayTypeDenoter ast, Object o) { 
+      addLine("<ArrayTypeDenoter>");
+      ast.IL.visit(this, null);
+      ast.T.visit(this, null);
+      addLine("</ArrayTypeDenoter>");
+      return(null);
+  }
+  @Override
+  public Object visitBoolTypeDenoter(BoolTypeDenoter ast, Object o) {
+      addLine("<BoolTypeDenoter>");
+      addLine("</BoolTypeDenoter>");
+      return(null);
+  }
+  @Override
+  public Object visitCharTypeDenoter(CharTypeDenoter ast, Object o) {
+      addLine("<CharTypeDenoter>");
+      addLine("</CharTypeDenoter>");
+      return(null);
+  }
+  @Override
+  public Object visitErrorTypeDenoter(ErrorTypeDenoter ast, Object o) { 
+      addLine("<ErrorTypeDenoter>");
+      addLine("</ErrorTypeDenoter>");
+      return(null);
+  }
+  @Override
+  public Object visitSimpleTypeDenoter(SimpleTypeDenoter ast, Object o) { 
+       addLine("<SimpleTypeDenoter>");
+       addLine("</SimpleTypeDenoter>");
+      ast.I.visit(this, null);
+      
+      return(null);
+  }
+  @Override
+  public Object visitIntTypeDenoter(IntTypeDenoter ast, Object o) { 
+      addLine("<IntTypeDenoter>");
+      addLine("</IntTypeDenoter>");
+      return(null);
+  }
+  @Override
+  public Object visitRecordTypeDenoter(RecordTypeDenoter ast, Object o) {   
+      addLine("<RecordTypeDenoter>");
+      ast.FT.visit(this, null);
+      addLine("</RecordTypeDenoter>");
+      return(null);
+  }
+@Override
+  public Object visitMultipleFieldTypeDenoter(MultipleFieldTypeDenoter ast, Object o) { 
+      addLine("<MultipleFieldTypeDenoter>");
+      ast.FT.visit(this, null);
+      ast.I.visit(this, null);
+      ast.T.visit(this, null);
+      addLine("</MultipleFieldTypeDenoter>");
 
-    @Override
-    public Object visitEmptyCommand(EmptyCommand ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitIfCommand(IfCommand ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitLetCommand(LetCommand ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitSequentialCommand(SequentialCommand ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitWhileCommand(WhileCommand ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitTimesCommand(TimesCommand ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitCaseLiteralCommand(CaseLiteralCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitCaseCommand(CaseCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitCaseLiterals(CaseLiterals aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitCaseRangeCommand(CaseRangeCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitCasesCommand(CasesCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitVarDeclarationBecomes(VarDeclarationBecomes aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitDotDCommand2(DotDCommand2 aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitPrivateDeclaration(PrivateDeclaration aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+      return(null);
+  }
+  @Override
+  public Object visitSingleFieldTypeDenoter(SingleFieldTypeDenoter ast, Object o) { 
+      addLine("<SingleFieldTypeDenoter>");
+      ast.I.visit(this, null);
+      ast.T.visit(this, null);
+      addLine("</SingleFieldTypeDenoter>");
+      return(null);
+  }
+  @Override
+  public Object visitCharacterLiteral(CharacterLiteral ast, Object o) {  
+       addLine("<CharacterLiteral>");
+       addLine("</CharacterLiteral>");
+      return(null);
+  }
+  @Override
+  public Object visitIdentifier(Identifier ast, Object o) { 
+      addLine("<Identifier>");
+      addLine("</Identifier>");
+      return(null);
+  }
+  @Override
+  public Object visitIntegerLiteral(IntegerLiteral ast, Object o) { 
+      addLine("<IntegerLiteral>");
+      addLine("</IntegerLiteral>");
+      return(null);
+  }
+  @Override
+  public Object visitOperator(Operator ast, Object o) { 
+      if("<".equals(ast.spelling))
+            addLine("<Operator value='&lt;'>");
+        else if(">".equals(ast.spelling))
+            addLine("<Operator value='&gt;'>");
+        else
+            addLine("<Operator value= '" + ast.spelling + "'>");
+        if(ast.decl != null){
+            ast.decl.visit(this, null);
+        }
+        addLine("</Operator>");
+        return(null);     
+  }
+  @Override
+  public Object visitDotVname(DotVname ast, Object o) {
+      addLine("<DotVname>");
+      ast.I.visit(this, null);
+      ast.V.visit(this, null);
+      addLine("</DotVname>");
+      return(null);
+  }
+  @Override
+  public Object visitSimpleVname(SimpleVname ast, Object o) { 
+      addLine("<SimpleVname>");
+      ast.I.visit(this, null);
+      addLine("</SimpleVname>");
+      return(null);
+  }
+  @Override
+  public Object visitSubscriptVname(SubscriptVname ast, Object o) { 
+      addLine("<SubscriptVname>");
+      ast.E.visit(this, null);
+      ast.V.visit(this, null);
+      addLine("</SubscriptVname>");
+      return(null);
+  }
+  @Override
+   public Object visitProgram(Program ast, Object o) { 
+      addLine("<Program>");
+      ast.C.visit(this, null);
+      addLine("</Program>");
+      return(null);
+  }
     @Override
     public Object visitDotDCommandLiteral(DotDCommandLiteral aThis, Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public Object visitArrayExpression(ArrayExpression ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitBinaryExpression(BinaryExpression ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitCallExpression(CallExpression ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitCharacterExpression(CharacterExpression ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitEmptyExpression(EmptyExpression ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitIfExpression(IfExpression ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitIntegerExpression(IntegerExpression ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitLetExpression(LetExpression ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitRecordExpression(RecordExpression ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitUnaryExpression(UnaryExpression ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitVnameExpression(VnameExpression ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitBinaryOperatorDeclaration(BinaryOperatorDeclaration ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitConstDeclaration(ConstDeclaration ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitFuncDeclaration(FuncDeclaration ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitProcDeclaration(ProcDeclaration ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitSequentialDeclaration(SequentialDeclaration ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitTypeDeclaration(TypeDeclaration ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitUnaryOperatorDeclaration(UnaryOperatorDeclaration ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitVarDeclaration(VarDeclaration ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitMultipleArrayAggregate(MultipleArrayAggregate ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitSingleArrayAggregate(SingleArrayAggregate ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitMultipleRecordAggregate(MultipleRecordAggregate ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitSingleRecordAggregate(SingleRecordAggregate ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitConstFormalParameter(ConstFormalParameter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitFuncFormalParameter(FuncFormalParameter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitProcFormalParameter(ProcFormalParameter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitVarFormalParameter(VarFormalParameter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitEmptyFormalParameterSequence(EmptyFormalParameterSequence ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitMultipleFormalParameterSequence(MultipleFormalParameterSequence ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitSingleFormalParameterSequence(SingleFormalParameterSequence ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitConstActualParameter(ConstActualParameter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitFuncActualParameter(FuncActualParameter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitProcActualParameter(ProcActualParameter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitVarActualParameter(VarActualParameter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitEmptyActualParameterSequence(EmptyActualParameterSequence ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitMultipleActualParameterSequence(MultipleActualParameterSequence ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitSingleActualParameterSequence(SingleActualParameterSequence ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitAnyTypeDenoter(AnyTypeDenoter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitArrayTypeDenoter(ArrayTypeDenoter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitBoolTypeDenoter(BoolTypeDenoter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitCharTypeDenoter(CharTypeDenoter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitErrorTypeDenoter(ErrorTypeDenoter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitSimpleTypeDenoter(SimpleTypeDenoter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitIntTypeDenoter(IntTypeDenoter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitRecordTypeDenoter(RecordTypeDenoter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitMultipleFieldTypeDenoter(MultipleFieldTypeDenoter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitSingleFieldTypeDenoter(SingleFieldTypeDenoter ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitCharacterLiteral(CharacterLiteral ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitIdentifier(Identifier ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitIntegerLiteral(IntegerLiteral ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitOperator(Operator ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitDotVname(DotVname ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitSimpleVname(SimpleVname ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitSubscriptVname(SubscriptVname ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitProgram(Program ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public Object visitMultipleCaseRange(MultipleCaseRange aThis, Object o) {
@@ -624,26 +858,6 @@ private void addLine(String line) {
 
     @Override
     public Object visitSingleCaseRange(SingleCaseRange aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitSelectCommand(SelectCommand aThis, Object O) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitSequentialCases(SequentialCases aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitBarCommandCaseRange(BarCommandCaseRange aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object visitThenCommandAST(ThenCommand aThis, Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

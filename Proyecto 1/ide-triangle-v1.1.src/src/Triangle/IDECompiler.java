@@ -13,7 +13,8 @@ import Triangle.AbstractSyntaxTrees.Program;
 import Triangle.SyntacticAnalyzer.Parser;
 import Triangle.ContextualAnalyzer.Checker;
 import Triangle.CodeGenerator.Encoder;
-
+import ArchivosSalida.ArchivoXML;
+import java.io.IOException;
 
 
 /** 
@@ -21,7 +22,7 @@ import Triangle.CodeGenerator.Encoder;
  * to get to the ASTs in order to draw them in the IDE without modifying the
  * original Triangle code.
  *
- * @author Luis Leopoldo Pérez <luiperpe@ns.isi.ulatina.ac.cr>
+ * @author Luis Leopoldo Pï¿½rez <luiperpe@ns.isi.ulatina.ac.cr>
  */
 public class IDECompiler {
 
@@ -39,7 +40,7 @@ public class IDECompiler {
      * @param sourceName Path to the source file.
      * @return True if compilation was succesful.
      */
-    public boolean compileProgram(String sourceName) {
+    public boolean compileProgram(String sourceName) throws IOException {
         System.out.println("********** " +
                            "Triangle Compiler (IDE-Triangle 1.0)" +
                            " **********");
@@ -56,6 +57,9 @@ public class IDECompiler {
             //System.out.println("Contextual Analysis ...");
             //Checker checker = new Checker(report);
             //checker.check(rootAST);
+            
+            String xml = sourceName.substring(0, sourceName.length()-3)+"XML";
+            ArchivoXML.crearXML(rootAST, xml);
             if (report.numErrors == 0) {
                 //System.out.println("Code Generation ...");
                 //Encoder encoder = new Encoder(report);
