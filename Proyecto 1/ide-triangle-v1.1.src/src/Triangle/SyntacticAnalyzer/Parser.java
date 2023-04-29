@@ -110,6 +110,7 @@ import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
 import Triangle.AbstractSyntaxTrees.DotDCommandLiteral;
+import java.io.IOException;
 
 public class Parser {
 
@@ -128,7 +129,7 @@ public class Parser {
 // If so, fetches the next token.
 // If not, reports a syntactic error.
 
-  void accept (int tokenExpected) throws SyntaxError {
+  void accept (int tokenExpected) throws SyntaxError, IOException {
     if (currentToken.kind == tokenExpected) {
       previousTokenPosition = currentToken.position;
       currentToken = lexicalAnalyser.scan();
@@ -137,7 +138,7 @@ public class Parser {
     }
   }
 
-  void acceptIt() {
+  void acceptIt() throws IOException {
     previousTokenPosition = currentToken.position;
     currentToken = lexicalAnalyser.scan();
   }
@@ -170,7 +171,7 @@ public class Parser {
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-  public Program parseProgram() {
+  public Program parseProgram() throws IOException {
 
     Program programAST = null;
 
@@ -199,7 +200,7 @@ public class Parser {
 // parseIntegerLiteral parses an integer-literal, and constructs
 // a leaf AST to represent it.
 
-  IntegerLiteral parseIntegerLiteral() throws SyntaxError {
+  IntegerLiteral parseIntegerLiteral() throws SyntaxError, IOException {
     IntegerLiteral IL = null;
 
     if (currentToken.kind == Token.INTLITERAL) {
@@ -217,7 +218,7 @@ public class Parser {
 // parseCharacterLiteral parses a character-literal, and constructs a leaf
 // AST to represent it.
 
-  CharacterLiteral parseCharacterLiteral() throws SyntaxError {
+  CharacterLiteral parseCharacterLiteral() throws SyntaxError, IOException {
     CharacterLiteral CL = null;
 
     if (currentToken.kind == Token.CHARLITERAL) {
@@ -235,7 +236,7 @@ public class Parser {
 // parseIdentifier parses an identifier, and constructs a leaf AST to
 // represent it.
 
-  Identifier parseIdentifier() throws SyntaxError {
+  Identifier parseIdentifier() throws SyntaxError, IOException {
     Identifier I = null;
 
     if (currentToken.kind == Token.IDENTIFIER) {
@@ -250,7 +251,7 @@ public class Parser {
     return I;
   }
   
-  Identifier parseIdentifierOpt() throws SyntaxError {
+  Identifier parseIdentifierOpt() throws SyntaxError, IOException {
     Identifier I = null;
 
     if (currentToken.kind == Token.IDENTIFIER) {
@@ -267,7 +268,7 @@ public class Parser {
 // parseOperator parses an operator, and constructs a leaf AST to
 // represent it.
 
-  Operator parseOperator() throws SyntaxError {
+  Operator parseOperator() throws SyntaxError, IOException {
     Operator O = null;
 
     if (currentToken.kind == Token.OPERATOR) {
@@ -282,7 +283,7 @@ public class Parser {
     return O;
   }
   
-  CasesCommand parseCasesCommand() throws SyntaxError {
+  CasesCommand parseCasesCommand() throws SyntaxError, IOException {
   CasesCommand commandAST = null; // in case there's a syntactic error
   SourcePosition position = new SourcePosition();
   start(position);
@@ -309,7 +310,7 @@ public class Parser {
   return commandAST;
 }
   
- CaseCommand parseCaseCommand() throws SyntaxError {
+ CaseCommand parseCaseCommand() throws SyntaxError, IOException {
     CaseCommand caseCommandAST = null;
     SourcePosition actualsPos = new SourcePosition();
     start(actualsPos);
@@ -328,7 +329,7 @@ public class Parser {
     return caseCommandAST;
 }
 
- CaseLiterals parseCaseLiteralsCommand() throws SyntaxError {
+ CaseLiterals parseCaseLiteralsCommand() throws SyntaxError, IOException {
     CaseLiterals caseLiteralsAST = null;
     SourcePosition actualsPos = new SourcePosition();
     start(actualsPos);
@@ -357,7 +358,7 @@ public class Parser {
     return caseLiteralsAST;
 }
  
- CaseRangeCommand parseCaseRangeCommand() throws SyntaxError {
+ CaseRangeCommand parseCaseRangeCommand() throws SyntaxError, IOException {
     CaseRangeCommand caseRangeCommandAST = null;
     SourcePosition commandPos = new SourcePosition();
     start(commandPos); 
@@ -380,7 +381,7 @@ public class Parser {
     return caseRangeCommandAST;
 }
 
-CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
+CaseLiteralCommand parseCaseLiteral() throws SyntaxError, IOException{
     CaseLiteralCommand caseLiteralAST = null;
     SourcePosition commandPos = new SourcePosition();
     start(commandPos);
@@ -410,7 +411,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 // parseCommand parses the command, and constructs an AST
 // to represent its phrase structure.
 
-  Command parseCommand() throws SyntaxError {
+  Command parseCommand() throws SyntaxError, IOException {
     Command commandAST = null; // in case there's a syntactic error
 
     SourcePosition commandPos = new SourcePosition();
@@ -426,7 +427,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     return commandAST;
   }
 
-  Command parseSingleCommand() throws SyntaxError {
+  Command parseSingleCommand() throws SyntaxError, IOException {
     Command commandAST = null; // in case there's a syntactic error
 
     SourcePosition commandPos = new SourcePosition();
@@ -841,7 +842,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-  Expression parseExpression() throws SyntaxError {
+  Expression parseExpression() throws SyntaxError, IOException {
     Expression expressionAST = null; // in case there's a syntactic error
  
     SourcePosition expressionPos = new SourcePosition();
@@ -896,7 +897,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 //    return E;
 //  }
   
-  Expression parseSecondaryExpression() throws SyntaxError {
+  Expression parseSecondaryExpression() throws SyntaxError, IOException {
     Expression expressionAST = null; // in case there's a syntactic error
 
     SourcePosition expressionPos = new SourcePosition();
@@ -912,7 +913,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     return expressionAST;
   }
 
-  Expression parsePrimaryExpression() throws SyntaxError {
+  Expression parsePrimaryExpression() throws SyntaxError, IOException {
     Expression expressionAST = null; // in case there's a syntactic error
 
     SourcePosition expressionPos = new SourcePosition();
@@ -999,7 +1000,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     return expressionAST;
   }
 
-  RecordAggregate parseRecordAggregate() throws SyntaxError {
+  RecordAggregate parseRecordAggregate() throws SyntaxError, IOException {
     RecordAggregate aggregateAST = null; // in case there's a syntactic error
 
     SourcePosition aggregatePos = new SourcePosition();
@@ -1021,7 +1022,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     return aggregateAST;
   }
 
-  ArrayAggregate parseArrayAggregate() throws SyntaxError {
+  ArrayAggregate parseArrayAggregate() throws SyntaxError, IOException {
     ArrayAggregate aggregateAST = null; // in case there's a syntactic error
 
     SourcePosition aggregatePos = new SourcePosition();
@@ -1046,14 +1047,14 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-  Vname parseVname () throws SyntaxError {
+  Vname parseVname () throws SyntaxError, IOException {
     Vname vnameAST = null; // in case there's a syntactic error
     Identifier iAST = parseIdentifier();
     vnameAST = parseRestOfVname(iAST);
     return vnameAST;
   }
 
-  Vname parseRestOfVname(Identifier identifierAST) throws SyntaxError {
+  Vname parseRestOfVname(Identifier identifierAST) throws SyntaxError, IOException {
     SourcePosition vnamePos = new SourcePosition();
     vnamePos = identifierAST.position;
     Vname vAST = new SimpleVname(identifierAST, vnamePos);
@@ -1082,7 +1083,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-  Declaration parseDeclaration() throws SyntaxError {
+  Declaration parseDeclaration() throws SyntaxError, IOException {
     Declaration declarationAST = null; // in case there's a syntactic error
 
     SourcePosition declarationPos = new SourcePosition();
@@ -1101,7 +1102,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     return declarationAST;
   }
     //Revisar 
-  Declaration parseCompoundDeclaration() throws SyntaxError{
+  Declaration parseCompoundDeclaration() throws SyntaxError, IOException{
 
       Declaration declarationAST = null;
       SourcePosition position = new SourcePosition();
@@ -1138,7 +1139,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
       return declarationAST;
    }
   
-  Declaration parseProcFunc() throws SyntaxError {
+  Declaration parseProcFunc() throws SyntaxError, IOException {
     Declaration procFuncAST = null;
     SourcePosition position = new SourcePosition();
     start(position);
@@ -1178,7 +1179,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 
     return procFuncAST;
 }
-  Declaration parseSingleDeclaration() throws SyntaxError {
+  Declaration parseSingleDeclaration() throws SyntaxError, IOException {
     Declaration declarationAST = null; // in case there's a syntactic error
 
     SourcePosition declarationPos = new SourcePosition();
@@ -1277,7 +1278,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-  FormalParameterSequence parseFormalParameterSequence() throws SyntaxError {
+  FormalParameterSequence parseFormalParameterSequence() throws SyntaxError, IOException {
     FormalParameterSequence formalsAST;
 
     SourcePosition formalsPos = new SourcePosition();
@@ -1293,7 +1294,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     return formalsAST;
   }
 
-  FormalParameterSequence parseProperFormalParameterSequence() throws SyntaxError {
+  FormalParameterSequence parseProperFormalParameterSequence() throws SyntaxError, IOException {
     FormalParameterSequence formalsAST = null; // in case there's a syntactic error;
 
     SourcePosition formalsPos = new SourcePosition();
@@ -1313,7 +1314,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     return formalsAST;
   }
 
-  FormalParameter parseFormalParameter() throws SyntaxError {
+  FormalParameter parseFormalParameter() throws SyntaxError, IOException {
     FormalParameter formalAST = null; // in case there's a syntactic error;
 
     SourcePosition formalPos = new SourcePosition();
@@ -1378,7 +1379,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
   }
 
 
-  ActualParameterSequence parseActualParameterSequence() throws SyntaxError {
+  ActualParameterSequence parseActualParameterSequence() throws SyntaxError, IOException {
     ActualParameterSequence actualsAST;
 
     SourcePosition actualsPos = new SourcePosition();
@@ -1394,7 +1395,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     return actualsAST;
   }
 
-  ActualParameterSequence parseProperActualParameterSequence() throws SyntaxError {
+  ActualParameterSequence parseProperActualParameterSequence() throws SyntaxError, IOException {
     ActualParameterSequence actualsAST = null; // in case there's a syntactic error
 
     SourcePosition actualsPos = new SourcePosition();
@@ -1414,7 +1415,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     return actualsAST;
   }
 
-  ActualParameter parseActualParameter() throws SyntaxError {
+  ActualParameter parseActualParameter() throws SyntaxError, IOException {
     ActualParameter actualAST = null; // in case there's a syntactic error
 
     SourcePosition actualPos = new SourcePosition();
@@ -1481,7 +1482,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-  TypeDenoter parseTypeDenoter() throws SyntaxError {
+  TypeDenoter parseTypeDenoter() throws SyntaxError, IOException {
     TypeDenoter typeAST = null; // in case there's a syntactic error
     SourcePosition typePos = new SourcePosition();
 
@@ -1527,7 +1528,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
     return typeAST;
   }
 
-  FieldTypeDenoter parseFieldTypeDenoter() throws SyntaxError {
+  FieldTypeDenoter parseFieldTypeDenoter() throws SyntaxError, IOException {
     FieldTypeDenoter fieldAST = null; // in case there's a syntactic error
 
     SourcePosition fieldPos = new SourcePosition();
@@ -1551,7 +1552,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
   //Funciones extra
   
   // RECOMENDACION: juntar en un unico metodo los flujos de while y until
-  private WhileCommand whileDo(SourcePosition commandPos) throws SyntaxError{
+  private WhileCommand whileDo(SourcePosition commandPos) throws SyntaxError, IOException{
         
         start(commandPos);
         WhileCommand commandAST = null;
@@ -1586,7 +1587,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         return commandAST;
     }
   
-  private DoWhileCommand DoWhile(SourcePosition commandPos) throws SyntaxError {
+  private DoWhileCommand DoWhile(SourcePosition commandPos) throws SyntaxError, IOException {
         start(commandPos);
         DoWhileCommand commandAST = null;
         Expression eAST = parseExpression();
@@ -1605,7 +1606,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         return commandAST;
     }  
   
-  private UntilCommand UntilDo(SourcePosition commandPos) throws SyntaxError {
+  private UntilCommand UntilDo(SourcePosition commandPos) throws SyntaxError, IOException {
         start(commandPos);
         UntilCommand commandAST = null;
        
@@ -1631,7 +1632,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
 
         return commandAST;
     }
-  private DoUntilCommand DoUntil(SourcePosition commandPos) throws SyntaxError {
+  private DoUntilCommand DoUntil(SourcePosition commandPos) throws SyntaxError, IOException {
         start(commandPos);
         DoUntilCommand commandAST = null;
         
@@ -1653,7 +1654,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         // Retornar el arbol
         return commandAST;}
   
-  private ForBecomesCommand ParseForBecomesCommand(SourcePosition commandPos, Identifier iASTF) throws SyntaxError {
+  private ForBecomesCommand ParseForBecomesCommand(SourcePosition commandPos, Identifier iASTF) throws SyntaxError, IOException {
         start(commandPos);
         ForBecomesCommand commandAST = null;
         Expression eAST = parseExpression();
@@ -1662,7 +1663,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         return commandAST;
     }
   
-  private DoCommand ParseDoCommand(SourcePosition commandPos) throws SyntaxError {
+  private DoCommand ParseDoCommand(SourcePosition commandPos) throws SyntaxError, IOException {
         start(commandPos);
         DoCommand commandAST = null;
         Command cAST = parseCommand();
@@ -1671,7 +1672,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         commandAST = new DoCommand(cAST, commandPos);
         return commandAST;
     }
-  private TimesCommand TimesDo(SourcePosition commandPos) throws SyntaxError{
+  private TimesCommand TimesDo(SourcePosition commandPos) throws SyntaxError, IOException{
         
         start(commandPos);
         TimesCommand TcommandAST = null;
@@ -1702,7 +1703,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
         
         return TcommandAST;
     }  
-  Command parseBarThen() throws SyntaxError {
+  Command parseBarThen() throws SyntaxError, IOException {
 
   Command commandAST = null; 
   SourcePosition commandPos = new SourcePosition();
