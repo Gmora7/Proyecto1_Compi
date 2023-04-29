@@ -17,6 +17,7 @@ public class ArchivoHTML {
     String fileName;
     
     public ArchivoHTML(String fileName){
+        File htmlFile = new File(fileName);
         this.fileName = fileName;
         
     }
@@ -25,7 +26,7 @@ public class ArchivoHTML {
         
         if (flag == 1){
             try  {
-            File htmlFile = new File(fileName);
+            
             writerHTML = new FileWriter(fileName);
             writerHTML.write("<!DOCTYPE html>");
             writerHTML.write("\n");
@@ -43,7 +44,6 @@ public class ArchivoHTML {
         }
         else{
             try  {
-            File htmlFile = new File(fileName);
             writerHTML = new FileWriter(fileName);
             writerHTML.write("</p>" + "\n" +"</html>");
             writerHTML.close();
@@ -65,68 +65,26 @@ public class ArchivoHTML {
             
         }
     }
-    public void defaultHTML(String texto) throws IOException{
-        try {
-            writerHTML.write(texto);
-            writerHTML.close();
-    } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Error al incluir texto en el HTML " + e.getMessage());
-            
-        }
+    
+    public void defaultHTML(String texto){
+        escribir(texto);
     }
-    public void palabrasReservadasHTML(String PalabraReservada) throws IOException{
-        writerHTML = new FileWriter(this.fileName, true);
-        try {
-
-            writerHTML.write(" <font style='padding-left:1em'><b><tt> "+PalabraReservada+" </tt></b></font> ");
-            writerHTML.write("\n");
-            writerHTML.flush();
+    public void palabrasReservadasHTML(String PalabraReservada){
+        String textoHTML = " <font style='padding-left:1em'><b><tt> "+PalabraReservada+" </tt></b></font> ";
+        escribir(textoHTML);
+    }
+    public void literalesHTML(String Literales) {
+        String textoHTML = " <font style='padding-left:1em' color=\"#5050DB\"><tt> "+ Literales +" </tt></font>\n ";
+        escribir(textoHTML);
+    }
            
-    } catch (IOException e) {
-            e.printStackTrace();            
-        }
-        
-    }
-    public void literalesHTML(String Literales) throws IOException{
-        writerHTML = new FileWriter(this.fileName, true);
-        try {
-
-            writerHTML.write(" <font style='padding-left:1em' color=\"#5050DB\"><tt> "+ Literales +" </tt></font> ");
-            writerHTML.write("\n");
-            writerHTML.close();
-           
-    } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Error al agregar Literales en el html " + e.getMessage());
-            
-        }
-    }
     public void comentariosHTML(String comentario) throws IOException{
-        writerHTML = new FileWriter(this.fileName, true);
-        try {
-
-            writerHTML.write("<span style=\"color:green\">" + comentario + "</span><br>\n");
-            writerHTML.close();
-           
-    } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Error al crear HTML del programa fuente " + e.getMessage());
-            
-        }
+        String textoHTML = "<span style=\"color:green\">" + comentario + "</span><br>\n";
+        escribir(textoHTML);
     }
     public void otrosHTML(String otros) throws IOException{
-        writerHTML = new FileWriter(this.fileName, true);
-        try {
-            writerHTML.write(" <font style='padding-left:1em' color:'#000000'><tt> "+ otros +" </tt></font> ");
-            writerHTML.write("\n");
-            writerHTML.close();
-           
-    } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Error al agregar identificadores, operadores y separadores al HTML " + e.getMessage());
-            
-        }
+        String textoHTML = " <font style='padding-left:1em' color:'#000000'><tt> "+ otros +" </tt></font>\n";
+        escribir(textoHTML);
     }
     
 }
