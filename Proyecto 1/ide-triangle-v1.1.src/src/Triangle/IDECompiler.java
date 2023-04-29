@@ -52,11 +52,7 @@ public class IDECompiler {
         String html = sourceName.substring(0, sourceName.length()-3)+"HTML";
         ArchivoHTML archivoHTML = new ArchivoHTML(html);
         Scanner scanner = new Scanner(source, archivoHTML);
-
-        String xml = sourceName.substring(0, sourceName.length()-3)+"XML";
-        ArchivoXML.crearXML(rootAST, xml);
-
-        
+ 
         archivoHTML.crearHTML(sourceName);
         archivoHTML.programaFuente(scanner);
         
@@ -65,6 +61,8 @@ public class IDECompiler {
         boolean success = false;
 
         rootAST = parser.parseProgram();
+        String xml = sourceName.substring(0, sourceName.length()-3)+"XML";
+        ArchivoXML.crearXML(rootAST, xml);
         if (report.numErrors == 0) {
             //System.out.println("Contextual Analysis ...");
             //Checker checker = new Checker(report);
