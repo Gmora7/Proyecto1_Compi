@@ -17,17 +17,17 @@ public class ArchivoHTML {
     String fileName;
     
     public ArchivoHTML(String fileName){
-        File htmlFile = new File(fileName);
+        
         this.fileName = fileName;
         
     }
     
     public void crearHTML(String fileName, int flag)throws IOException{
-        
+        File htmlFile = new File(fileName);
         if (flag == 1){
             try  {
             
-            writerHTML = new FileWriter(fileName);
+            writerHTML = new FileWriter(htmlFile);
             writerHTML.write("<!DOCTYPE html>");
             writerHTML.write("\n");
             writerHTML.write("<html>");
@@ -44,7 +44,7 @@ public class ArchivoHTML {
         }
         else{
             try  {
-            writerHTML = new FileWriter(fileName);
+            writerHTML = new FileWriter(htmlFile);
             writerHTML.write("</p>" + "\n" +"</html>");
             writerHTML.close();
             } 
@@ -57,7 +57,7 @@ public class ArchivoHTML {
     }
     public void escribir(String texto){
         try {
-            writerHTML = new FileWriter(fileName);
+//            writerHTML = new FileWriter(fileName);
             writerHTML.write(texto);
             writerHTML.close();
     } catch (IOException e) {
