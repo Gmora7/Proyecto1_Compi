@@ -1,0 +1,5 @@
+let
+  var n : Integer
+in
+  n  := 1
+end
