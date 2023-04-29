@@ -57,6 +57,7 @@ public class ArchivoHTML {
     }
     public void escribir(String texto){
         try {
+            writerHTML = new FileWriter(fileName);
             writerHTML.write(texto);
             writerHTML.close();
     } catch (IOException e) {
