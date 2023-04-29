@@ -38,7 +38,7 @@ public class ArchivoHTML {
             writerHTML.close();
             } 
             catch (IOException e) {
-            System.err.println("Error al crear HTML del programa fuente " + e.getMessage());
+//            System.err.println("Error al crear HTML del programa fuente " + e.getMessage());
             e.printStackTrace();
                 }
         }
