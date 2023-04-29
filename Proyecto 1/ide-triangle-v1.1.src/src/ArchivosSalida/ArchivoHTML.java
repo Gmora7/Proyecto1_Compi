@@ -30,7 +30,7 @@ public class ArchivoHTML {
             writerHTML.write("\n");
 
             writerHTML.write("<p style=\"font-family: DejaVu Sans, monospace;\">");
-            writerHTML.write("\n");
+            
             writerHTML.close();
             } 
             catch (IOException e) {
@@ -51,37 +51,37 @@ public class ArchivoHTML {
         
     }
 
-    public void defaultHTML(String texto) {
-//        writerHTML = new FileWriter(this.fileName, true);
+    public void defaultHTML(String texto) throws IOException{
+        writerHTML = new FileWriter(this.fileName, true);
         try {
-            this.writerHTML.write(texto);
-            this.writerHTML.close();
+            writerHTML.write(texto);
+            writerHTML.close();
     } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error al incluir texto en el HTML " + e.getMessage());
             
         }
     }
-    public void palabrasReservadasHTML(String PalabraReservada){
-//        writerHTML = new FileWriter(this.fileName, true);
+    public void palabrasReservadasHTML(String PalabraReservada) throws IOException{
+        writerHTML = new FileWriter(this.fileName, true);
         try {
 
-            this.writerHTML.write(" <font style='padding-left:1em'><b><tt> "+PalabraReservada+" </tt></b></font> ");
-            this.writerHTML.write("\n");
-            this.writerHTML.flush();
+            writerHTML.write(" <font style='padding-left:1em'><b><tt> "+PalabraReservada+" </tt></b></font> ");
+            writerHTML.write("\n");
+            writerHTML.flush();
            
     } catch (IOException e) {
             e.printStackTrace();            
         }
         
     }
-    public void literalesHTML(String Literales) {
-//        writerHTML = new FileWriter(this.fileName, true);
+    public void literalesHTML(String Literales) throws IOException{
+        writerHTML = new FileWriter(this.fileName, true);
         try {
 
-            this.writerHTML.write(" <font style='padding-left:1em' color=\"#5050DB\"><tt> "+ Literales +" </tt></font> ");
-            this.writerHTML.write("\n");
-            this.writerHTML.close();
+            writerHTML.write(" <font style='padding-left:1em' color=\"#5050DB\"><tt> "+ Literales +" </tt></font> ");
+            writerHTML.write("\n");
+            writerHTML.close();
            
     } catch (IOException e) {
             e.printStackTrace();
@@ -89,12 +89,12 @@ public class ArchivoHTML {
             
         }
     }
-    public void comentariosHTML(String comentario){
-//        writerHTML = new FileWriter(this.fileName, true);
+    public void comentariosHTML(String comentario) throws IOException{
+        writerHTML = new FileWriter(this.fileName, true);
         try {
 
-            this.writerHTML.write("<span style=\"color:green\">" + comentario + "</span><br>\n");
-            this.writerHTML.close();
+            writerHTML.write("<span style=\"color:green\">" + comentario + "</span><br>\n");
+            writerHTML.close();
            
     } catch (IOException e) {
             e.printStackTrace();
@@ -102,12 +102,12 @@ public class ArchivoHTML {
             
         }
     }
-    public void otrosHTML(String otros){
-        
+    public void otrosHTML(String otros) throws IOException{
+        writerHTML = new FileWriter(this.fileName, true);
         try {
-            this.writerHTML.write(" <font style='padding-left:1em' color:'#000000'><tt> "+ otros +" </tt></font> ");
-            this.writerHTML.write("\n");
-            this.writerHTML.close();
+            writerHTML.write(" <font style='padding-left:1em' color:'#000000'><tt> "+ otros +" </tt></font> ");
+            writerHTML.write("\n");
+            writerHTML.close();
            
     } catch (IOException e) {
             e.printStackTrace();
