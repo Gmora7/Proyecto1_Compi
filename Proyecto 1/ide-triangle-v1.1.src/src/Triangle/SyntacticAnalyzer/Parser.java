@@ -110,6 +110,9 @@ import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
 import Triangle.AbstractSyntaxTrees.DotDCommandLiteral;
+import java.io.IOException;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 
 public class Parser {
 
@@ -139,7 +142,8 @@ public class Parser {
 
   void acceptIt() {
     previousTokenPosition = currentToken.position;
-    currentToken = lexicalAnalyser.scan();
+      currentToken = lexicalAnalyser.scan();
+
   }
 
 // start records the position of the start of a phrase.
@@ -176,17 +180,15 @@ public class Parser {
 
     previousTokenPosition.start = 0;
     previousTokenPosition.finish = 0;
-    currentToken = lexicalAnalyser.scan();
+      currentToken = lexicalAnalyser.scan();
 
-    try {
       Command cAST = parseCommand();
       programAST = new Program(cAST, previousTokenPosition);
       if (currentToken.kind != Token.EOT) {
         syntacticError("\"%\" not expected after end of program",
           currentToken.spelling);
       }
-    }
-    catch (SyntaxError s) { return null; }
+
     return programAST;
   }
 
@@ -206,7 +208,8 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       IL = new IntegerLiteral(spelling, previousTokenPosition);
-      currentToken = lexicalAnalyser.scan();
+            currentToken = lexicalAnalyser.scan();
+
     } else {
       IL = null;
       syntacticError("integer literal expected here", "");
@@ -224,7 +227,9 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       CL = new CharacterLiteral(spelling, previousTokenPosition);
+
       currentToken = lexicalAnalyser.scan();
+
     } else {
       CL = null;
       syntacticError("character literal expected here", "");
@@ -242,7 +247,8 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       I = new Identifier(spelling, previousTokenPosition);
-      currentToken = lexicalAnalyser.scan();
+            currentToken = lexicalAnalyser.scan();
+
     } else {
       I = null;
       syntacticError("identifier expected here", "");
@@ -257,7 +263,8 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       I = new Identifier(spelling, previousTokenPosition);
-      currentToken = lexicalAnalyser.scan();
+        currentToken = lexicalAnalyser.scan();
+
     } else {
       I = null;
     }
@@ -274,7 +281,8 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       O = new Operator(spelling, previousTokenPosition);
-      currentToken = lexicalAnalyser.scan();
+            currentToken = lexicalAnalyser.scan();
+
     } else {
       O = null;
       syntacticError("operator expected here", "");
