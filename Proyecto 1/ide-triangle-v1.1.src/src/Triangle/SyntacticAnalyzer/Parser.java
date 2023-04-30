@@ -110,6 +110,9 @@ import Triangle.AbstractSyntaxTrees.DotDCommand;
 import Triangle.AbstractSyntaxTrees.DotDCommand2;
 import Triangle.AbstractSyntaxTrees.PrivateDeclaration;
 import Triangle.AbstractSyntaxTrees.DotDCommandLiteral;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Parser {
 
@@ -131,7 +134,11 @@ public class Parser {
   void accept (int tokenExpected) throws SyntaxError {
     if (currentToken.kind == tokenExpected) {
       previousTokenPosition = currentToken.position;
-      currentToken = lexicalAnalyser.scan();
+        try {
+            currentToken = lexicalAnalyser.scan();
+        } catch (IOException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } else {
       syntacticError("\"%\" expected here", Token.spell(tokenExpected));
     }
@@ -139,7 +146,11 @@ public class Parser {
 
   void acceptIt() {
     previousTokenPosition = currentToken.position;
-    currentToken = lexicalAnalyser.scan();
+      try {
+          currentToken = lexicalAnalyser.scan();
+      } catch (IOException ex) {
+          Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+      }
   }
 
 // start records the position of the start of a phrase.
@@ -176,7 +187,11 @@ public class Parser {
 
     previousTokenPosition.start = 0;
     previousTokenPosition.finish = 0;
-    currentToken = lexicalAnalyser.scan();
+      try {
+          currentToken = lexicalAnalyser.scan();
+      } catch (IOException ex) {
+          Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+      }
 
     try {
       Command cAST = parseCommand();
@@ -206,7 +221,11 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       IL = new IntegerLiteral(spelling, previousTokenPosition);
-      currentToken = lexicalAnalyser.scan();
+        try {
+            currentToken = lexicalAnalyser.scan();
+        } catch (IOException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } else {
       IL = null;
       syntacticError("integer literal expected here", "");
@@ -224,7 +243,11 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       CL = new CharacterLiteral(spelling, previousTokenPosition);
-      currentToken = lexicalAnalyser.scan();
+        try {
+            currentToken = lexicalAnalyser.scan();
+        } catch (IOException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } else {
       CL = null;
       syntacticError("character literal expected here", "");
@@ -242,7 +265,11 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       I = new Identifier(spelling, previousTokenPosition);
-      currentToken = lexicalAnalyser.scan();
+        try {
+            currentToken = lexicalAnalyser.scan();
+        } catch (IOException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } else {
       I = null;
       syntacticError("identifier expected here", "");
@@ -257,7 +284,11 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       I = new Identifier(spelling, previousTokenPosition);
-      currentToken = lexicalAnalyser.scan();
+        try {
+            currentToken = lexicalAnalyser.scan();
+        } catch (IOException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } else {
       I = null;
     }
@@ -274,7 +305,11 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       O = new Operator(spelling, previousTokenPosition);
-      currentToken = lexicalAnalyser.scan();
+        try {
+            currentToken = lexicalAnalyser.scan();
+        } catch (IOException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } else {
       O = null;
       syntacticError("operator expected here", "");
