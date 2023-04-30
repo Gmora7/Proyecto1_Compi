@@ -16,9 +16,10 @@ public class ArchivoHTML {
     private FileWriter writerHTML;
 
     public  ArchivoHTML(String fileName){
+        
         File htmlFile = new File(fileName);
         try  {
-            writerHTML = new FileWriter(htmlFile);
+            writerHTML = new FileWriter(htmlFile,true);
             System.out.println("Archivo html");  
             escribir("<!DOCTYPE html>\n <html>\n<p style=\"font-family: DejaVu Sans, monospace;\">\n");
         } 
