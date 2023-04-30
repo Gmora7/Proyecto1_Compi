@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Program>
+<ForBecomes>
+<DotDCommand>
+<IntegerExpresssion>
+</IntegerExpresssion>
+</DotDCommand>
+<ForBecomesCommand>
+<Identifier>
+</Identifier>
+<IntegerExpresssion>
+</IntegerExpresssion>
+</ForBecomesCommand>
+<DoCommand>
+<AssingCommand>
+<SimpleVname>
+<Identifier>
+</Identifier>
+</SimpleVname>
+<BinaryExpresssion>
+<VnameExpresssion>
+<SimpleVname>
+<Identifier>
+</Identifier>
+</SimpleVname>
+</VnameExpresssion>
+<IntegerExpresssion>
+</IntegerExpresssion>
+<Operator value= '+'>
+</Operator>
+</BinaryExpresssion>
+</AssingCommand>
+</DoCommand>
+</ForBecomes>
+</Program>

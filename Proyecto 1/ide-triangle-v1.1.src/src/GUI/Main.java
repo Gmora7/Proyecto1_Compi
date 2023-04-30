@@ -634,6 +634,7 @@ public class Main extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
     }//GEN-LAST:event_compileMenuItemActionPerformed
 
