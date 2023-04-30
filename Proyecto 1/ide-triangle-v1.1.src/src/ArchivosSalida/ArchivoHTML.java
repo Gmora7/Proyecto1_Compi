@@ -14,50 +14,23 @@ import java.io.IOException;
  */
 public class ArchivoHTML {
     private FileWriter writerHTML;
-    private String fileName;
-    
-    public ArchivoHTML(String fileName){
-        File htmlFile = new File(fileName);
-        crearHTML(htmlFile, 1);
-        
-    }
-    
-    public void crearHTML(File htmlFile, int flag){
-        
-        if (flag == 1){
-            try  {
-            
-            writerHTML = new FileWriter(htmlFile);
-            writerHTML.write("<!DOCTYPE html>");
-            writerHTML.write("\n");
-            writerHTML.write("<html>");
-            writerHTML.write("\n");
 
-            writerHTML.write("<p style=\"font-family: DejaVu Sans, monospace;\">");
-            
-            writerHTML.close();
-            } 
-            catch (IOException e) {
+    public  ArchivoHTML(String fileName){
+        File htmlFile = new File(fileName);
+        try  {
+            writerHTML = new FileWriter(htmlFile);
+            escribir("<!DOCTYPE html>\n <html>\n<p style=\"font-family: DejaVu Sans, monospace;\">\n");
+        } 
+        catch (IOException e) {
 //            System.err.println("Error al crear HTML del programa fuente " + e.getMessage());
             e.printStackTrace();
-                }
-        }
-        else{
-            try  {
-            writerHTML = new FileWriter(htmlFile);
-            writerHTML.write("</p>" + "\n" +"</html>");
-            writerHTML.close();
-            } 
-            catch (IOException e) {
-            System.err.println("Error al cerrar el HTML del programa fuente " + e.getMessage());
-            e.printStackTrace();
-        }
+            }
         }
         
-    }
+    
     public void escribir(String texto){
         try {
-//            writerHTML = new FileWriter(fileName);
+//          writerHTML = new FileWriter(fileName);
             writerHTML.write(texto);
             writerHTML.close();
     } catch (IOException e) {

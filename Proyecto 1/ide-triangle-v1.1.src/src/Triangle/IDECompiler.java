@@ -49,16 +49,10 @@ public class IDECompiler {
         
         System.out.println("Syntactic Analysis ...");
         SourceFile source = new SourceFile(sourceName);
-        String html = sourceName.substring(0, sourceName.length()-3)+"html";
-        ArchivoHTML archivoHTML = new ArchivoHTML(html);
-        Scanner scanner = new Scanner(source, archivoHTML);
- 
-//        archivoHTML.crearHTML(html,1);
-        System.out.println("crear HTML");
-        scanner.completarHTML(archivoHTML);
-        System.out.println("completar HTML");
-//        archivoHTML.crearHTML(html, 2); //Cerrar HTML
-        System.out.println("TERMINAR HTML");
+        String nombreArchivo = sourceName.substring(0, sourceName.length()-3)+"html";
+        ArchivoHTML archivo = new ArchivoHTML(nombreArchivo);
+        Scanner HTMLscanner = new Scanner(source);
+        HTMLscanner.completarHTML(new ArchivoHTML(nombreArchivo));
         
         SourceFile source2 = new SourceFile(sourceName);
         Scanner scanner2 = new Scanner(source2);        
