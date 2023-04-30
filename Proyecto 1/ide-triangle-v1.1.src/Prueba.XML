@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Program>
+<RepeatCommand>
+<WhileCommand>
+<BinaryExpresssion>
+<VnameExpresssion>
+<SimpleVname>
+<Identifier>
+</Identifier>
+</SimpleVname>
+</VnameExpresssion>
+<IntegerExpresssion>
+</IntegerExpresssion>
+<Operator value='&gt;'>
+</Operator>
+</BinaryExpresssion>
+<DoCommand>
+<AssingCommand>
+<SimpleVname>
+<Identifier>
+</Identifier>
+</SimpleVname>
+<BinaryExpresssion>
+<VnameExpresssion>
+<SimpleVname>
+<Identifier>
+</Identifier>
+</SimpleVname>
+</VnameExpresssion>
+<IntegerExpresssion>
+</IntegerExpresssion>
+<Operator value= '-'>
+</Operator>
+</BinaryExpresssion>
+</AssingCommand>
+</DoCommand>
+</WhileCommand>
+</RepeatCommand>
+</Program>

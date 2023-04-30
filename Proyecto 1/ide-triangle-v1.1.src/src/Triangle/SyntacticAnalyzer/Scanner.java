@@ -62,6 +62,7 @@ public final class Scanner {
     this.archivoHTML = archivoHTML;
   }
   public void completarHTML(ArchivoHTML archivoHTML){
+    System.out.println("completar html");  
     this.htmlCreado = 1;
     this.archivoHTML = archivoHTML;
     Token token;
