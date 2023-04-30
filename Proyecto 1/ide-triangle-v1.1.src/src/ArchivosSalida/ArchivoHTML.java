@@ -11,6 +11,8 @@ import java.io.IOException;
  *
  * @author Maria Jose
  */
+
+//Comentario prueba
 public class ArchivoHTML {
     FileWriter writerHTML;
     String nombreArchivo;
