@@ -9,11 +9,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 /**
  *
- * @author Usuario
+ * @author Maria Jose
  */
 public class ArchivoHTML {
-    FileWriter writerHTML;
+    private FileWriter writerHTML;
     
+    public ArchivoHTML(String fileName){
+        System.out.println("jejej " +fileName);
+        File htmlFile = new File("Pruebas"+File.separator,sourceName.concat(".html"));
+        try{
+            writerHTML = new FileWriter(htmFile)
+            System.out.println('entro try');
+            writerHTML.write("hola");
+            System.out.println('entro escribi[o');
+            writerHTML.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 //    
 //    public void programaFuente(Token currentToken){
 //        switch(currentToken.kind){
