@@ -50,6 +50,7 @@ public class IDECompiler {
         System.out.println("Syntactic Analysis ...");
         SourceFile source = new SourceFile(sourceName);
         String nombreArchivo = sourceName.substring(0, sourceName.length()-3)+"html";
+        System.out.println(nombreArchivo);
         ArchivoHTML archivo = new ArchivoHTML(nombreArchivo);
         Scanner HTMLscanner = new Scanner(source);
         HTMLscanner.completarHTML(new ArchivoHTML(sourceName.substring(sourceName.lastIndexOf(File.separatorChar)).replace(".tri", "")));
