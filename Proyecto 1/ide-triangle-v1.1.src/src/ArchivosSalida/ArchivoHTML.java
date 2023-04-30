@@ -17,7 +17,7 @@ public class ArchivoHTML {
 
     public  ArchivoHTML(String fileName){
         
-        File htmlFile = new File("..",fileName);
+        File htmlFile = new File("Pruebas",fileName);
         try  {
             writerHTML = new FileWriter(htmlFile,true);
             System.out.println("Archivo html");  
