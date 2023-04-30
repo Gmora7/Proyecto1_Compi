@@ -617,23 +617,20 @@ public class Main extends javax.swing.JFrame {
             new File(desktopPane.getSelectedFrame().getTitle().replace(".tri", ".tam")).delete();
             
             output.setDelegate(delegateConsole);            
-            try {
-                if (compiler.compileProgram(desktopPane.getSelectedFrame().getTitle())) {
-                    output.setDelegate(delegateTAMCode);
-                    //disassembler.Disassemble(desktopPane.getSelectedFrame().getTitle().replace(".tri", ".tam"));
-                    ((FileFrame)desktopPane.getSelectedFrame()).setTree((DefaultMutableTreeNode)treeVisitor.visitProgram(compiler.getAST(), null));
-                    //((FileFrame)desktopPane.getSelectedFrame()).setTable(tableVisitor.getTable(compiler.getAST()));
-                    
-                    //runMenuItem.setEnabled(true);
-                    //buttonRun.setEnabled(true);
-                } else {
-                    ((FileFrame)desktopPane.getSelectedFrame()).highlightError(compiler.getErrorPosition());
-                    runMenuItem.setEnabled(false);
-                    buttonRun.setEnabled(false);
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            if (compiler.compileProgram(desktopPane.getSelectedFrame().getTitle())) {
+                output.setDelegate(delegateTAMCode);
+                //disassembler.Disassemble(desktopPane.getSelectedFrame().getTitle().replace(".tri", ".tam"));
+                ((FileFrame)desktopPane.getSelectedFrame()).setTree((DefaultMutableTreeNode)treeVisitor.visitProgram(compiler.getAST(), null));
+                //((FileFrame)desktopPane.getSelectedFrame()).setTable(tableVisitor.getTable(compiler.getAST()));
+
+                //runMenuItem.setEnabled(true);
+                //buttonRun.setEnabled(true);
+            } else {
+                ((FileFrame)desktopPane.getSelectedFrame()).highlightError(compiler.getErrorPosition());
+                runMenuItem.setEnabled(false);
+                buttonRun.setEnabled(false);
             }
+
         }
     }//GEN-LAST:event_compileMenuItemActionPerformed
 

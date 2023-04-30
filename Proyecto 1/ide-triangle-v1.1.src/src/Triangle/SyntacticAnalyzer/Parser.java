@@ -134,11 +134,7 @@ public class Parser {
   void accept (int tokenExpected) throws SyntaxError {
     if (currentToken.kind == tokenExpected) {
       previousTokenPosition = currentToken.position;
-        try {
-            currentToken = lexicalAnalyser.scan();
-        } catch (IOException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      currentToken = lexicalAnalyser.scan();
     } else {
       syntacticError("\"%\" expected here", Token.spell(tokenExpected));
     }
@@ -146,11 +142,8 @@ public class Parser {
 
   void acceptIt() {
     previousTokenPosition = currentToken.position;
-      try {
-          currentToken = lexicalAnalyser.scan();
-      } catch (IOException ex) {
-          Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-      }
+      currentToken = lexicalAnalyser.scan();
+
   }
 
 // start records the position of the start of a phrase.
@@ -187,21 +180,15 @@ public class Parser {
 
     previousTokenPosition.start = 0;
     previousTokenPosition.finish = 0;
-      try {
-          currentToken = lexicalAnalyser.scan();
-      } catch (IOException ex) {
-          Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-      }
+      currentToken = lexicalAnalyser.scan();
 
-    try {
       Command cAST = parseCommand();
       programAST = new Program(cAST, previousTokenPosition);
       if (currentToken.kind != Token.EOT) {
         syntacticError("\"%\" not expected after end of program",
           currentToken.spelling);
       }
-    }
-    catch (SyntaxError s) { return null; }
+
     return programAST;
   }
 
@@ -221,11 +208,8 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       IL = new IntegerLiteral(spelling, previousTokenPosition);
-        try {
             currentToken = lexicalAnalyser.scan();
-        } catch (IOException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     } else {
       IL = null;
       syntacticError("integer literal expected here", "");
@@ -243,11 +227,9 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       CL = new CharacterLiteral(spelling, previousTokenPosition);
-        try {
-            currentToken = lexicalAnalyser.scan();
-        } catch (IOException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+      currentToken = lexicalAnalyser.scan();
+
     } else {
       CL = null;
       syntacticError("character literal expected here", "");
@@ -265,11 +247,8 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       I = new Identifier(spelling, previousTokenPosition);
-        try {
             currentToken = lexicalAnalyser.scan();
-        } catch (IOException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     } else {
       I = null;
       syntacticError("identifier expected here", "");
@@ -284,11 +263,8 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       I = new Identifier(spelling, previousTokenPosition);
-        try {
-            currentToken = lexicalAnalyser.scan();
-        } catch (IOException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        currentToken = lexicalAnalyser.scan();
+
     } else {
       I = null;
     }
@@ -305,11 +281,8 @@ public class Parser {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
       O = new Operator(spelling, previousTokenPosition);
-        try {
             currentToken = lexicalAnalyser.scan();
-        } catch (IOException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     } else {
       O = null;
       syntacticError("operator expected here", "");
