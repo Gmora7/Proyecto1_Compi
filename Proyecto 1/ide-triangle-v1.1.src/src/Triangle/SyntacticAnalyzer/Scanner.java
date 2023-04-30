@@ -227,7 +227,7 @@ public final class Scanner {
 
     pos.finish = sourceFile.getCurrentLine();
     tok = new Token(kind, currentSpelling.toString(), pos);
-//    archivo.HTML(tok);
+    archivo.HTML(tok);
     if (debug)
       System.out.println(tok);
     return tok;
