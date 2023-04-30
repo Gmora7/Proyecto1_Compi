@@ -174,7 +174,7 @@ public class Parser {
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-  public Program parseProgram() {
+  public Program parseProgram() throws SyntaxError {
 
     Program programAST = null;
 
