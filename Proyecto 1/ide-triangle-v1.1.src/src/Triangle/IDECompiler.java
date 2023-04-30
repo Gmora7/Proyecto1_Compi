@@ -52,7 +52,7 @@ public class IDECompiler {
         String nombreArchivo = sourceName.substring(0, sourceName.length()-3)+"html";
         ArchivoHTML archivo = new ArchivoHTML(nombreArchivo);
         Scanner HTMLscanner = new Scanner(source);
-        HTMLscanner.completarHTML(new ArchivoHTML(nombreArchivo));
+        HTMLscanner.completarHTML(new ArchivoHTML(sourceName.substring(sourceName.lastIndexOf(File.separatorChar)).replace(".tri", "")));
         
         SourceFile source2 = new SourceFile(sourceName);
         Scanner scanner2 = new Scanner(source2);        
