@@ -46,13 +46,14 @@ public class IDECompiler {
         System.out.println("********** " +
                            "Triangle Compiler (IDE-Triangle 1.0)" +
                            " **********");
-        
-        System.out.println("Syntactic Analysis ...");
-        SourceFile source = new SourceFile(sourceName);
         String html = sourceName.substring(0, sourceName.length()-3)+"html";
+        System.out.println(html);
         ArchivoHTML archivoHTML = new ArchivoHTML(html);
         Scanner scanner = new Scanner(source, archivoHTML);
- 
+        System.out.println("Syntactic Analysis ...");
+        SourceFile source = new SourceFile(sourceName);
+
+
 
         
         SourceFile source2 = new SourceFile(sourceName);

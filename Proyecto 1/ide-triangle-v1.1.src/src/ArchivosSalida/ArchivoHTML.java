@@ -13,14 +13,14 @@ import java.io.IOException;
  * @author Maria Jose
  */
 public class ArchivoHTML {
-    FileWriter writerHTML;
-    String fileName;
+    private FileWriter writerHTML;
+    private String fileName;
     
     public ArchivoHTML(String fileName){
         this.fileName = fileName;
     }
     
-    public void crearHTML(String fileName, int flag)throws IOException{
+    public void crearHTML(String fileName, int flag){
         writerHTML = new FileWriter(fileName, true);
         if (flag == 1){
             try  {
@@ -40,7 +40,7 @@ public class ArchivoHTML {
         }
         else{
             try  {
-            writerHTML.write("</p>" + "\n" +"</html>");
+            writerHTML.write("</p>\n</html>");
             writerHTML.close();
             } 
             catch (IOException e) {
