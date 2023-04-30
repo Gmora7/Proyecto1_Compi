@@ -14,7 +14,7 @@
 
 package Triangle.SyntacticAnalyzer;
 
-
+import ArchivosSalida.ArchivoHTML;
 public final class Scanner {
 
   private SourceFile sourceFile;
@@ -23,6 +23,7 @@ public final class Scanner {
   private char currentChar;
   private StringBuffer currentSpelling;
   private boolean currentlyScanningToken;
+  private ArchivoHTML archivo;
 
   private boolean isLetter(char c) {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
@@ -49,7 +50,12 @@ public final class Scanner {
     currentChar = sourceFile.getSource();
     debug = false;
   }
-
+  public Scanner(SourceFile source, ArchivoHTML archivo) {
+    sourceFile = source;
+    currentChar = sourceFile.getSource();
+    this.archivo = archivo;
+    debug = false;
+  }
   public void enableDebugging() {
     debug = true;
   }
@@ -221,6 +227,7 @@ public final class Scanner {
 
     pos.finish = sourceFile.getCurrentLine();
     tok = new Token(kind, currentSpelling.toString(), pos);
+    archivo.HTML(tok);
     if (debug)
       System.out.println(tok);
     return tok;

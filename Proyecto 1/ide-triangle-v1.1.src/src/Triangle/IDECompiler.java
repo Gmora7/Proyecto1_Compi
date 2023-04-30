@@ -14,6 +14,8 @@ import Triangle.SyntacticAnalyzer.Parser;
 import Triangle.ContextualAnalyzer.Checker;
 import Triangle.CodeGenerator.Encoder;
 import ArchivosSalida.ArchivoXML;
+import ArchivosSalida.ArchivoHTML;
+import java.io.File;
 import java.io.IOException;
 
 
@@ -40,14 +42,16 @@ public class IDECompiler {
      * @param sourceName Path to the source file.
      * @return True if compilation was succesful.
      */
-    public boolean compileProgram(String sourceName){
+    public boolean compileProgram(String sourceName) throws IOException{
         System.out.println("********** " +
                            "Triangle Compiler (IDE-Triangle 1.0)" +
                            " **********");
         
         System.out.println("Syntactic Analysis ...");
         SourceFile source = new SourceFile(sourceName);
-        ArchivoHTML a = new ArchivoHTML(sourceName.substring(0, sourceName.length()-3)+"html")
+        
+        String nombreArchivo = sourceName.substring(sourceName.lastIndexOf(File.separatorChar)).replace(".tri", ".html");
+        ArchivoHTML archivo = new ArchivoHTML(nombreArchivo);
         
         Scanner scanner = new Scanner(source);
         report = new IDEReporter();
