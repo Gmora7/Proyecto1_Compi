@@ -151,8 +151,12 @@ private void addLine(String line) {
     @Override
     public Object visitRepeatUntilAST(RepeatUntilAST aThis, Object o) { 
         addLine("<RepeatUntil>");
-        aThis.I.visit(this, null);
+        
+         if(aThis.I != null){
+            aThis.I.visit(this, null);
+        }
         aThis.UntilC.visit(this, null);
+        
         addLine("</RepeatUntil>");
         return(null);
     }
@@ -177,6 +181,7 @@ private void addLine(String line) {
     @Override
     public Object visitRepeatDoWhileCommand(RepeatDoWhileAST aThis, Object o) { 
         addLine("<RepeatDoWhileCommand>");
+        
         aThis.DoWhile.visit(this, null);
         aThis.C.visit(this, null);
         addLine("</RepeatDoWhileCommand>");
